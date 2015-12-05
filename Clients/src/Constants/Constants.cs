@@ -1,8 +1,8 @@
-﻿namespace Constants
+﻿namespace Clients
 {
     public class Constants
     {
-        public const string BaseAddress = "https://localhost:44333/core";
+        public const string BaseAddress = "http://localhost:22530";
 
         public const string AuthorizeEndpoint = BaseAddress + "/connect/authorize";
         public const string LogoutEndpoint = BaseAddress + "/connect/endsession";

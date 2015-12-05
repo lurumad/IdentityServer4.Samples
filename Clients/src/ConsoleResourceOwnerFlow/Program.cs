@@ -1,17 +1,17 @@
 ﻿using Clients;
 using IdentityModel;
 using IdentityModel.Client;
-using IdentityModel.Extensions;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Net.Http;
 using System.Text;
+using IdentityModel.Extensions;
 
-namespace ConsoleClientCredentialsFlow
+namespace ConsoleResourceOwnerFlow
 {
     public class Program
     {
-        public static void Main(string[] args)
+        static void Main(string[] args)
         {
             var response = RequestToken();
             ShowResponse(response);
@@ -24,10 +24,17 @@ namespace ConsoleClientCredentialsFlow
         {
             var client = new TokenClient(
                 Constants.TokenEndpoint,
-                "client",
+                "roclient",
                 "secret");
 
-            return client.RequestClientCredentialsAsync("api1").Result;
+            // idsrv supports additional non-standard parameters 
+            // that get passed through to the user service
+            var optional = new
+            {
+                acr_values = "tenant:custom_account_store1 foo bar quux"
+            };
+
+            return client.RequestResourceOwnerPasswordAsync("bob", "bob", "api1 api2", optional).Result;
         }
 
         static void CallService(string token)

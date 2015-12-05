@@ -1,6 +1,6 @@
 ﻿{
   "version": "1.0.0-*",
-  "description": "ConsoleClientCredentialsFlow Console Application",
+  "description": "ConsoleResourceOwnerFlow Console Application",
   "authors": [ "dominick" ],
   "tags": [ "" ],
   "projectUrl": "",
@@ -16,14 +16,11 @@
   },
 
   "commands": {
-    "ConsoleClientCredentialsFlow": "ConsoleClientCredentialsFlow"
+    "ConsoleResourceOwnerFlow": "ConsoleResourceOwnerFlow"
   },
 
   "frameworks": {
-    "dnx451": {
-      "dependencies": {
-      }
-    },
+    "dnx451": { },
     "dnxcore50": {
       "dependencies": {
         "Microsoft.CSharp": "4.0.1-beta-23516",
