@@ -14,11 +14,13 @@ Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Console Client Credentials 
 EndProject
 Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Constants", "src\Constants\Constants.xproj", "{2096C1D4-5C89-46D5-874A-66E78C9E5A98}"
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "ConsoleResourceOwnerFlow", "src\ConsoleResourceOwnerFlow\ConsoleResourceOwnerFlow.xproj", "{9BFE1F4E-C2F4-49FC-917E-BE25C0F42D84}"
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Console ResourceOwner Flow", "src\ConsoleResourceOwnerFlow\Console ResourceOwner Flow.xproj", "{9BFE1F4E-C2F4-49FC-917E-BE25C0F42D84}"
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "ConsoleClientCredentialsFlowPostBody", "src\ConsoleClientCredentialsFlowPostBody\ConsoleClientCredentialsFlowPostBody.xproj", "{BEA2C25F-0551-4AFC-9961-7DB934724FF1}"
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Console ClientCredentials Flow PostBody", "src\ConsoleClientCredentialsFlowPostBody\Console ClientCredentials Flow PostBody.xproj", "{BEA2C25F-0551-4AFC-9961-7DB934724FF1}"
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "ConsoleResourceOwnerFlowRefreshToken", "src\ConsoleResourceOwnerFlowRefreshToken\ConsoleResourceOwnerFlowRefreshToken.xproj", "{2952A3E3-8831-419B-B14C-448C409961A7}"
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Console ResourceOwner Flow RefreshToken", "src\ConsoleResourceOwnerFlowRefreshToken\Console ResourceOwner Flow RefreshToken.xproj", "{2952A3E3-8831-419B-B14C-448C409961A7}"
+EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Console ResourceOwner Flow UserInfo", "src\ConsoleResourceOwnerFlowUserInfo\Console ResourceOwner Flow UserInfo.xproj", "{120F561D-5670-4C80-8CAB-4D770204DC91}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -46,6 +48,10 @@ Global
 		{2952A3E3-8831-419B-B14C-448C409961A7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2952A3E3-8831-419B-B14C-448C409961A7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2952A3E3-8831-419B-B14C-448C409961A7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{120F561D-5670-4C80-8CAB-4D770204DC91}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{120F561D-5670-4C80-8CAB-4D770204DC91}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{120F561D-5670-4C80-8CAB-4D770204DC91}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{120F561D-5670-4C80-8CAB-4D770204DC91}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -56,5 +62,6 @@ Global
 		{9BFE1F4E-C2F4-49FC-917E-BE25C0F42D84} = {187AC294-0420-4726-808B-ED49148C0632}
 		{BEA2C25F-0551-4AFC-9961-7DB934724FF1} = {187AC294-0420-4726-808B-ED49148C0632}
 		{2952A3E3-8831-419B-B14C-448C409961A7} = {187AC294-0420-4726-808B-ED49148C0632}
+		{120F561D-5670-4C80-8CAB-4D770204DC91} = {187AC294-0420-4726-808B-ED49148C0632}
 	EndGlobalSection
 EndGlobal
