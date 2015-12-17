@@ -10,6 +10,7 @@
         public const string UserInfoEndpoint = BaseAddress + "/connect/userinfo";
         public const string IdentityTokenValidationEndpoint = BaseAddress + "/connect/identitytokenvalidation";
         public const string TokenRevocationEndpoint = BaseAddress + "/connect/revocation";
+        public const string IntrospectionEndpoint = BaseAddress + "/connect/introspect";
 
         public const string AspNetWebApiSampleApi = "http://localhost:3860/";
     }

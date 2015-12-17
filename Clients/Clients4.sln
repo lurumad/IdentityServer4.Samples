@@ -26,6 +26,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "API", "API", "{AFE7085F-051
 EndProject
 Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "SampleApi", "SampleApi\SampleApi.xproj", "{4A734C30-F3C6-4E32-A135-08416B2EF621}"
 EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Console Introspection Client", "src\ConsoleIntrospectionClient\Console Introspection Client.xproj", "{395F9DF7-AE5A-403E-BE7A-4AF045B21BB3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -60,6 +62,10 @@ Global
 		{4A734C30-F3C6-4E32-A135-08416B2EF621}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4A734C30-F3C6-4E32-A135-08416B2EF621}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4A734C30-F3C6-4E32-A135-08416B2EF621}.Release|Any CPU.Build.0 = Release|Any CPU
+		{395F9DF7-AE5A-403E-BE7A-4AF045B21BB3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{395F9DF7-AE5A-403E-BE7A-4AF045B21BB3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{395F9DF7-AE5A-403E-BE7A-4AF045B21BB3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{395F9DF7-AE5A-403E-BE7A-4AF045B21BB3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -73,5 +79,6 @@ Global
 		{120F561D-5670-4C80-8CAB-4D770204DC91} = {187AC294-0420-4726-808B-ED49148C0632}
 		{AFE7085F-051E-4829-955F-3426FE643BDD} = {187AC294-0420-4726-808B-ED49148C0632}
 		{4A734C30-F3C6-4E32-A135-08416B2EF621} = {AFE7085F-051E-4829-955F-3426FE643BDD}
+		{395F9DF7-AE5A-403E-BE7A-4AF045B21BB3} = {187AC294-0420-4726-808B-ED49148C0632}
 	EndGlobalSection
 EndGlobal
