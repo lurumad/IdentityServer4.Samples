@@ -28,6 +28,8 @@ Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "SampleApi", "SampleApi\Samp
 EndProject
 Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Console Introspection Client", "src\ConsoleIntrospectionClient\Console Introspection Client.xproj", "{395F9DF7-AE5A-403E-BE7A-4AF045B21BB3}"
 EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Console ResourceOwner Flow Reference", "src\ConsoleResourceOwnerFlowReference\Console ResourceOwner Flow Reference.xproj", "{0E9145DB-CC70-44F9-B52B-1D7D4C2B2E5F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -66,6 +68,10 @@ Global
 		{395F9DF7-AE5A-403E-BE7A-4AF045B21BB3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{395F9DF7-AE5A-403E-BE7A-4AF045B21BB3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{395F9DF7-AE5A-403E-BE7A-4AF045B21BB3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0E9145DB-CC70-44F9-B52B-1D7D4C2B2E5F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0E9145DB-CC70-44F9-B52B-1D7D4C2B2E5F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0E9145DB-CC70-44F9-B52B-1D7D4C2B2E5F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0E9145DB-CC70-44F9-B52B-1D7D4C2B2E5F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -80,5 +86,6 @@ Global
 		{AFE7085F-051E-4829-955F-3426FE643BDD} = {187AC294-0420-4726-808B-ED49148C0632}
 		{4A734C30-F3C6-4E32-A135-08416B2EF621} = {AFE7085F-051E-4829-955F-3426FE643BDD}
 		{395F9DF7-AE5A-403E-BE7A-4AF045B21BB3} = {187AC294-0420-4726-808B-ED49148C0632}
+		{0E9145DB-CC70-44F9-B52B-1D7D4C2B2E5F} = {187AC294-0420-4726-808B-ED49148C0632}
 	EndGlobalSection
 EndGlobal

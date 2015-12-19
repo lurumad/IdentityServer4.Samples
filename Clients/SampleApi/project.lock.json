@@ -7,6 +7,47 @@
         "type": "project",
         "framework": ".NETFramework,Version=v4.5.1"
       },
+      "IdentityModel/2.0.0-alpha1": {
+        "type": "package",
+        "dependencies": {
+          "Newtonsoft.Json": "6.0.4"
+        },
+        "frameworkAssemblies": [
+          "Microsoft.CSharp",
+          "mscorlib",
+          "System",
+          "System.Core",
+          "System.IdentityModel",
+          "System.Net.Http",
+          "System.XML",
+          "System.Xml.Linq"
+        ],
+        "compile": {
+          "lib/net451/IdentityModel.dll": {}
+        },
+        "runtime": {
+          "lib/net451/IdentityModel.dll": {}
+        }
+      },
+      "IdentityServer4.AccessTokenValidation/1.0.0-alpha1": {
+        "type": "package",
+        "dependencies": {
+          "IdentityModel": "2.0.0-alpha1",
+          "Microsoft.AspNet.Authentication": "1.0.0-rc1-final"
+        },
+        "frameworkAssemblies": [
+          "Microsoft.CSharp",
+          "mscorlib",
+          "System",
+          "System.Core"
+        ],
+        "compile": {
+          "lib/net451/IdentityServer4.AccessTokenValidation.dll": {}
+        },
+        "runtime": {
+          "lib/net451/IdentityServer4.AccessTokenValidation.dll": {}
+        }
+      },
       "Microsoft.AspNet.Antiforgery/1.0.0-rc1-final": {
         "type": "package",
         "dependencies": {
@@ -1686,6 +1727,47 @@
           "System.Linq": "4.0.1-beta-23516",
           "System.Runtime": "4.0.21-beta-23516",
           "System.Threading": "4.0.11-beta-23516"
+        }
+      },
+      "IdentityModel/2.0.0-alpha1": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.CSharp": "4.0.1-beta-23516",
+          "Newtonsoft.Json": "6.0.4",
+          "System.Collections": "4.0.11-beta-23516",
+          "System.Console": "4.0.0-beta-23516",
+          "System.Linq": "4.0.1-beta-23516",
+          "System.Net.Http": "4.0.1-beta-23516",
+          "System.Runtime": "4.0.21-beta-23516",
+          "System.Security.Claims": "4.0.1-beta-23516",
+          "System.Security.Cryptography.Algorithms": "4.0.0-beta-23516",
+          "System.Security.Cryptography.X509Certificates": "4.0.0-beta-23516",
+          "System.Threading": "4.0.11-beta-23516",
+          "System.Xml.ReaderWriter": "4.0.11-beta-23516"
+        },
+        "compile": {
+          "lib/dotnet5.4/IdentityModel.dll": {}
+        },
+        "runtime": {
+          "lib/dotnet5.4/IdentityModel.dll": {}
+        }
+      },
+      "IdentityServer4.AccessTokenValidation/1.0.0-alpha1": {
+        "type": "package",
+        "dependencies": {
+          "IdentityModel": "2.0.0-alpha1",
+          "Microsoft.AspNet.Authentication": "1.0.0-rc1-final",
+          "Microsoft.CSharp": "4.0.1-beta-23516",
+          "System.Collections": "4.0.11-beta-23516",
+          "System.Linq": "4.0.1-beta-23516",
+          "System.Runtime": "4.0.21-beta-23516",
+          "System.Threading": "4.0.11-beta-23516"
+        },
+        "compile": {
+          "lib/dotnet5.4/IdentityServer4.AccessTokenValidation.dll": {}
+        },
+        "runtime": {
+          "lib/dotnet5.4/IdentityServer4.AccessTokenValidation.dll": {}
         }
       },
       "Microsoft.AspNet.Antiforgery/1.0.0-rc1-final": {
@@ -4015,6 +4097,47 @@
         "type": "project",
         "framework": ".NETFramework,Version=v4.5.1"
       },
+      "IdentityModel/2.0.0-alpha1": {
+        "type": "package",
+        "dependencies": {
+          "Newtonsoft.Json": "6.0.4"
+        },
+        "frameworkAssemblies": [
+          "Microsoft.CSharp",
+          "mscorlib",
+          "System",
+          "System.Core",
+          "System.IdentityModel",
+          "System.Net.Http",
+          "System.XML",
+          "System.Xml.Linq"
+        ],
+        "compile": {
+          "lib/net451/IdentityModel.dll": {}
+        },
+        "runtime": {
+          "lib/net451/IdentityModel.dll": {}
+        }
+      },
+      "IdentityServer4.AccessTokenValidation/1.0.0-alpha1": {
+        "type": "package",
+        "dependencies": {
+          "IdentityModel": "2.0.0-alpha1",
+          "Microsoft.AspNet.Authentication": "1.0.0-rc1-final"
+        },
+        "frameworkAssemblies": [
+          "Microsoft.CSharp",
+          "mscorlib",
+          "System",
+          "System.Core"
+        ],
+        "compile": {
+          "lib/net451/IdentityServer4.AccessTokenValidation.dll": {}
+        },
+        "runtime": {
+          "lib/net451/IdentityServer4.AccessTokenValidation.dll": {}
+        }
+      },
       "Microsoft.AspNet.Antiforgery/1.0.0-rc1-final": {
         "type": "package",
         "dependencies": {
@@ -5691,6 +5814,47 @@
       "Constants/1.0.0": {
         "type": "project",
         "framework": ".NETFramework,Version=v4.5.1"
+      },
+      "IdentityModel/2.0.0-alpha1": {
+        "type": "package",
+        "dependencies": {
+          "Newtonsoft.Json": "6.0.4"
+        },
+        "frameworkAssemblies": [
+          "Microsoft.CSharp",
+          "mscorlib",
+          "System",
+          "System.Core",
+          "System.IdentityModel",
+          "System.Net.Http",
+          "System.XML",
+          "System.Xml.Linq"
+        ],
+        "compile": {
+          "lib/net451/IdentityModel.dll": {}
+        },
+        "runtime": {
+          "lib/net451/IdentityModel.dll": {}
+        }
+      },
+      "IdentityServer4.AccessTokenValidation/1.0.0-alpha1": {
+        "type": "package",
+        "dependencies": {
+          "IdentityModel": "2.0.0-alpha1",
+          "Microsoft.AspNet.Authentication": "1.0.0-rc1-final"
+        },
+        "frameworkAssemblies": [
+          "Microsoft.CSharp",
+          "mscorlib",
+          "System",
+          "System.Core"
+        ],
+        "compile": {
+          "lib/net451/IdentityServer4.AccessTokenValidation.dll": {}
+        },
+        "runtime": {
+          "lib/net451/IdentityServer4.AccessTokenValidation.dll": {}
+        }
       },
       "Microsoft.AspNet.Antiforgery/1.0.0-rc1-final": {
         "type": "package",
@@ -7374,6 +7538,47 @@
           "System.Linq": "4.0.1-beta-23516",
           "System.Runtime": "4.0.21-beta-23516",
           "System.Threading": "4.0.11-beta-23516"
+        }
+      },
+      "IdentityModel/2.0.0-alpha1": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.CSharp": "4.0.1-beta-23516",
+          "Newtonsoft.Json": "6.0.4",
+          "System.Collections": "4.0.11-beta-23516",
+          "System.Console": "4.0.0-beta-23516",
+          "System.Linq": "4.0.1-beta-23516",
+          "System.Net.Http": "4.0.1-beta-23516",
+          "System.Runtime": "4.0.21-beta-23516",
+          "System.Security.Claims": "4.0.1-beta-23516",
+          "System.Security.Cryptography.Algorithms": "4.0.0-beta-23516",
+          "System.Security.Cryptography.X509Certificates": "4.0.0-beta-23516",
+          "System.Threading": "4.0.11-beta-23516",
+          "System.Xml.ReaderWriter": "4.0.11-beta-23516"
+        },
+        "compile": {
+          "lib/dotnet5.4/IdentityModel.dll": {}
+        },
+        "runtime": {
+          "lib/dotnet5.4/IdentityModel.dll": {}
+        }
+      },
+      "IdentityServer4.AccessTokenValidation/1.0.0-alpha1": {
+        "type": "package",
+        "dependencies": {
+          "IdentityModel": "2.0.0-alpha1",
+          "Microsoft.AspNet.Authentication": "1.0.0-rc1-final",
+          "Microsoft.CSharp": "4.0.1-beta-23516",
+          "System.Collections": "4.0.11-beta-23516",
+          "System.Linq": "4.0.1-beta-23516",
+          "System.Runtime": "4.0.21-beta-23516",
+          "System.Threading": "4.0.11-beta-23516"
+        },
+        "compile": {
+          "lib/dotnet5.4/IdentityServer4.AccessTokenValidation.dll": {}
+        },
+        "runtime": {
+          "lib/dotnet5.4/IdentityServer4.AccessTokenValidation.dll": {}
         }
       },
       "Microsoft.AspNet.Antiforgery/1.0.0-rc1-final": {
@@ -10106,6 +10311,47 @@
           "System.Threading": "4.0.11-beta-23516"
         }
       },
+      "IdentityModel/2.0.0-alpha1": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.CSharp": "4.0.1-beta-23516",
+          "Newtonsoft.Json": "6.0.4",
+          "System.Collections": "4.0.11-beta-23516",
+          "System.Console": "4.0.0-beta-23516",
+          "System.Linq": "4.0.1-beta-23516",
+          "System.Net.Http": "4.0.1-beta-23516",
+          "System.Runtime": "4.0.21-beta-23516",
+          "System.Security.Claims": "4.0.1-beta-23516",
+          "System.Security.Cryptography.Algorithms": "4.0.0-beta-23516",
+          "System.Security.Cryptography.X509Certificates": "4.0.0-beta-23516",
+          "System.Threading": "4.0.11-beta-23516",
+          "System.Xml.ReaderWriter": "4.0.11-beta-23516"
+        },
+        "compile": {
+          "lib/dotnet5.4/IdentityModel.dll": {}
+        },
+        "runtime": {
+          "lib/dotnet5.4/IdentityModel.dll": {}
+        }
+      },
+      "IdentityServer4.AccessTokenValidation/1.0.0-alpha1": {
+        "type": "package",
+        "dependencies": {
+          "IdentityModel": "2.0.0-alpha1",
+          "Microsoft.AspNet.Authentication": "1.0.0-rc1-final",
+          "Microsoft.CSharp": "4.0.1-beta-23516",
+          "System.Collections": "4.0.11-beta-23516",
+          "System.Linq": "4.0.1-beta-23516",
+          "System.Runtime": "4.0.21-beta-23516",
+          "System.Threading": "4.0.11-beta-23516"
+        },
+        "compile": {
+          "lib/dotnet5.4/IdentityServer4.AccessTokenValidation.dll": {}
+        },
+        "runtime": {
+          "lib/dotnet5.4/IdentityServer4.AccessTokenValidation.dll": {}
+        }
+      },
       "Microsoft.AspNet.Antiforgery/1.0.0-rc1-final": {
         "type": "package",
         "dependencies": {
@@ -12829,6 +13075,32 @@
     "Constants/1.0.0": {
       "type": "project",
       "path": "../src/Constants/project.json"
+    },
+    "IdentityModel/2.0.0-alpha1": {
+      "type": "package",
+      "sha512": "ynJYpHmUoEnc/jR+UjlWiutuyRE8tBfJMVP/7f4Uu6Qf6+B1dkt5OGtLCDGfcrRA02fvGtdpAz9oq8gvoCtNWw==",
+      "files": [
+        "IdentityModel.2.0.0-alpha1.nupkg",
+        "IdentityModel.2.0.0-alpha1.nupkg.sha512",
+        "IdentityModel.nuspec",
+        "lib/dotnet5.4/IdentityModel.dll",
+        "lib/dotnet5.4/IdentityModel.xml",
+        "lib/net451/IdentityModel.dll",
+        "lib/net451/IdentityModel.xml"
+      ]
+    },
+    "IdentityServer4.AccessTokenValidation/1.0.0-alpha1": {
+      "type": "package",
+      "sha512": "EnD75Tp4s/muIMB3Jlykj9yzSJLFx47alqijOg+GBGOBAmfjgGD6lX475DcTM/vKLYDi+BwotWJyTf2jRGzqyA==",
+      "files": [
+        "IdentityServer4.AccessTokenValidation.1.0.0-alpha1.nupkg",
+        "IdentityServer4.AccessTokenValidation.1.0.0-alpha1.nupkg.sha512",
+        "IdentityServer4.AccessTokenValidation.nuspec",
+        "lib/dotnet5.4/IdentityServer4.AccessTokenValidation.dll",
+        "lib/dotnet5.4/IdentityServer4.AccessTokenValidation.xml",
+        "lib/net451/IdentityServer4.AccessTokenValidation.dll",
+        "lib/net451/IdentityServer4.AccessTokenValidation.xml"
+      ]
     },
     "Microsoft.AspNet.Antiforgery/1.0.0-rc1-final": {
       "type": "package",
@@ -17940,7 +18212,8 @@
       "Microsoft.Extensions.Logging.Console >= 1.0.0-rc1-final",
       "Microsoft.Extensions.Logging.Debug >= 1.0.0-rc1-final",
       "Microsoft.AspNet.Authentication.JwtBearer >= 1.0.0-rc1-final",
-      "Constants "
+      "Constants ",
+      "IdentityServer4.AccessTokenValidation >= 1.0.0-alpha1"
     ],
     "DNX,Version=v4.5.1": [],
     "DNXCore,Version=v5.0": []

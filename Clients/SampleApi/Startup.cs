@@ -7,6 +7,8 @@ using Microsoft.AspNet.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using IdentityServer4.AccessTokenValidation;
+using Microsoft.AspNet.Authentication.JwtBearer;
 
 namespace SampleApi
 {
@@ -38,13 +40,27 @@ namespace SampleApi
 
             app.UseIISPlatformHandler();
 
-            app.UseJwtBearerAuthentication(options =>
+            // can use one or the other right now due to bug in Jwt MW RC1
+            //app.UseJwtBearerAuthentication(options =>
+            //{
+            //    options.AutomaticAuthenticate = true;
+            //    options.Authority = Clients.Constants.BaseAddress;
+            //    options.TokenValidationParameters.ValidateAudience = false;
+            //    options.RequireHttpsMetadata = false;
+            //});
+
+            app.UseIntrospectionAuthentication(options =>
             {
                 options.AutomaticAuthenticate = true;
+                options.ScopeName = "api1";
+                options.ScopeSecret = "secret";
                 options.Authority = Clients.Constants.BaseAddress;
-                options.TokenValidationParameters.ValidateAudience = false;
-                options.RequireHttpsMetadata = false;
+
+                // use introspection endpoint for both JWTs and reference tokens (see above)
+                options.SkipTokensWithDots = false;
             });
+
+            app.AllowScopes("api1");
 
             app.UseMvc();
         }
