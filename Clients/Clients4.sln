@@ -30,6 +30,10 @@ Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Console Introspection Clien
 EndProject
 Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Console ResourceOwner Flow Reference", "src\ConsoleResourceOwnerFlowReference\Console ResourceOwner Flow Reference.xproj", "{0E9145DB-CC70-44F9-B52B-1D7D4C2B2E5F}"
 EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "IdentityServer4.AccessTokenValidation", "..\..\AccessTokenValidation\src\IdentityServer4.AccessTokenValidation\IdentityServer4.AccessTokenValidation.xproj", "{20144D4D-6F7D-4090-9EAD-80302D029379}"
+EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Console Custom Grant", "src\ConsoleCustomGrant\Console Custom Grant.xproj", "{546267CD-BE21-44E1-A06E-C7558864EE4F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -72,6 +76,14 @@ Global
 		{0E9145DB-CC70-44F9-B52B-1D7D4C2B2E5F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0E9145DB-CC70-44F9-B52B-1D7D4C2B2E5F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0E9145DB-CC70-44F9-B52B-1D7D4C2B2E5F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{20144D4D-6F7D-4090-9EAD-80302D029379}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{20144D4D-6F7D-4090-9EAD-80302D029379}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{20144D4D-6F7D-4090-9EAD-80302D029379}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{20144D4D-6F7D-4090-9EAD-80302D029379}.Release|Any CPU.Build.0 = Release|Any CPU
+		{546267CD-BE21-44E1-A06E-C7558864EE4F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{546267CD-BE21-44E1-A06E-C7558864EE4F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{546267CD-BE21-44E1-A06E-C7558864EE4F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{546267CD-BE21-44E1-A06E-C7558864EE4F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -87,5 +99,6 @@ Global
 		{4A734C30-F3C6-4E32-A135-08416B2EF621} = {AFE7085F-051E-4829-955F-3426FE643BDD}
 		{395F9DF7-AE5A-403E-BE7A-4AF045B21BB3} = {187AC294-0420-4726-808B-ED49148C0632}
 		{0E9145DB-CC70-44F9-B52B-1D7D4C2B2E5F} = {187AC294-0420-4726-808B-ED49148C0632}
+		{546267CD-BE21-44E1-A06E-C7558864EE4F} = {187AC294-0420-4726-808B-ED49148C0632}
 	EndGlobalSection
 EndGlobal

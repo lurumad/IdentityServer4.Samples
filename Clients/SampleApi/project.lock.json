@@ -30,22 +30,11 @@
         }
       },
       "IdentityServer4.AccessTokenValidation/1.0.0-alpha1": {
-        "type": "package",
+        "type": "project",
+        "framework": ".NETFramework,Version=v4.5.1",
         "dependencies": {
           "IdentityModel": "2.0.0-alpha1",
           "Microsoft.AspNet.Authentication": "1.0.0-rc1-final"
-        },
-        "frameworkAssemblies": [
-          "Microsoft.CSharp",
-          "mscorlib",
-          "System",
-          "System.Core"
-        ],
-        "compile": {
-          "lib/net451/IdentityServer4.AccessTokenValidation.dll": {}
-        },
-        "runtime": {
-          "lib/net451/IdentityServer4.AccessTokenValidation.dll": {}
         }
       },
       "Microsoft.AspNet.Antiforgery/1.0.0-rc1-final": {
@@ -1753,7 +1742,8 @@
         }
       },
       "IdentityServer4.AccessTokenValidation/1.0.0-alpha1": {
-        "type": "package",
+        "type": "project",
+        "framework": ".NETPlatform,Version=v5.4",
         "dependencies": {
           "IdentityModel": "2.0.0-alpha1",
           "Microsoft.AspNet.Authentication": "1.0.0-rc1-final",
@@ -1762,12 +1752,6 @@
           "System.Linq": "4.0.1-beta-23516",
           "System.Runtime": "4.0.21-beta-23516",
           "System.Threading": "4.0.11-beta-23516"
-        },
-        "compile": {
-          "lib/dotnet5.4/IdentityServer4.AccessTokenValidation.dll": {}
-        },
-        "runtime": {
-          "lib/dotnet5.4/IdentityServer4.AccessTokenValidation.dll": {}
         }
       },
       "Microsoft.AspNet.Antiforgery/1.0.0-rc1-final": {
@@ -4120,22 +4104,11 @@
         }
       },
       "IdentityServer4.AccessTokenValidation/1.0.0-alpha1": {
-        "type": "package",
+        "type": "project",
+        "framework": ".NETFramework,Version=v4.5.1",
         "dependencies": {
           "IdentityModel": "2.0.0-alpha1",
           "Microsoft.AspNet.Authentication": "1.0.0-rc1-final"
-        },
-        "frameworkAssemblies": [
-          "Microsoft.CSharp",
-          "mscorlib",
-          "System",
-          "System.Core"
-        ],
-        "compile": {
-          "lib/net451/IdentityServer4.AccessTokenValidation.dll": {}
-        },
-        "runtime": {
-          "lib/net451/IdentityServer4.AccessTokenValidation.dll": {}
         }
       },
       "Microsoft.AspNet.Antiforgery/1.0.0-rc1-final": {
@@ -5838,22 +5811,11 @@
         }
       },
       "IdentityServer4.AccessTokenValidation/1.0.0-alpha1": {
-        "type": "package",
+        "type": "project",
+        "framework": ".NETFramework,Version=v4.5.1",
         "dependencies": {
           "IdentityModel": "2.0.0-alpha1",
           "Microsoft.AspNet.Authentication": "1.0.0-rc1-final"
-        },
-        "frameworkAssemblies": [
-          "Microsoft.CSharp",
-          "mscorlib",
-          "System",
-          "System.Core"
-        ],
-        "compile": {
-          "lib/net451/IdentityServer4.AccessTokenValidation.dll": {}
-        },
-        "runtime": {
-          "lib/net451/IdentityServer4.AccessTokenValidation.dll": {}
         }
       },
       "Microsoft.AspNet.Antiforgery/1.0.0-rc1-final": {
@@ -7564,7 +7526,8 @@
         }
       },
       "IdentityServer4.AccessTokenValidation/1.0.0-alpha1": {
-        "type": "package",
+        "type": "project",
+        "framework": ".NETPlatform,Version=v5.4",
         "dependencies": {
           "IdentityModel": "2.0.0-alpha1",
           "Microsoft.AspNet.Authentication": "1.0.0-rc1-final",
@@ -7573,12 +7536,6 @@
           "System.Linq": "4.0.1-beta-23516",
           "System.Runtime": "4.0.21-beta-23516",
           "System.Threading": "4.0.11-beta-23516"
-        },
-        "compile": {
-          "lib/dotnet5.4/IdentityServer4.AccessTokenValidation.dll": {}
-        },
-        "runtime": {
-          "lib/dotnet5.4/IdentityServer4.AccessTokenValidation.dll": {}
         }
       },
       "Microsoft.AspNet.Antiforgery/1.0.0-rc1-final": {
@@ -10335,7 +10292,8 @@
         }
       },
       "IdentityServer4.AccessTokenValidation/1.0.0-alpha1": {
-        "type": "package",
+        "type": "project",
+        "framework": ".NETPlatform,Version=v5.4",
         "dependencies": {
           "IdentityModel": "2.0.0-alpha1",
           "Microsoft.AspNet.Authentication": "1.0.0-rc1-final",
@@ -10344,12 +10302,6 @@
           "System.Linq": "4.0.1-beta-23516",
           "System.Runtime": "4.0.21-beta-23516",
           "System.Threading": "4.0.11-beta-23516"
-        },
-        "compile": {
-          "lib/dotnet5.4/IdentityServer4.AccessTokenValidation.dll": {}
-        },
-        "runtime": {
-          "lib/dotnet5.4/IdentityServer4.AccessTokenValidation.dll": {}
         }
       },
       "Microsoft.AspNet.Antiforgery/1.0.0-rc1-final": {
@@ -13076,6 +13028,10 @@
       "type": "project",
       "path": "../src/Constants/project.json"
     },
+    "IdentityServer4.AccessTokenValidation/1.0.0-alpha1": {
+      "type": "project",
+      "path": "../../../AccessTokenValidation/src/IdentityServer4.AccessTokenValidation/project.json"
+    },
     "IdentityModel/2.0.0-alpha1": {
       "type": "package",
       "sha512": "ynJYpHmUoEnc/jR+UjlWiutuyRE8tBfJMVP/7f4Uu6Qf6+B1dkt5OGtLCDGfcrRA02fvGtdpAz9oq8gvoCtNWw==",
@@ -13087,19 +13043,6 @@
         "lib/dotnet5.4/IdentityModel.xml",
         "lib/net451/IdentityModel.dll",
         "lib/net451/IdentityModel.xml"
-      ]
-    },
-    "IdentityServer4.AccessTokenValidation/1.0.0-alpha1": {
-      "type": "package",
-      "sha512": "EnD75Tp4s/muIMB3Jlykj9yzSJLFx47alqijOg+GBGOBAmfjgGD6lX475DcTM/vKLYDi+BwotWJyTf2jRGzqyA==",
-      "files": [
-        "IdentityServer4.AccessTokenValidation.1.0.0-alpha1.nupkg",
-        "IdentityServer4.AccessTokenValidation.1.0.0-alpha1.nupkg.sha512",
-        "IdentityServer4.AccessTokenValidation.nuspec",
-        "lib/dotnet5.4/IdentityServer4.AccessTokenValidation.dll",
-        "lib/dotnet5.4/IdentityServer4.AccessTokenValidation.xml",
-        "lib/net451/IdentityServer4.AccessTokenValidation.dll",
-        "lib/net451/IdentityServer4.AccessTokenValidation.xml"
       ]
     },
     "Microsoft.AspNet.Antiforgery/1.0.0-rc1-final": {
