@@ -7,7 +7,7 @@
         "type": "project",
         "framework": ".NETFramework,Version=v4.5.1"
       },
-      "IdentityModel/2.0.0-alpha1": {
+      "IdentityModel/2.0.0-alpha2": {
         "type": "package",
         "dependencies": {
           "Newtonsoft.Json": "6.0.4"
@@ -33,7 +33,7 @@
         "type": "project",
         "framework": ".NETFramework,Version=v4.5.1",
         "dependencies": {
-          "IdentityModel": "2.0.0-alpha1",
+          "IdentityModel": "2.0.0-alpha2",
           "Microsoft.AspNet.Authentication": "1.0.0-rc1-final"
         }
       },
@@ -1718,7 +1718,7 @@
           "System.Threading": "4.0.11-beta-23516"
         }
       },
-      "IdentityModel/2.0.0-alpha1": {
+      "IdentityModel/2.0.0-alpha2": {
         "type": "package",
         "dependencies": {
           "Microsoft.CSharp": "4.0.1-beta-23516",
@@ -1745,7 +1745,7 @@
         "type": "project",
         "framework": ".NETPlatform,Version=v5.4",
         "dependencies": {
-          "IdentityModel": "2.0.0-alpha1",
+          "IdentityModel": "2.0.0-alpha2",
           "Microsoft.AspNet.Authentication": "1.0.0-rc1-final",
           "Microsoft.CSharp": "4.0.1-beta-23516",
           "System.Collections": "4.0.11-beta-23516",
@@ -4081,7 +4081,7 @@
         "type": "project",
         "framework": ".NETFramework,Version=v4.5.1"
       },
-      "IdentityModel/2.0.0-alpha1": {
+      "IdentityModel/2.0.0-alpha2": {
         "type": "package",
         "dependencies": {
           "Newtonsoft.Json": "6.0.4"
@@ -4107,7 +4107,7 @@
         "type": "project",
         "framework": ".NETFramework,Version=v4.5.1",
         "dependencies": {
-          "IdentityModel": "2.0.0-alpha1",
+          "IdentityModel": "2.0.0-alpha2",
           "Microsoft.AspNet.Authentication": "1.0.0-rc1-final"
         }
       },
@@ -5788,7 +5788,7 @@
         "type": "project",
         "framework": ".NETFramework,Version=v4.5.1"
       },
-      "IdentityModel/2.0.0-alpha1": {
+      "IdentityModel/2.0.0-alpha2": {
         "type": "package",
         "dependencies": {
           "Newtonsoft.Json": "6.0.4"
@@ -5814,7 +5814,7 @@
         "type": "project",
         "framework": ".NETFramework,Version=v4.5.1",
         "dependencies": {
-          "IdentityModel": "2.0.0-alpha1",
+          "IdentityModel": "2.0.0-alpha2",
           "Microsoft.AspNet.Authentication": "1.0.0-rc1-final"
         }
       },
@@ -7502,7 +7502,7 @@
           "System.Threading": "4.0.11-beta-23516"
         }
       },
-      "IdentityModel/2.0.0-alpha1": {
+      "IdentityModel/2.0.0-alpha2": {
         "type": "package",
         "dependencies": {
           "Microsoft.CSharp": "4.0.1-beta-23516",
@@ -7529,7 +7529,7 @@
         "type": "project",
         "framework": ".NETPlatform,Version=v5.4",
         "dependencies": {
-          "IdentityModel": "2.0.0-alpha1",
+          "IdentityModel": "2.0.0-alpha2",
           "Microsoft.AspNet.Authentication": "1.0.0-rc1-final",
           "Microsoft.CSharp": "4.0.1-beta-23516",
           "System.Collections": "4.0.11-beta-23516",
@@ -10268,7 +10268,7 @@
           "System.Threading": "4.0.11-beta-23516"
         }
       },
-      "IdentityModel/2.0.0-alpha1": {
+      "IdentityModel/2.0.0-alpha2": {
         "type": "package",
         "dependencies": {
           "Microsoft.CSharp": "4.0.1-beta-23516",
@@ -10295,7 +10295,7 @@
         "type": "project",
         "framework": ".NETPlatform,Version=v5.4",
         "dependencies": {
-          "IdentityModel": "2.0.0-alpha1",
+          "IdentityModel": "2.0.0-alpha2",
           "Microsoft.AspNet.Authentication": "1.0.0-rc1-final",
           "Microsoft.CSharp": "4.0.1-beta-23516",
           "System.Collections": "4.0.11-beta-23516",
@@ -13032,12 +13032,12 @@
       "type": "project",
       "path": "../../../AccessTokenValidation/src/IdentityServer4.AccessTokenValidation/project.json"
     },
-    "IdentityModel/2.0.0-alpha1": {
+    "IdentityModel/2.0.0-alpha2": {
       "type": "package",
-      "sha512": "ynJYpHmUoEnc/jR+UjlWiutuyRE8tBfJMVP/7f4Uu6Qf6+B1dkt5OGtLCDGfcrRA02fvGtdpAz9oq8gvoCtNWw==",
+      "sha512": "Jo+ajKHVuNQ1lmxVtykhwDkGB31daKI5/FsRmaaxm4qhSonq+CA0637luEKHA5fxglI30R7yeBLae2elHXVutg==",
       "files": [
-        "IdentityModel.2.0.0-alpha1.nupkg",
-        "IdentityModel.2.0.0-alpha1.nupkg.sha512",
+        "IdentityModel.2.0.0-alpha2.nupkg",
+        "IdentityModel.2.0.0-alpha2.nupkg.sha512",
         "IdentityModel.nuspec",
         "lib/dotnet5.4/IdentityModel.dll",
         "lib/dotnet5.4/IdentityModel.xml",

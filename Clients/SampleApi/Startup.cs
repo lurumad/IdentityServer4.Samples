@@ -49,7 +49,7 @@ namespace SampleApi
             //    options.RequireHttpsMetadata = false;
             //});
 
-            app.UseIntrospectionAuthentication(options =>
+            app.UseOAuth2IntrospectionAuthentication(options =>
             {
                 options.AutomaticAuthenticate = true;
                 options.ScopeName = "api1";
