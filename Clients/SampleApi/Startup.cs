@@ -1,14 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNet.Builder;
+﻿using Microsoft.AspNet.Builder;
 using Microsoft.AspNet.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using IdentityServer4.AccessTokenValidation;
-using Microsoft.AspNet.Authentication.JwtBearer;
 
 namespace SampleApi
 {
@@ -60,7 +54,7 @@ namespace SampleApi
                 options.SkipTokensWithDots = false;
             });
 
-            app.AllowScopes("api1");
+            //app.AllowScopes("api1");
 
             app.UseMvc();
         }

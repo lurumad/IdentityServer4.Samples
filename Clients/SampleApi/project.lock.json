@@ -29,12 +29,23 @@
           "lib/net451/IdentityModel.dll": {}
         }
       },
-      "IdentityServer4.AccessTokenValidation/1.0.0-alpha1": {
-        "type": "project",
-        "framework": ".NETFramework,Version=v4.5.1",
+      "IdentityModel.AspNet.OAuth2Introspection/1.0.0-beta2": {
+        "type": "package",
         "dependencies": {
           "IdentityModel": "2.0.0-alpha2",
           "Microsoft.AspNet.Authentication": "1.0.0-rc1-final"
+        },
+        "frameworkAssemblies": [
+          "Microsoft.CSharp",
+          "mscorlib",
+          "System",
+          "System.Core"
+        ],
+        "compile": {
+          "lib/net451/IdentityModel.AspNet.OAuth2Introspection.dll": {}
+        },
+        "runtime": {
+          "lib/net451/IdentityModel.AspNet.OAuth2Introspection.dll": {}
         }
       },
       "Microsoft.AspNet.Antiforgery/1.0.0-rc1-final": {
@@ -1741,9 +1752,8 @@
           "lib/dotnet5.4/IdentityModel.dll": {}
         }
       },
-      "IdentityServer4.AccessTokenValidation/1.0.0-alpha1": {
-        "type": "project",
-        "framework": ".NETPlatform,Version=v5.4",
+      "IdentityModel.AspNet.OAuth2Introspection/1.0.0-beta2": {
+        "type": "package",
         "dependencies": {
           "IdentityModel": "2.0.0-alpha2",
           "Microsoft.AspNet.Authentication": "1.0.0-rc1-final",
@@ -1752,6 +1762,12 @@
           "System.Linq": "4.0.1-beta-23516",
           "System.Runtime": "4.0.21-beta-23516",
           "System.Threading": "4.0.11-beta-23516"
+        },
+        "compile": {
+          "lib/dotnet5.4/IdentityModel.AspNet.OAuth2Introspection.dll": {}
+        },
+        "runtime": {
+          "lib/dotnet5.4/IdentityModel.AspNet.OAuth2Introspection.dll": {}
         }
       },
       "Microsoft.AspNet.Antiforgery/1.0.0-rc1-final": {
@@ -4103,12 +4119,23 @@
           "lib/net451/IdentityModel.dll": {}
         }
       },
-      "IdentityServer4.AccessTokenValidation/1.0.0-alpha1": {
-        "type": "project",
-        "framework": ".NETFramework,Version=v4.5.1",
+      "IdentityModel.AspNet.OAuth2Introspection/1.0.0-beta2": {
+        "type": "package",
         "dependencies": {
           "IdentityModel": "2.0.0-alpha2",
           "Microsoft.AspNet.Authentication": "1.0.0-rc1-final"
+        },
+        "frameworkAssemblies": [
+          "Microsoft.CSharp",
+          "mscorlib",
+          "System",
+          "System.Core"
+        ],
+        "compile": {
+          "lib/net451/IdentityModel.AspNet.OAuth2Introspection.dll": {}
+        },
+        "runtime": {
+          "lib/net451/IdentityModel.AspNet.OAuth2Introspection.dll": {}
         }
       },
       "Microsoft.AspNet.Antiforgery/1.0.0-rc1-final": {
@@ -5810,12 +5837,23 @@
           "lib/net451/IdentityModel.dll": {}
         }
       },
-      "IdentityServer4.AccessTokenValidation/1.0.0-alpha1": {
-        "type": "project",
-        "framework": ".NETFramework,Version=v4.5.1",
+      "IdentityModel.AspNet.OAuth2Introspection/1.0.0-beta2": {
+        "type": "package",
         "dependencies": {
           "IdentityModel": "2.0.0-alpha2",
           "Microsoft.AspNet.Authentication": "1.0.0-rc1-final"
+        },
+        "frameworkAssemblies": [
+          "Microsoft.CSharp",
+          "mscorlib",
+          "System",
+          "System.Core"
+        ],
+        "compile": {
+          "lib/net451/IdentityModel.AspNet.OAuth2Introspection.dll": {}
+        },
+        "runtime": {
+          "lib/net451/IdentityModel.AspNet.OAuth2Introspection.dll": {}
         }
       },
       "Microsoft.AspNet.Antiforgery/1.0.0-rc1-final": {
@@ -7525,9 +7563,8 @@
           "lib/dotnet5.4/IdentityModel.dll": {}
         }
       },
-      "IdentityServer4.AccessTokenValidation/1.0.0-alpha1": {
-        "type": "project",
-        "framework": ".NETPlatform,Version=v5.4",
+      "IdentityModel.AspNet.OAuth2Introspection/1.0.0-beta2": {
+        "type": "package",
         "dependencies": {
           "IdentityModel": "2.0.0-alpha2",
           "Microsoft.AspNet.Authentication": "1.0.0-rc1-final",
@@ -7536,6 +7573,12 @@
           "System.Linq": "4.0.1-beta-23516",
           "System.Runtime": "4.0.21-beta-23516",
           "System.Threading": "4.0.11-beta-23516"
+        },
+        "compile": {
+          "lib/dotnet5.4/IdentityModel.AspNet.OAuth2Introspection.dll": {}
+        },
+        "runtime": {
+          "lib/dotnet5.4/IdentityModel.AspNet.OAuth2Introspection.dll": {}
         }
       },
       "Microsoft.AspNet.Antiforgery/1.0.0-rc1-final": {
@@ -10291,9 +10334,8 @@
           "lib/dotnet5.4/IdentityModel.dll": {}
         }
       },
-      "IdentityServer4.AccessTokenValidation/1.0.0-alpha1": {
-        "type": "project",
-        "framework": ".NETPlatform,Version=v5.4",
+      "IdentityModel.AspNet.OAuth2Introspection/1.0.0-beta2": {
+        "type": "package",
         "dependencies": {
           "IdentityModel": "2.0.0-alpha2",
           "Microsoft.AspNet.Authentication": "1.0.0-rc1-final",
@@ -10302,6 +10344,12 @@
           "System.Linq": "4.0.1-beta-23516",
           "System.Runtime": "4.0.21-beta-23516",
           "System.Threading": "4.0.11-beta-23516"
+        },
+        "compile": {
+          "lib/dotnet5.4/IdentityModel.AspNet.OAuth2Introspection.dll": {}
+        },
+        "runtime": {
+          "lib/dotnet5.4/IdentityModel.AspNet.OAuth2Introspection.dll": {}
         }
       },
       "Microsoft.AspNet.Antiforgery/1.0.0-rc1-final": {
@@ -13028,10 +13076,6 @@
       "type": "project",
       "path": "../src/Constants/project.json"
     },
-    "IdentityServer4.AccessTokenValidation/1.0.0-alpha1": {
-      "type": "project",
-      "path": "../../../AccessTokenValidation/src/IdentityServer4.AccessTokenValidation/project.json"
-    },
     "IdentityModel/2.0.0-alpha2": {
       "type": "package",
       "sha512": "Jo+ajKHVuNQ1lmxVtykhwDkGB31daKI5/FsRmaaxm4qhSonq+CA0637luEKHA5fxglI30R7yeBLae2elHXVutg==",
@@ -13043,6 +13087,19 @@
         "lib/dotnet5.4/IdentityModel.xml",
         "lib/net451/IdentityModel.dll",
         "lib/net451/IdentityModel.xml"
+      ]
+    },
+    "IdentityModel.AspNet.OAuth2Introspection/1.0.0-beta2": {
+      "type": "package",
+      "sha512": "+DycOrxVGZNPi0Q93XfNcFByaB96lhXPRYemSaZMYppd3sCtkF/J7cftItIZMhVTofDGVQ8Qd6wDSGeJJBzOwg==",
+      "files": [
+        "IdentityModel.AspNet.OAuth2Introspection.1.0.0-beta2.nupkg",
+        "IdentityModel.AspNet.OAuth2Introspection.1.0.0-beta2.nupkg.sha512",
+        "IdentityModel.AspNet.OAuth2Introspection.nuspec",
+        "lib/dotnet5.4/IdentityModel.AspNet.OAuth2Introspection.dll",
+        "lib/dotnet5.4/IdentityModel.AspNet.OAuth2Introspection.xml",
+        "lib/net451/IdentityModel.AspNet.OAuth2Introspection.dll",
+        "lib/net451/IdentityModel.AspNet.OAuth2Introspection.xml"
       ]
     },
     "Microsoft.AspNet.Antiforgery/1.0.0-rc1-final": {
@@ -18155,8 +18212,8 @@
       "Microsoft.Extensions.Logging.Console >= 1.0.0-rc1-final",
       "Microsoft.Extensions.Logging.Debug >= 1.0.0-rc1-final",
       "Microsoft.AspNet.Authentication.JwtBearer >= 1.0.0-rc1-final",
-      "Constants ",
-      "IdentityServer4.AccessTokenValidation >= 1.0.0-alpha1"
+      "IdentityModel.AspNet.OAuth2Introspection >= 1.0.0-beta2",
+      "Constants "
     ],
     "DNX,Version=v4.5.1": [],
     "DNXCore,Version=v5.0": []
