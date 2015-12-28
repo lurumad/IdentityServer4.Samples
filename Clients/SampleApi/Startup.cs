@@ -22,7 +22,6 @@ namespace SampleApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            // Add framework services.
             services.AddMvc();
         }
 
@@ -54,7 +53,7 @@ namespace SampleApi
                 options.SkipTokensWithDots = false;
             });
 
-            //app.AllowScopes("api1");
+            //app.AllowScopes("api2");
 
             app.UseMvc();
         }
