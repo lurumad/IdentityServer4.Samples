@@ -1,5 +1,9 @@
-﻿using Microsoft.AspNet.Builder;
+﻿using Microsoft.AspNet.Authentication.JwtBearer;
+using Microsoft.AspNet.Authorization;
+using Microsoft.AspNet.Builder;
 using Microsoft.AspNet.Hosting;
+using Microsoft.AspNet.Mvc;
+using Microsoft.AspNet.Mvc.Filters;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -11,6 +15,24 @@ namespace SampleApi
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
+
+            //var scopePolicy = new AuthorizationPolicyBuilder()
+            //    .RequireAuthenticatedUser()
+            //    .RequireClaim("scope", "calendar.read", "calendar.readwrite")
+            //    .Build();
+
+            //services.AddMvc(options =>
+            //{
+            //    options.Filters.Add(new AuthorizeFilter(scopePolicy));
+            //});
+
+            //services.AddAuthorization(options =>
+            //{
+            //    options.AddPolicy("read",
+            //        policy => policy.RequireClaim("scope", "calendar.read"));
+            //    options.AddPolicy("readwrite",
+            //        policy => policy.RequireClaim("scope", "calendar.readwrite"));
+            //});
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
@@ -24,6 +46,7 @@ namespace SampleApi
             //app.UseJwtBearerAuthentication(options =>
             //{
             //    options.AutomaticAuthenticate = true;
+            //    options.AutomaticChallenge = true;
             //    options.Authority = Clients.Constants.BaseAddress;
             //    options.TokenValidationParameters.ValidateAudience = false;
             //    options.RequireHttpsMetadata = false;
@@ -32,6 +55,8 @@ namespace SampleApi
             app.UseOAuth2IntrospectionAuthentication(options =>
             {
                 options.AutomaticAuthenticate = true;
+                options.AutomaticChallenge = true;
+
                 options.ScopeName = "api1";
                 options.ScopeSecret = "secret";
                 options.Authority = Clients.Constants.BaseAddress;
@@ -40,7 +65,7 @@ namespace SampleApi
                 options.SkipTokensWithDots = false;
             });
 
-            //app.AllowScopes("api2");
+            //app.AllowScopes("calendar.read", "calendar.readwrite");
 
             app.UseMvc();
         }

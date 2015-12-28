@@ -18320,6 +18320,7 @@
       "Microsoft.Extensions.Logging.Debug >= 1.0.0-rc1-final",
       "Microsoft.AspNet.Authentication.JwtBearer >= 1.0.0-rc1-final",
       "IdentityServer4.AccessTokenValidation >= 1.0.0-alpha2",
+      "Microsoft.AspNet.Authorization >= 1.0.0-rc1-final",
       "Constants "
     ],
     "DNX,Version=v4.5.1": [],
