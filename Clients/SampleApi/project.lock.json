@@ -48,7 +48,7 @@
           "lib/net451/IdentityModel.AspNet.OAuth2Introspection.dll": {}
         }
       },
-      "IdentityModel.AspNet.ScopeValidation/1.0.0-beta1": {
+      "IdentityModel.AspNet.ScopeValidation/1.0.0-beta2": {
         "type": "package",
         "dependencies": {
           "Microsoft.AspNet.Http.Abstractions": "1.0.0-rc1-final"
@@ -66,11 +66,12 @@
           "lib/net451/IdentityModel.AspNet.ScopeValidation.dll": {}
         }
       },
-      "IdentityServer4.AccessTokenValidation/1.0.0-alpha2": {
+      "IdentityServer4.AccessTokenValidation/1.0.0-beta1": {
         "type": "package",
         "dependencies": {
           "IdentityModel.AspNet.OAuth2Introspection": "1.0.0-beta2",
-          "IdentityModel.AspNet.ScopeValidation": "1.0.0-beta1"
+          "IdentityModel.AspNet.ScopeValidation": "1.0.0-beta2",
+          "Microsoft.AspNet.Authentication.JwtBearer": "1.0.0-rc1-final"
         },
         "frameworkAssemblies": [
           "Microsoft.CSharp",
@@ -79,10 +80,10 @@
           "System.Core"
         ],
         "compile": {
-          "lib/net451/IdentityServer4.AccessTokenValidation.dll": {}
+          "lib/dnx451/IdentityServer4.AccessTokenValidation.dll": {}
         },
         "runtime": {
-          "lib/net451/IdentityServer4.AccessTokenValidation.dll": {}
+          "lib/dnx451/IdentityServer4.AccessTokenValidation.dll": {}
         }
       },
       "Microsoft.AspNet.Antiforgery/1.0.0-rc1-final": {
@@ -1787,7 +1788,7 @@
           "lib/dotnet5.4/IdentityModel.AspNet.OAuth2Introspection.dll": {}
         }
       },
-      "IdentityModel.AspNet.ScopeValidation/1.0.0-beta1": {
+      "IdentityModel.AspNet.ScopeValidation/1.0.0-beta2": {
         "type": "package",
         "dependencies": {
           "Microsoft.AspNet.Http.Abstractions": "1.0.0-rc1-final",
@@ -1804,17 +1805,18 @@
           "lib/dotnet5.4/IdentityModel.AspNet.ScopeValidation.dll": {}
         }
       },
-      "IdentityServer4.AccessTokenValidation/1.0.0-alpha2": {
+      "IdentityServer4.AccessTokenValidation/1.0.0-beta1": {
         "type": "package",
         "dependencies": {
           "IdentityModel.AspNet.OAuth2Introspection": "1.0.0-beta2",
-          "IdentityModel.AspNet.ScopeValidation": "1.0.0-beta1"
+          "IdentityModel.AspNet.ScopeValidation": "1.0.0-beta2",
+          "Microsoft.AspNet.Authentication.JwtBearer": "1.0.0-rc1-final"
         },
         "compile": {
-          "lib/dotnet5.4/IdentityServer4.AccessTokenValidation.dll": {}
+          "lib/dnxcore50/IdentityServer4.AccessTokenValidation.dll": {}
         },
         "runtime": {
-          "lib/dotnet5.4/IdentityServer4.AccessTokenValidation.dll": {}
+          "lib/dnxcore50/IdentityServer4.AccessTokenValidation.dll": {}
         }
       },
       "Microsoft.AspNet.Antiforgery/1.0.0-rc1-final": {
@@ -4171,7 +4173,7 @@
           "lib/net451/IdentityModel.AspNet.OAuth2Introspection.dll": {}
         }
       },
-      "IdentityModel.AspNet.ScopeValidation/1.0.0-beta1": {
+      "IdentityModel.AspNet.ScopeValidation/1.0.0-beta2": {
         "type": "package",
         "dependencies": {
           "Microsoft.AspNet.Http.Abstractions": "1.0.0-rc1-final"
@@ -4189,11 +4191,12 @@
           "lib/net451/IdentityModel.AspNet.ScopeValidation.dll": {}
         }
       },
-      "IdentityServer4.AccessTokenValidation/1.0.0-alpha2": {
+      "IdentityServer4.AccessTokenValidation/1.0.0-beta1": {
         "type": "package",
         "dependencies": {
           "IdentityModel.AspNet.OAuth2Introspection": "1.0.0-beta2",
-          "IdentityModel.AspNet.ScopeValidation": "1.0.0-beta1"
+          "IdentityModel.AspNet.ScopeValidation": "1.0.0-beta2",
+          "Microsoft.AspNet.Authentication.JwtBearer": "1.0.0-rc1-final"
         },
         "frameworkAssemblies": [
           "Microsoft.CSharp",
@@ -4202,10 +4205,10 @@
           "System.Core"
         ],
         "compile": {
-          "lib/net451/IdentityServer4.AccessTokenValidation.dll": {}
+          "lib/dnx451/IdentityServer4.AccessTokenValidation.dll": {}
         },
         "runtime": {
-          "lib/net451/IdentityServer4.AccessTokenValidation.dll": {}
+          "lib/dnx451/IdentityServer4.AccessTokenValidation.dll": {}
         }
       },
       "Microsoft.AspNet.Antiforgery/1.0.0-rc1-final": {
@@ -5906,7 +5909,7 @@
           "lib/net451/IdentityModel.AspNet.OAuth2Introspection.dll": {}
         }
       },
-      "IdentityModel.AspNet.ScopeValidation/1.0.0-beta1": {
+      "IdentityModel.AspNet.ScopeValidation/1.0.0-beta2": {
         "type": "package",
         "dependencies": {
           "Microsoft.AspNet.Http.Abstractions": "1.0.0-rc1-final"
@@ -5924,11 +5927,12 @@
           "lib/net451/IdentityModel.AspNet.ScopeValidation.dll": {}
         }
       },
-      "IdentityServer4.AccessTokenValidation/1.0.0-alpha2": {
+      "IdentityServer4.AccessTokenValidation/1.0.0-beta1": {
         "type": "package",
         "dependencies": {
           "IdentityModel.AspNet.OAuth2Introspection": "1.0.0-beta2",
-          "IdentityModel.AspNet.ScopeValidation": "1.0.0-beta1"
+          "IdentityModel.AspNet.ScopeValidation": "1.0.0-beta2",
+          "Microsoft.AspNet.Authentication.JwtBearer": "1.0.0-rc1-final"
         },
         "frameworkAssemblies": [
           "Microsoft.CSharp",
@@ -5937,10 +5941,10 @@
           "System.Core"
         ],
         "compile": {
-          "lib/net451/IdentityServer4.AccessTokenValidation.dll": {}
+          "lib/dnx451/IdentityServer4.AccessTokenValidation.dll": {}
         },
         "runtime": {
-          "lib/net451/IdentityServer4.AccessTokenValidation.dll": {}
+          "lib/dnx451/IdentityServer4.AccessTokenValidation.dll": {}
         }
       },
       "Microsoft.AspNet.Antiforgery/1.0.0-rc1-final": {
@@ -7648,7 +7652,7 @@
           "lib/dotnet5.4/IdentityModel.AspNet.OAuth2Introspection.dll": {}
         }
       },
-      "IdentityModel.AspNet.ScopeValidation/1.0.0-beta1": {
+      "IdentityModel.AspNet.ScopeValidation/1.0.0-beta2": {
         "type": "package",
         "dependencies": {
           "Microsoft.AspNet.Http.Abstractions": "1.0.0-rc1-final",
@@ -7665,17 +7669,18 @@
           "lib/dotnet5.4/IdentityModel.AspNet.ScopeValidation.dll": {}
         }
       },
-      "IdentityServer4.AccessTokenValidation/1.0.0-alpha2": {
+      "IdentityServer4.AccessTokenValidation/1.0.0-beta1": {
         "type": "package",
         "dependencies": {
           "IdentityModel.AspNet.OAuth2Introspection": "1.0.0-beta2",
-          "IdentityModel.AspNet.ScopeValidation": "1.0.0-beta1"
+          "IdentityModel.AspNet.ScopeValidation": "1.0.0-beta2",
+          "Microsoft.AspNet.Authentication.JwtBearer": "1.0.0-rc1-final"
         },
         "compile": {
-          "lib/dotnet5.4/IdentityServer4.AccessTokenValidation.dll": {}
+          "lib/dnxcore50/IdentityServer4.AccessTokenValidation.dll": {}
         },
         "runtime": {
-          "lib/dotnet5.4/IdentityServer4.AccessTokenValidation.dll": {}
+          "lib/dnxcore50/IdentityServer4.AccessTokenValidation.dll": {}
         }
       },
       "Microsoft.AspNet.Antiforgery/1.0.0-rc1-final": {
@@ -10435,7 +10440,7 @@
           "lib/dotnet5.4/IdentityModel.AspNet.OAuth2Introspection.dll": {}
         }
       },
-      "IdentityModel.AspNet.ScopeValidation/1.0.0-beta1": {
+      "IdentityModel.AspNet.ScopeValidation/1.0.0-beta2": {
         "type": "package",
         "dependencies": {
           "Microsoft.AspNet.Http.Abstractions": "1.0.0-rc1-final",
@@ -10452,17 +10457,18 @@
           "lib/dotnet5.4/IdentityModel.AspNet.ScopeValidation.dll": {}
         }
       },
-      "IdentityServer4.AccessTokenValidation/1.0.0-alpha2": {
+      "IdentityServer4.AccessTokenValidation/1.0.0-beta1": {
         "type": "package",
         "dependencies": {
           "IdentityModel.AspNet.OAuth2Introspection": "1.0.0-beta2",
-          "IdentityModel.AspNet.ScopeValidation": "1.0.0-beta1"
+          "IdentityModel.AspNet.ScopeValidation": "1.0.0-beta2",
+          "Microsoft.AspNet.Authentication.JwtBearer": "1.0.0-rc1-final"
         },
         "compile": {
-          "lib/dotnet5.4/IdentityServer4.AccessTokenValidation.dll": {}
+          "lib/dnxcore50/IdentityServer4.AccessTokenValidation.dll": {}
         },
         "runtime": {
-          "lib/dotnet5.4/IdentityServer4.AccessTokenValidation.dll": {}
+          "lib/dnxcore50/IdentityServer4.AccessTokenValidation.dll": {}
         }
       },
       "Microsoft.AspNet.Antiforgery/1.0.0-rc1-final": {
@@ -13201,12 +13207,12 @@
         "lib/net451/IdentityModel.AspNet.OAuth2Introspection.xml"
       ]
     },
-    "IdentityModel.AspNet.ScopeValidation/1.0.0-beta1": {
+    "IdentityModel.AspNet.ScopeValidation/1.0.0-beta2": {
       "type": "package",
-      "sha512": "x2lwCYtOXHKQG6UFS/zJmxmTrZj5iBIfXpGoF4G1hvZ3FZm1ucI2flCNoPEDc0p/xr32UYwlQ8rrcOO8E5INtw==",
+      "sha512": "vvm8O27hUHv0voUK5YH6Pa0IslnHIP0xvF5cIFRjhrbmtz7LTvSKMJrnxV8vxModdcPpeW33Kl6A+HgVOt10qw==",
       "files": [
-        "IdentityModel.AspNet.ScopeValidation.1.0.0-beta1.nupkg",
-        "IdentityModel.AspNet.ScopeValidation.1.0.0-beta1.nupkg.sha512",
+        "IdentityModel.AspNet.ScopeValidation.1.0.0-beta2.nupkg",
+        "IdentityModel.AspNet.ScopeValidation.1.0.0-beta2.nupkg.sha512",
         "IdentityModel.AspNet.ScopeValidation.nuspec",
         "lib/dotnet5.4/IdentityModel.AspNet.ScopeValidation.dll",
         "lib/dotnet5.4/IdentityModel.AspNet.ScopeValidation.xml",
@@ -13214,17 +13220,17 @@
         "lib/net451/IdentityModel.AspNet.ScopeValidation.xml"
       ]
     },
-    "IdentityServer4.AccessTokenValidation/1.0.0-alpha2": {
+    "IdentityServer4.AccessTokenValidation/1.0.0-beta1": {
       "type": "package",
-      "sha512": "g7M/B24cMW/aV0Ry6vKrico7iAFWhHYyADbQJn6SCtihkEysXsxzJ1+ySmsqj5zkk9p1kdFFsmpSjmNJQW7PAQ==",
+      "sha512": "Xw6WKuRx3HNXZvZDAuKt3c+kH8ewA25nmElMw1gI9S31FARO/kQhJCpfYe2/Zq2r61VJpp50kDlYiqIDyglHvQ==",
       "files": [
-        "IdentityServer4.AccessTokenValidation.1.0.0-alpha2.nupkg",
-        "IdentityServer4.AccessTokenValidation.1.0.0-alpha2.nupkg.sha512",
+        "IdentityServer4.AccessTokenValidation.1.0.0-beta1.nupkg",
+        "IdentityServer4.AccessTokenValidation.1.0.0-beta1.nupkg.sha512",
         "IdentityServer4.AccessTokenValidation.nuspec",
-        "lib/dotnet5.4/IdentityServer4.AccessTokenValidation.dll",
-        "lib/dotnet5.4/IdentityServer4.AccessTokenValidation.xml",
-        "lib/net451/IdentityServer4.AccessTokenValidation.dll",
-        "lib/net451/IdentityServer4.AccessTokenValidation.xml"
+        "lib/dnx451/IdentityServer4.AccessTokenValidation.dll",
+        "lib/dnx451/IdentityServer4.AccessTokenValidation.xml",
+        "lib/dnxcore50/IdentityServer4.AccessTokenValidation.dll",
+        "lib/dnxcore50/IdentityServer4.AccessTokenValidation.xml"
       ]
     },
     "Microsoft.AspNet.Antiforgery/1.0.0-rc1-final": {
@@ -18319,7 +18325,7 @@
       "Microsoft.Extensions.Logging.Console >= 1.0.0-rc1-final",
       "Microsoft.Extensions.Logging.Debug >= 1.0.0-rc1-final",
       "Microsoft.AspNet.Authentication.JwtBearer >= 1.0.0-rc1-final",
-      "IdentityServer4.AccessTokenValidation >= 1.0.0-alpha2",
+      "IdentityServer4.AccessTokenValidation >= 1.0.0-beta1",
       "Microsoft.AspNet.Authorization >= 1.0.0-rc1-final",
       "Constants "
     ],
