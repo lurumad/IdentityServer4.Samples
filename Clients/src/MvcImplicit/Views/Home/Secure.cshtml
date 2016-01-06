@@ -1,2 +1,9 @@
-﻿
-<h1>Secure</h1>
+﻿<h1>Secure</h1>
+
+<dl>
+    @foreach (var claim in User.Claims)
+    {
+        <dt>@claim.Type</dt>
+        <dd>@claim.Value</dd>
+    }
+</dl>
