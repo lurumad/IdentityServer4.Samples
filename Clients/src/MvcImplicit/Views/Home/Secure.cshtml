@@ -1,9 +1,15 @@
 ﻿<h1>Secure</h1>
 
-<dl>
-    @foreach (var claim in User.Claims)
-    {
-        <dt>@claim.Type</dt>
-        <dd>@claim.Value</dd>
-    }
-</dl>
+<div>
+    <a href="~/home/callapi">Call API</a>
+</div>
+
+<div>
+    <dl>
+        @foreach (var claim in User.Claims)
+        {
+            <dt>@claim.Type</dt>
+            <dd>@claim.Value</dd>
+        }
+    </dl>
+</div>

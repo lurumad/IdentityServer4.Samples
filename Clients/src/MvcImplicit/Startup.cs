@@ -59,11 +59,12 @@ namespace MvcImplicit
                 options.RequireHttpsMetadata = false;
 
                 options.ClientId = "mvc_implicit";
-                options.ResponseType = "id_token";
+                options.ResponseType = "id_token token";
 
                 options.Scope.Add("profile");
                 options.Scope.Add("email");
                 options.Scope.Add("roles");
+                options.Scope.Add("api1");
 
                 options.TokenValidationParameters.NameClaimType = "name";
                 options.TokenValidationParameters.RoleClaimType = "role";

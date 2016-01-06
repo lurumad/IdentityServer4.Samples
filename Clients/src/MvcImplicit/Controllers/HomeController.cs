@@ -1,6 +1,9 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.AspNet.Mvc;
 using Microsoft.AspNet.Authorization;
+using System.Net.Http;
+using Clients;
+using Newtonsoft.Json.Linq;
 
 namespace MvcImplicit.Controllers
 {
@@ -14,6 +17,20 @@ namespace MvcImplicit.Controllers
         [Authorize]
         public IActionResult Secure()
         {
+            return View();
+        }
+
+        [Authorize]
+        public async Task<IActionResult> CallApi()
+        {
+            var token = User.FindFirst("access_token").Value;
+
+            var client = new HttpClient();
+            client.SetBearerToken(token);
+
+            var response = await client.GetStringAsync(Constants.AspNetWebApiSampleApi + "identity");
+            ViewBag.Json = JArray.Parse(response).ToString();
+
             return View();
         }
 

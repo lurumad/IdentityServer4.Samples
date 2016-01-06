@@ -2,6 +2,7 @@
 using Microsoft.AspNet.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using System.IdentityModel.Tokens.Jwt;
 
 namespace SampleApi
 {
@@ -37,6 +38,7 @@ namespace SampleApi
 
             app.UseIISPlatformHandler();
 
+            JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
             app.UseIdentityServerAuthentication(options =>
             {
                 options.Authority = Clients.Constants.BaseAddress;

@@ -20,7 +20,8 @@
     "Microsoft.Extensions.Logging.Debug": "1.0.0-rc1-final",
     "Microsoft.VisualStudio.Web.BrowserLink.Loader": "14.0.0-rc1-final",
     "Microsoft.AspNet.Authentication.Cookies": "1.0.0-rc1-final",
-    "Microsoft.AspNet.Authentication.OpenIdConnect": "1.0.0-rc1-final"
+    "Microsoft.AspNet.Authentication.OpenIdConnect": "1.0.0-rc1-final",
+    "IdentityModel": "2.0.0-alpha2"
   },
 
   "commands": {
