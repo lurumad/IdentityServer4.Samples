@@ -11,24 +11,6 @@ namespace SampleApi
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
-
-            //var scopePolicy = new AuthorizationPolicyBuilder()
-            //    .RequireAuthenticatedUser()
-            //    .RequireClaim("scope", "calendar.read", "calendar.readwrite")
-            //    .Build();
-
-            //services.AddMvc(options =>
-            //{
-            //    options.Filters.Add(new AuthorizeFilter(scopePolicy));
-            //});
-
-            //services.AddAuthorization(options =>
-            //{
-            //    options.AddPolicy("read",
-            //        policy => policy.RequireClaim("scope", "calendar.read"));
-            //    options.AddPolicy("readwrite",
-            //        policy => policy.RequireClaim("scope", "calendar.readwrite"));
-            //});
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
@@ -37,6 +19,13 @@ namespace SampleApi
             loggerFactory.AddDebug();
 
             app.UseIISPlatformHandler();
+
+            app.UseCors(policy =>
+            {
+                policy.WithOrigins("http://localhost:28895");
+                policy.AllowAnyHeader();
+                policy.AllowAnyMethod();
+            });
 
             JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
             app.UseIdentityServerAuthentication(options =>
@@ -47,11 +36,7 @@ namespace SampleApi
 
                 options.AutomaticAuthenticate = true;
                 options.AutomaticChallenge = true;
-
-                options.SaveTokenAsClaim = true;
             });
-
-            //app.AllowScopes("calendar.read", "calendar.readwrite");
 
             app.UseMvc();
         }
