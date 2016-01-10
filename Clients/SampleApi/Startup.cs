@@ -22,7 +22,7 @@ namespace SampleApi
 
             app.UseCors(policy =>
             {
-                policy.WithOrigins("http://localhost:28895");
+                policy.WithOrigins("http://localhost:28895", "http://localhost:7017");
                 policy.AllowAnyHeader();
                 policy.AllowAnyMethod();
             });
