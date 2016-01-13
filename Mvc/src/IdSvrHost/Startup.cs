@@ -26,7 +26,7 @@ namespace IdSvrHost2
 
         public void ConfigureServices(IServiceCollection services)
         {
-            var cert = new X509Certificate2(Path.Combine(_environment.ApplicationBasePath, "idsrv3test.pfx"), "idsrv3test");
+            var cert = new X509Certificate2(Path.Combine(_environment.ApplicationBasePath, "idsrv4test.pfx"), "idsrv3test");
 
             var builder = services.AddIdentityServer(options =>
             {
