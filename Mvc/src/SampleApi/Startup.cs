@@ -22,10 +22,7 @@ namespace SampleApi
 
             app.UseCors(policy =>
             {
-                policy.WithOrigins(
-                    "http://localhost:28895", 
-                    "http://localhost:7017");
-
+                policy.WithOrigins("http://localhost:28895", "http://localhost:7017");
                 policy.AllowAnyHeader();
                 policy.AllowAnyMethod();
             });
@@ -33,7 +30,7 @@ namespace SampleApi
             JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
             app.UseIdentityServerAuthentication(options =>
             {
-                options.Authority = Clients.Constants.BaseAddress;
+                options.Authority = "http://localhost:22530/";
                 options.ScopeName = "api1";
                 options.ScopeSecret = "secret";
 

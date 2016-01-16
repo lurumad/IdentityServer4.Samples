@@ -55,12 +55,11 @@ namespace MvcImplicit
                 options.SignInScheme = "cookies";
                 options.AutomaticChallenge = true;
 
-                options.Authority = Clients.Constants.BaseAddress;
+                options.Authority = "http://localhost:22530/";
                 options.RequireHttpsMetadata = false;
 
                 options.ClientId = "mvc_implicit";
                 options.ResponseType = "id_token token";
-                options.SaveTokensAsClaims = true;
 
                 options.Scope.Add("profile");
                 options.Scope.Add("email");
