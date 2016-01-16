@@ -60,6 +60,7 @@ namespace MvcImplicit
 
                 options.ClientId = "mvc_implicit";
                 options.ResponseType = "id_token token";
+                options.SaveTokensAsClaims = true;
 
                 options.Scope.Add("profile");
                 options.Scope.Add("email");
