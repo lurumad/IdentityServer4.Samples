@@ -1,8 +1,10 @@
 ﻿using Microsoft.AspNet.Builder;
 using Microsoft.AspNet.Hosting;
+using Microsoft.AspNet.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
 
 namespace SampleApi
 {
@@ -10,7 +12,16 @@ namespace SampleApi
     {
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc();
+            services
+                .AddMvcCore()
+                .AddJsonFormatters()
+                .AddAuthorization();
+
+            services.AddWebEncoders();
+            services.AddCors();
+
+            services.AddTransient<ClaimsPrincipal>(
+                s => s.GetService<IHttpContextAccessor>().HttpContext.User);
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
@@ -44,7 +55,6 @@ namespace SampleApi
             app.UseMvc();
         }
 
-        // Entry point for the application.
         public static void Main(string[] args) => WebApplication.Run<Startup>(args);
     }
 }
