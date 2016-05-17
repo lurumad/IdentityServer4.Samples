@@ -35,12 +35,11 @@ namespace ConsoleResourceOwnerFlowUserInfo
                 token);
 
             var response = client.GetAsync().Result;
-            var identity = response.GetClaimsIdentity();
 
             "\n\nUser claims:".ConsoleGreen();
-            foreach (var claim in identity.Claims)
+            foreach (var claim in response.Claims)
             {
-                Console.WriteLine("{0}\n {1}", claim.Type, claim.Value);
+                Console.WriteLine("{0}\n {1}", claim.Item1, claim.Item2);
             }
         }
 
