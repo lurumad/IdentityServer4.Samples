@@ -2,7 +2,7 @@
 {
     public class Constants
     {
-        public const string BaseAddress = "http://localhost:22530";
+        public const string BaseAddress = "http://localhost:1941";
 
         public const string AuthorizeEndpoint = BaseAddress + "/connect/authorize";
         public const string LogoutEndpoint = BaseAddress + "/connect/endsession";
@@ -12,6 +12,7 @@
         public const string TokenRevocationEndpoint = BaseAddress + "/connect/revocation";
         public const string IntrospectionEndpoint = BaseAddress + "/connect/introspect";
 
-        public const string AspNetWebApiSampleApi = "http://localhost:3860/";
+        public const string AspNetWebApiSampleApi = "http://localhost:3721/";
+        //public const string AspNetWebApiSampleApi = "http://localhost:5000/";
     }
 }

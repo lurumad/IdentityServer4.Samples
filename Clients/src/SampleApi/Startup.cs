@@ -38,9 +38,9 @@ namespace SampleApi
 
             app.UseJwtBearerAuthentication(new JwtBearerOptions
             {
+                RequireHttpsMetadata = false,
                 Authority = Clients.Constants.BaseAddress,
                 Audience = Clients.Constants.BaseAddress + "/resources",
-
                 AutomaticAuthenticate = true
             });
 

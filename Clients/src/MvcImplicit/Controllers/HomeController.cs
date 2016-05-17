@@ -4,6 +4,7 @@ using Clients;
 using Newtonsoft.Json.Linq;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http.Features.Authentication;
 
 namespace MvcImplicit.Controllers
 {
@@ -23,7 +24,9 @@ namespace MvcImplicit.Controllers
         [Authorize]
         public async Task<IActionResult> CallApi()
         {
-            var token = User.FindFirst("access_token").Value;
+            var authCtx = new AuthenticateContext("cookies");
+            await HttpContext.Authentication.AuthenticateAsync(authCtx);
+            var token = authCtx.Properties[".Token.access_token"];
 
             var client = new HttpClient();
             client.SetBearerToken(token);

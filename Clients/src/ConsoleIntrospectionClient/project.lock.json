@@ -1949,7 +1949,7 @@
   },
   "libraries": {
     "IdentityModel/2.0.0-alpha6": {
-      "sha512": "FZ+2bK5U+5XsTzYyRsiNSoA1Y2M9CzpSWSSJfd9TGDa664zHa6QJ5bURVjjhwGgPrJCLNYTUbYTzj1uqBrzJiQ==",
+      "sha512": "RCqb8tIDFcYoI16arDVJyxbZLfzIiZX2tuLp1LifLIhNw8dJdRINqumoqSRERG4lzLEihWBt7xNSKe/hCKjuXw==",
       "type": "package",
       "files": [
         "IdentityModel.2.0.0-alpha6.nupkg.sha512",

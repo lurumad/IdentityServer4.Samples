@@ -12,6 +12,7 @@ namespace MvcImplicit
         public Startup(IHostingEnvironment env)
         {
             var builder = new ConfigurationBuilder()
+                .SetBasePath(env.ContentRootPath)
                 .AddJsonFile("appsettings.json")
                 .AddEnvironmentVariables();
             Configuration = builder.Build();
@@ -58,6 +59,7 @@ namespace MvcImplicit
                 RequireHttpsMetadata = false,
                 ClientId = "mvc_implicit",
                 ResponseType = "id_token token",
+                SaveTokens = true
             };
 
             oidcOptions.Scope.Clear();
