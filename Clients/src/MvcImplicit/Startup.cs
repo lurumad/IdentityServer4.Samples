@@ -1,5 +1,5 @@
-﻿using Microsoft.AspNet.Builder;
-using Microsoft.AspNet.Hosting;
+﻿using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -39,46 +39,36 @@ namespace MvcImplicit
                 app.UseExceptionHandler("/Home/Error");
             }
 
-            app.UseIISPlatformHandler();
             app.UseStaticFiles();
 
-            app.UseCookieAuthentication(options =>
+            app.UseCookieAuthentication(new CookieAuthenticationOptions
             {
-                options.AuthenticationScheme = "cookies";
-                options.AutomaticAuthenticate = true;
+                AuthenticationScheme = "cookies",
+                AutomaticAuthenticate = true
             });
 
             JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
-            app.UseOpenIdConnectAuthentication(options =>
+
+            var oidcOptions = new OpenIdConnectOptions
             {
-                options.AuthenticationScheme = "oidc";
-                options.SignInScheme = "cookies";
-                options.AutomaticChallenge = true;
+                AuthenticationScheme = "oidc",
+                SignInScheme = "cookies",
 
-                options.Authority = Clients.Constants.BaseAddress;
-                options.RequireHttpsMetadata = false;
+                Authority = Clients.Constants.BaseAddress,
+                RequireHttpsMetadata = false,
+                ClientId = "mvc_implicit",
+                ResponseType = "id_token token",
+            };
 
-                options.ClientId = "mvc_implicit";
-                options.ResponseType = "id_token token";
-                options.SaveTokensAsClaims = true;
+            oidcOptions.Scope.Clear();
+            oidcOptions.Scope.Add("openid");
+            oidcOptions.Scope.Add("email");
+            oidcOptions.Scope.Add("roles");
+            oidcOptions.Scope.Add("api1");
 
-                options.Scope.Add("profile");
-                options.Scope.Add("email");
-                options.Scope.Add("roles");
-                options.Scope.Add("api1");
+            app.UseOpenIdConnectAuthentication(oidcOptions);
 
-                options.TokenValidationParameters.NameClaimType = "name";
-                options.TokenValidationParameters.RoleClaimType = "role";
-            });
-
-            app.UseMvc(routes =>
-            {
-                routes.MapRoute(
-                    name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
-            });
+            app.UseMvcWithDefaultRoute();
         }
-
-        public static void Main(string[] args) => WebApplication.Run<Startup>(args);
     }
 }
