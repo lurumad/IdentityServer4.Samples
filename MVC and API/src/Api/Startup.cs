@@ -1,8 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Mvc.Authorization;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 
 namespace Api
@@ -11,35 +8,22 @@ namespace Api
     {
         public void ConfigureServices(IServiceCollection services)
         {
-            var scopePolicy = new AuthorizationPolicyBuilder()
-                .RequireClaim("scope", "api1")
-                .Build();
-
-            services.AddMvcCore(setup =>
-            {
-                setup.Filters.Add(new AuthorizeFilter(scopePolicy));
-            })
-            .AddJsonFormatters()
-            .AddAuthorization();
+            services.AddMvcCore()
+                .AddJsonFormatters()
+                .AddAuthorization();
         }
 
         public void Configure(IApplicationBuilder app)
         {
             JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
 
-            app.UseJwtBearerAuthentication(new JwtBearerOptions
+            app.UseIdentityServerAuthentication(new IdentityServerAuthenticationOptions
             {
                 Authority = "http://localhost:5000",
-                Audience = "http://localhost:5000/resources",
                 RequireHttpsMetadata = false,
 
-                AutomaticAuthenticate = true,
-
-                TokenValidationParameters = new TokenValidationParameters
-                {
-                    NameClaimType = "name",
-                    RoleClaimType = "role"
-                }
+                ScopeName = "api1",
+                AutomaticAuthenticate = true
             });
 
             app.UseMvc();

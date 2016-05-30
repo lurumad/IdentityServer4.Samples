@@ -64,8 +64,8 @@ namespace Host
             {
                 AuthenticationScheme = "Google",
                 SignInScheme = "Temp",
-                ClientId = "998042782978-s07498t8i8jas7npj4crve1skpromf37.apps.googleusercontent.com",
-                ClientSecret = "HsnwJri_53zn7VcO1Fm7THBb"
+                ClientId = "434483408261-55tc8n0cs4ff1fe21ea8df2o443v2iuc.apps.googleusercontent.com",
+                ClientSecret = "3gcoTrEDPPJ0ukn_aYYT6PWo"
             });
 
             app.UseIdentityServer();
