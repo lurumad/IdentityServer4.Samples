@@ -36,11 +36,13 @@ namespace SampleApi
 
             JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
 
-            app.UseJwtBearerAuthentication(new JwtBearerOptions
+            app.UseIdentityServerAuthentication(new IdentityServerAuthenticationOptions
             {
+                Authority = "http://localhost:1941",
                 RequireHttpsMetadata = false,
-                Authority = Clients.Constants.BaseAddress,
-                Audience = Clients.Constants.BaseAddress + "/resources",
+
+                ScopeName = "api1",
+                ScopeSecret = "secret",
                 AutomaticAuthenticate = true
             });
 

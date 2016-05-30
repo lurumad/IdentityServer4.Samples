@@ -10,7 +10,7 @@
       "type": "platform",
       "version": "1.0.0-rc2-3002702"
     },
-    "IdentityModel": "2.0.0-alpha6",
+    "IdentityModel": "2.0.0-beta3",
     "Constants": "*"
   },
 
