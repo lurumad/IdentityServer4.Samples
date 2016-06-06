@@ -1,5 +1,4 @@
 ﻿using Host.Configuration;
-using Host.Extensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -23,18 +22,11 @@ namespace Host
         {
             var cert = new X509Certificate2(Path.Combine(_environment.ContentRootPath, "idsrv3test.pfx"), "idsrv3test");
 
-            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-            var builder = services.AddIdentityServer(options =>
-            {
-                options.SigningCertificate = cert;
-            });
-
-            builder.AddInMemoryClients(Clients.Get());
-            builder.AddInMemoryScopes(Scopes.Get());
-            builder.AddInMemoryUsers(Users.Get());
-
-            builder.AddCustomGrantValidator<CustomGrantValidator>();
-
+            var builder = services.AddIdentityServer()
+                .SetSigningCredentials(cert)
+                .AddInMemoryClients(Clients.Get())
+                .AddInMemoryScopes(Scopes.Get())
+                .AddInMemoryUsers(Users.Get());
 
             // for the UI
             services
