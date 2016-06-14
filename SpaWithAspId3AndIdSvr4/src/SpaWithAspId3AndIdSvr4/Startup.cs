@@ -18,6 +18,7 @@ using SpaWithAspId3AndIdSvr4.Configuration;
 using IdentityServer4.Services;
 using IdentityModel;
 using Microsoft.AspNetCore.Identity;
+using System.IdentityModel.Tokens.Jwt;
 
 namespace SpaWithAspId3AndIdSvr4
 {
@@ -108,6 +109,7 @@ namespace SpaWithAspId3AndIdSvr4
 
             app.UseIdentityServer();
 
+            JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
             app.UseJwtBearerAuthentication(new JwtBearerOptions {
                 Authority = "http://localhost:1861",
                 Audience = "http://localhost:1861/resources",
