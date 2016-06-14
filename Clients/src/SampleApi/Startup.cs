@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using System;
 using System.IdentityModel.Tokens.Jwt;
 
 namespace SampleApi
@@ -21,8 +22,13 @@ namespace SampleApi
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
-            loggerFactory.AddConsole();
-            loggerFactory.AddDebug();
+            Func<string, LogLevel, bool> filter = (scope, level) => 
+                scope.StartsWith("Microsoft.AspNetCore.Authentication") || 
+                scope.StartsWith("IdentityServer") ||
+                scope.StartsWith("IdentityModel");
+
+            loggerFactory.AddConsole(filter);
+            loggerFactory.AddDebug(filter);
 
             app.UseCors(policy =>
             {
