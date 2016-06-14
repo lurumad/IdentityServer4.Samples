@@ -11,6 +11,8 @@ namespace SampleApi
     {
         public static void Main(string[] args)
         {
+            Console.Title = "Sample API";
+
             var host = new WebHostBuilder()
                 .UseKestrel()
                 .UseUrls("http://localhost:3721")
