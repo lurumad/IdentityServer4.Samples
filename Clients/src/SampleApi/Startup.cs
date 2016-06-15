@@ -18,12 +18,14 @@ namespace SampleApi
 
             services.AddWebEncoders();
             services.AddCors();
+            services.AddDistributedMemoryCache();
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
             Func<string, LogLevel, bool> filter = (scope, level) => 
                 scope.StartsWith("Microsoft.AspNetCore.Authentication") || 
+                scope.StartsWith("Microsoft.AspNetCore.Authorization") ||
                 scope.StartsWith("IdentityServer") ||
                 scope.StartsWith("IdentityModel");
 
@@ -46,6 +48,8 @@ namespace SampleApi
             {
                 Authority = "http://localhost:1941",
                 RequireHttpsMetadata = false,
+
+                EnableCaching = true,
 
                 ScopeName = "api1",
                 ScopeSecret = "secret",
