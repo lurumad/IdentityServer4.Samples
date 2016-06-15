@@ -1,0 +1,29 @@
+﻿@model IdentityServer4.Models.ErrorMessage
+
+@{
+    var error_description = Model?.ErrorDescription ?? "Sorry, there was an unexpected error.";
+    var error_code = Model?.ErrorCode;
+    var request_id = Model?.RequestId;
+}
+
+<div class="page-header">
+    <h1>Error</h1>
+</div>
+
+<div class="row">
+    <div class="col-sm-6">
+        <div class="alert alert-danger">
+            @if (error_code != null)
+            {
+                <strong><em>@error_code</em></strong>
+            }
+
+            @error_description
+        </div>
+
+        @if (request_id != null)
+        {
+            <div>Request Id: @request_id</div>
+        }
+    </div>
+</div>

@@ -1,0 +1,84 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+</head>
+<body>
+    <div>
+        <button id="login">Login</button>
+        <button id="api">Call API</button>
+    </div>
+    <pre id="out"></pre>
+    <script src="oidc-client.js"></script>
+    <script>
+        //Oidc.Log.logger = console;
+
+        var settings = {
+            authority: "http://localhost:1861",
+            client_id: "spa",
+            redirect_uri: "http://localhost:1861/spa/callback.html",
+            response_type: "id_token token",
+            scope:"openid profile api.todo"
+        };
+        var mgr = new Oidc.UserManager(settings);
+        var user;
+
+        mgr.getUser().then(function (u) {
+            if (u) {
+                log("User loaded", u);
+                user = u;
+            }
+            else {
+                log("no user loaded");
+            }
+        });
+
+        document.getElementById("login").addEventListener("click", login, false);
+        document.getElementById("api").addEventListener("click", callAPI, false);
+
+        function login() {
+            mgr.signinRedirect().then(function () {
+                log("redirecting for login...");
+            })
+            .catch(function (er) {
+                log("Sign-in error", er);
+            });
+        }
+
+        function callAPI() {
+            var xhr = new XMLHttpRequest();
+            xhr.open("GET", "/api/test");
+            xhr.onload = function () {
+                log("API Response: " + xhr.status, JSON.parse(xhr.responseText || "{}"));
+            };
+            xhr.onerror = function () {
+                log("API error");
+            }
+            if (user) {
+                xhr.setRequestHeader("Authorization", "Bearer " + user.access_token);
+            }
+            xhr.send();
+        }
+
+
+        function log() {
+            document.getElementById('out').innerText = '';
+
+            Array.prototype.forEach.call(arguments, function (msg) {
+                if (msg instanceof Error) {
+                    msg = "Error: " + msg.message;
+                }
+                else if (typeof msg !== 'string') {
+                    msg = JSON.stringify(msg, null, 2);
+                }
+                document.getElementById('out').innerHTML += msg + '\r\n';
+            });
+        }
+
+
+
+    </script>
+
+</body>
+</html>
