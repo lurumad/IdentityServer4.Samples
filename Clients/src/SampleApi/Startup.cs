@@ -27,7 +27,9 @@ namespace SampleApi
                 scope.StartsWith("Microsoft.AspNetCore.Authentication") || 
                 scope.StartsWith("Microsoft.AspNetCore.Authorization") ||
                 scope.StartsWith("IdentityServer") ||
-                scope.StartsWith("IdentityModel");
+                scope.StartsWith("IdentityModel") ||
+                level == LogLevel.Error ||
+                level == LogLevel.Critical;
 
             loggerFactory.AddConsole(filter);
             loggerFactory.AddDebug(filter);
