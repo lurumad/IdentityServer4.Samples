@@ -40,10 +40,16 @@ namespace ConsoleResourceOwnerFlowReference
             };
 
             client.SetBearerToken(token);
-            var response = client.GetStringAsync("identity").Result;
 
-            "\n\nService claims:".ConsoleGreen();
-            Console.WriteLine(JArray.Parse(response));
+            while (true)
+            {
+                var response = client.GetStringAsync("identity").Result;
+
+                "\n\nService claims:".ConsoleGreen();
+                Console.WriteLine(JArray.Parse(response));
+
+                Console.ReadLine();
+            }
         }
 
         private static void ShowResponse(TokenResponse response)
