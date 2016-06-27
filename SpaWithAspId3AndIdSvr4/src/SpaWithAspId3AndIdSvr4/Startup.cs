@@ -58,7 +58,7 @@ namespace SpaWithAspId3AndIdSvr4
             })
             .AddInMemoryClients(Clients.Get())
             .AddInMemoryScopes(Scopes.Get())
-            .SetSigningCredentials(cert);
+            .SetSigningCredential(cert);
 
             services.AddTransient<IProfileService, AspIdProfileService>();
 
@@ -94,7 +94,6 @@ namespace SpaWithAspId3AndIdSvr4
             {
                 app.UseDeveloperExceptionPage();
                 app.UseDatabaseErrorPage();
-                app.UseBrowserLink();
             }
             else
             {
