@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using System;
 using System.IO;
 using System.Security.Cryptography.X509Certificates;
 
@@ -40,8 +41,14 @@ namespace Host
 
         public void Configure(IApplicationBuilder app, ILoggerFactory loggerFactory)
         {
-            loggerFactory.AddConsole(LogLevel.Trace);
-            loggerFactory.AddDebug(LogLevel.Trace);
+            Func<string, LogLevel, bool> filter = (scope, level) =>
+                scope.StartsWith("IdentityServer") ||
+                scope.StartsWith("IdentityModel") ||
+                level == LogLevel.Error ||
+                level == LogLevel.Critical;
+
+            loggerFactory.AddConsole(filter);
+            loggerFactory.AddDebug(filter);
 
             app.UseDeveloperExceptionPage();
 
