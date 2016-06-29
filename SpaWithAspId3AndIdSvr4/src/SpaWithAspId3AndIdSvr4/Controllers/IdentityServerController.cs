@@ -20,25 +20,21 @@ namespace SpaWithAspId3AndIdSvr4.Controllers
     {
         private readonly SignInInteraction _signInInteraction;
         private readonly ErrorInteraction _errorInteraction;
-        private readonly IOptions<CookieAuthenticationOptions> _cookieOptions;
 
         public IdentityServerController(
             SignInInteraction signInInteraction,
-            ErrorInteraction errorInteraction,
-            IOptions<CookieAuthenticationOptions> cookieOptions)
+            ErrorInteraction errorInteraction)
         {
             _signInInteraction = signInInteraction;
             _errorInteraction = errorInteraction;
-            _cookieOptions = cookieOptions;
         }
 
         [HttpGet(Constants.RoutePaths.Login)]
         public IActionResult Login(string id)
         {
             // no easy way to find out the path to login page (Challenge doesn't always work)
-            var url = _cookieOptions.Value.LoginPath.ToString();
-            if (String.IsNullOrWhiteSpace(url)) url = "/Account/Login";
-            url += "?" + _cookieOptions.Value.ReturnUrlParameter + "=" + UrlEncoder.Default.Encode("/IdentityServer/LoginComplete?id=" + id);
+            var url = "/Account/Login";
+            url += "?returnUrl=" + UrlEncoder.Default.Encode("/IdentityServer/LoginComplete?id=" + id);
             return Redirect(url);
         }
 
