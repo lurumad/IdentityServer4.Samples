@@ -5,7 +5,6 @@ using Newtonsoft.Json.Linq;
 using System;
 using System.Net.Http;
 using System.Text;
-using IdentityModel.Extensions;
 
 namespace ConsoleResourceOwnerFlowRefreshToken
 {

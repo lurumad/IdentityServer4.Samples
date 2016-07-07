@@ -9,8 +9,10 @@
       "type": "platform",
       "version": "1.0.0"
     },
-    "IdentityModel": "2.0.0-beta3",
-    "Constants": "*"
+    "IdentityModel": "2.0.0-*",
+    "Constants": {
+      "target": "project"
+    }
   },
 
   "frameworks": {
