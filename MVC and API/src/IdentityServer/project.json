@@ -35,9 +35,11 @@
     "preserveCompilationContext": true
   },
 
-  "runtimeOptions": {
-    "gcServer": true
-  },
+   "runtimeOptions": {
+     "configProperties": {
+       "System.GC.Server": true
+     }
+   },
 
   "publishOptions": {
     "include": [
