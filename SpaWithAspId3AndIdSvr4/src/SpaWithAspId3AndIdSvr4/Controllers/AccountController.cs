@@ -125,6 +125,15 @@ namespace SpaWithAspId3AndIdSvr4.Controllers
             return View(model);
         }
 
+        // GET: /Account/Logout
+        [HttpGet]
+        public async Task<IActionResult> Logout()
+        {
+            await _signInManager.SignOutAsync();
+            _logger.LogInformation(4, "User logged out.");
+            return RedirectToAction(nameof(HomeController.Index), "Home");
+        }
+
         //
         // POST: /Account/LogOff
         [HttpPost]

@@ -48,17 +48,13 @@ namespace SpaWithAspId3AndIdSvr4
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            var cert = new X509Certificate2(Path.Combine(Environment.ContentRootPath, "idsrvtest.pfx"), "idsrv3test");
-            var builder = services.AddIdentityServer(options=>
+            var builder = services.AddIdentityServer(options =>
             {
-                options.AuthenticationOptions = new IdentityServer4.Configuration.AuthenticationOptions
-                {
-                    PrimaryAuthenticationScheme = "Cookies"
-                };
+                options.AuthenticationOptions.AuthenticationScheme = "Cookies";
             })
             .AddInMemoryClients(Clients.Get())
             .AddInMemoryScopes(Scopes.Get())
-            .SetSigningCredential(cert);
+            .SetTemporarySigningCredential();
 
             services.AddTransient<IProfileService, AspIdProfileService>();
 
@@ -112,8 +108,6 @@ namespace SpaWithAspId3AndIdSvr4
             app.UseJwtBearerAuthentication(new JwtBearerOptions {
                 Authority = "http://localhost:1861",
                 Audience = "http://localhost:1861/resources",
-                AutomaticAuthenticate = true,
-                AuthenticationScheme = "Bearer",
                 RequireHttpsMetadata = false
             });
 

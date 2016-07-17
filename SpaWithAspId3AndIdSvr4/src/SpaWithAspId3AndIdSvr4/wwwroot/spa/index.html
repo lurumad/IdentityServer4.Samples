@@ -8,6 +8,7 @@
     <div>
         <button id="login">Login</button>
         <button id="api">Call API</button>
+        <button id="logout">Logout</button>
     </div>
     <pre id="out"></pre>
     <script src="oidc-client.js"></script>
@@ -36,6 +37,7 @@
 
         document.getElementById("login").addEventListener("click", login, false);
         document.getElementById("api").addEventListener("click", callAPI, false);
+        document.getElementById("logout").addEventListener("click", logout, false);
 
         function login() {
             mgr.signinRedirect().then(function () {
@@ -59,6 +61,15 @@
                 xhr.setRequestHeader("Authorization", "Bearer " + user.access_token);
             }
             xhr.send();
+        }
+
+        function logout() {
+            mgr.signoutRedirect().then(function () {
+                log("redirecting for logout...");
+            })
+            .catch(function (er) {
+                log("Sign-out error", er);
+            });
         }
 
 

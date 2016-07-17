@@ -3,7 +3,7 @@
 
   "dependencies": {
     "Microsoft.AspNetCore.Authentication.JwtBearer": "1.0.0",
-    "IdentityServer4": "1.0.0-beta4-update1",
+    "IdentityServer4": "1.0.0-beta5",
     "Microsoft.NETCore.App": {
       "version": "1.0.0",
       "type": "platform"
