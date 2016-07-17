@@ -3,8 +3,15 @@ using System.Net.Http;
 using Clients;
 using Newtonsoft.Json.Linq;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http.Features.Authentication;
+using IdentityModel.Client;
+using System.Collections.Generic;
+using Microsoft.IdentityModel.Protocols.OpenIdConnect;
+using System;
+using System.Globalization;
+using Microsoft.AspNetCore.Http.Authentication;
 
 namespace MvcImplicit.Controllers
 {
@@ -21,26 +28,9 @@ namespace MvcImplicit.Controllers
             return View();
         }
 
-        [Authorize]
-        public async Task<IActionResult> CallApi()
+        public IActionResult Logout()
         {
-            var authCtx = new AuthenticateContext("cookies");
-            await HttpContext.Authentication.AuthenticateAsync(authCtx);
-            var token = authCtx.Properties[".Token.access_token"];
-
-            var client = new HttpClient();
-            client.SetBearerToken(token);
-
-            var response = await client.GetStringAsync(Constants.AspNetWebApiSampleApi + "identity");
-            ViewBag.Json = JArray.Parse(response).ToString();
-
-            return View();
-        }
-
-        public async Task<IActionResult> Logout()
-        {
-            await HttpContext.Authentication.SignOutAsync("cookies");
-            return Redirect("~/");
+            return new SignOutResult(new string[] { "oidc", "cookies" }, new AuthenticationProperties { RedirectUri = "/" });
         }
 
         public IActionResult Error()
