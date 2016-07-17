@@ -21,13 +21,19 @@ namespace Host
 
         public void ConfigureServices(IServiceCollection services)
         {
-            var cert = new X509Certificate2(Path.Combine(_environment.ContentRootPath, "idsrv3test.pfx"), "idsrv3test");
+            var cert = new X509Certificate2(Path.Combine(_environment.ContentRootPath, "idsvr3test.pfx"), "idsrv3test");
 
-            var builder = services.AddIdentityServer()
-                .SetSigningCredential(cert)
-                .AddInMemoryClients(Clients.Get())
-                .AddInMemoryScopes(Scopes.Get())
-                .AddInMemoryUsers(Users.Get());
+            var builder = services.AddIdentityServer(options=>
+            {
+                options.UserInteractionOptions.LoginUrl = "/ui/login";
+                options.UserInteractionOptions.LogoutUrl = "/ui/logout";
+                options.UserInteractionOptions.ConsentUrl = "/ui/consent";
+                options.UserInteractionOptions.ErrorUrl = "/ui/error";
+            })
+            .SetSigningCredential(cert)
+            .AddInMemoryClients(Clients.Get())
+            .AddInMemoryScopes(Scopes.Get())
+            .AddInMemoryUsers(Users.Get());
 
             // for the UI
             services
