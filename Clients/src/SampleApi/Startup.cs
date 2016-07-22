@@ -21,7 +21,7 @@ namespace SampleApi
             services.AddDistributedMemoryCache();
         }
 
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
+        public void Configure(IApplicationBuilder app, ILoggerFactory loggerFactory)
         {
             Func<string, LogLevel, bool> filter = (scope, level) => 
                 scope.StartsWith("Microsoft.AspNetCore.Authentication") || 
@@ -43,8 +43,6 @@ namespace SampleApi
                 policy.AllowAnyHeader();
                 policy.AllowAnyMethod();
             });
-
-            JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
 
             app.UseIdentityServerAuthentication(new IdentityServerAuthenticationOptions
             {
