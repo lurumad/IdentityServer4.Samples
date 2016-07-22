@@ -51,10 +51,12 @@ namespace MvcHybrid.Controllers
 
             if (!tokenResult.IsError)
             {
+                var old_id_token = await HttpContext.Authentication.GetTokenAsync("id_token");
                 var new_access_token = tokenResult.AccessToken;
                 var new_refresh_token = tokenResult.RefreshToken;
 
                 var tokens = new List<AuthenticationToken>();
+                tokens.Add(new AuthenticationToken { Name = OpenIdConnectParameterNames.IdToken, Value = old_id_token });
                 tokens.Add(new AuthenticationToken { Name = OpenIdConnectParameterNames.AccessToken, Value = new_access_token });
                 tokens.Add(new AuthenticationToken { Name = OpenIdConnectParameterNames.RefreshToken, Value = new_refresh_token });
 
