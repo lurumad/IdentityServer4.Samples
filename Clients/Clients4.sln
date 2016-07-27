@@ -42,7 +42,7 @@ Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Mvc Hybrid", "src\MvcHybrid
 EndProject
 Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Console ResourceOwner Flow Public", "src\ConsoleResourceOwnerFlowPublic\Console ResourceOwner Flow Public.xproj", "{8648122C-EE91-4B3B-98CD-355C3F1B9FDF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Console Hybrid Flow with PKCE", "ConsoleHybridFlowWithPkce\Console Hybrid Flow with PKCE.csproj", "{47C6EA6C-7DBA-4F06-9165-295EAD3829C9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Console Hybrid Flow with PKCE", "src\ConsoleHybridFlowWithPkce\Console Hybrid Flow with PKCE.csproj", "{47C6EA6C-7DBA-4F06-9165-295EAD3829C9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
