@@ -97,6 +97,8 @@
             // wouldn't care about them or want them taking up space
             filterProtocolClaims: false
         };
+        Oidc.Log.level = Oidc.Log.NONE;
+        Oidc.Log.logger = window.console;
 
         var mgr = new Oidc.UserManager(config);
 
@@ -109,6 +111,9 @@
         });
         mgr.events.addSilentRenewError(function (err) {
             display("#response", { message: "Silent renew error: " +  err.message});
+        });
+        mgr.events.addUserSignedOut(function () {
+            display("#response", { message: "User signed out of OP" });
         });
 
         function display(selector, data) {
@@ -126,7 +131,6 @@
                 if (user) {
                     display("#id-token", user.profile || "");
                     display("#access-token", user.access_token && { access_token: user.access_token, expires_in: user.expires_in } || "");
-                    checkSessionState();
                 }
                 else {
                     display("#response", { message: "Not logged in"});
@@ -204,34 +208,6 @@
 
         document.querySelector(".call").addEventListener("click", callApi, false);
         document.querySelector(".logout").addEventListener("click", logout, false);
-
-        function checkSessionState() {
-            mgr.metadataService.getCheckSessionIframe().then(function (check_session_iframe) {
-                mgr.getUser().then(function (user) {
-                    if (check_session_iframe && user.session_state) {
-                        document.getElementById("rp").src = "check_session.html#" +
-                            "session_state=" + user.session_state +
-                            "&check_session_iframe=" + check_session_iframe +
-                            "&client_id=" + mgr.settings.client_id
-                        ;
-                    }
-                    else {
-                        document.getElementById("rp").src = "about:blank";
-                    }
-                });
-            });
-        }
-        window.onmessage = function (e) {
-            if (e.origin === window.location.protocol + "//" + window.location.host && e.data === "changed") {
-                mgr.removeUser().then(function () {
-                    mgr.signinSilent().then(function (user) {
-                        console.log("renewTokenSilentAsync success");
-                    }).catch(function () {
-                        console.log("renewTokenSilentAsync failed");
-                    });
-                });
-            }
-        }
     </script>
 
     <iframe id="rp" style="display:none"></iframe>
