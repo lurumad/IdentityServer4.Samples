@@ -46,7 +46,7 @@ namespace ConsoleIntrospectionClient
                 if (result.IsActive)
                 {
                     result.Claims.ToList().ForEach(c => Console.WriteLine("{0}: {1}",
-                        c.Item1, c.Item2));
+                        c.Type, c.Value));
                 }
                 else
                 {

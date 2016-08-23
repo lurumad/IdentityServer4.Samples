@@ -30,7 +30,7 @@ namespace ConsoleResourceOwnerFlowUserInfo
         static void GetClaims(string token)
         {
             var client = new UserInfoClient(
-                new Uri(Constants.UserInfoEndpoint),
+                Constants.UserInfoEndpoint,
                 token);
 
             var response = client.GetAsync().Result;
@@ -38,7 +38,7 @@ namespace ConsoleResourceOwnerFlowUserInfo
             "\n\nUser claims:".ConsoleGreen();
             foreach (var claim in response.Claims)
             {
-                Console.WriteLine("{0}\n {1}", claim.Item1, claim.Item2);
+                Console.WriteLine("{0}\n {1}", claim.Type, claim.Value);
             }
         }
 
@@ -63,12 +63,12 @@ namespace ConsoleResourceOwnerFlowUserInfo
             }
             else
             {
-                if (response.IsHttpError)
+                if (response.ErrorType == TokenResponse.ResponseErrorType.Http)
                 {
                     "HTTP error: ".ConsoleGreen();
-                    Console.WriteLine(response.HttpErrorStatusCode);
-                    "HTTP error reason: ".ConsoleGreen();
-                    Console.WriteLine(response.HttpErrorReason);
+                    Console.WriteLine(response.Error);
+                    "HTTP status code: ".ConsoleGreen();
+                    Console.WriteLine(response.HttpStatusCode);
                 }
                 else
                 {

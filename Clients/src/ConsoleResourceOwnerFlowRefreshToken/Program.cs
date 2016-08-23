@@ -91,12 +91,12 @@ namespace ConsoleResourceOwnerFlowRefreshToken
             }
             else
             {
-                if (response.IsHttpError)
+                if (response.ErrorType == TokenResponse.ResponseErrorType.Http)
                 {
                     "HTTP error: ".ConsoleGreen();
-                    Console.WriteLine(response.HttpErrorStatusCode);
-                    "HTTP error reason: ".ConsoleGreen();
-                    Console.WriteLine(response.HttpErrorReason);
+                    Console.WriteLine(response.Error);
+                    "HTTP status code: ".ConsoleGreen();
+                    Console.WriteLine(response.HttpStatusCode);
                 }
                 else
                 {
