@@ -52,8 +52,7 @@ namespace SampleApi
                 EnableCaching = true,
 
                 ScopeName = "api1",
-                ScopeSecret = "secret",
-                AutomaticAuthenticate = true
+                ScopeSecret = "secret"
             });
 
             app.UseMvc();
