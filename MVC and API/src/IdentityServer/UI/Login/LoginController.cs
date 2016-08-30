@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http.Authentication;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Linq;
+using System.Net;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
@@ -92,7 +93,7 @@ namespace Host.UI.Login
         {
             return new ChallengeResult(provider, new AuthenticationProperties
             {
-                RedirectUri = "/ui/external-callback?returnUrl=" + returnUrl
+                RedirectUri = "/ui/external-callback?returnUrl=" + WebUtility.UrlEncode(returnUrl)
             });
         }
 
@@ -133,12 +134,10 @@ namespace Host.UI.Login
 
             if (returnUrl != null)
             {
-                // todo: signin
-                //return new SignInResult(signInId);
+                return Redirect(returnUrl);
             }
 
             return Redirect("~/");
-
         }
     }
 }
