@@ -1,7 +1,7 @@
 ﻿using Host.Configuration;
+using IdentityServer4;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using System;
@@ -23,26 +23,14 @@ namespace Host
         {
             var cert = new X509Certificate2(Path.Combine(_environment.ContentRootPath, "idsvr3test.pfx"), "idsrv3test");
 
-            var builder = services.AddIdentityServer(options=>
-            {
-                options.UserInteractionOptions.LoginUrl = "/ui/login";
-                options.UserInteractionOptions.LogoutUrl = "/ui/logout";
-                options.UserInteractionOptions.ConsentUrl = "/ui/consent";
-                options.UserInteractionOptions.ErrorUrl = "/ui/error";
-            })
-            .SetSigningCredential(cert)
-            .AddInMemoryClients(Clients.Get())
-            .AddInMemoryScopes(Scopes.Get())
-            .AddInMemoryUsers(Users.Get());
+            services.AddMvc();
 
-            // for the UI
-            services
-                .AddMvc()
-                .AddRazorOptions(razor =>
-                {
-                    razor.ViewLocationExpanders.Add(new UI.CustomViewLocationExpander());
-                });
-            services.AddTransient<UI.Login.LoginService>();
+            var builder = services.AddIdentityServer()
+                .SetSigningCredential(cert)
+                .AddInMemoryStores()
+                .AddInMemoryClients(Clients.Get())
+                .AddInMemoryScopes(Scopes.Get())
+                .AddInMemoryUsers(Users.Get());
         }
 
         public void Configure(IApplicationBuilder app, ILoggerFactory loggerFactory)
@@ -60,7 +48,7 @@ namespace Host
 
             app.UseCookieAuthentication(new CookieAuthenticationOptions
             {
-                AuthenticationScheme = "Temp",
+                AuthenticationScheme = IdentityServerConstants.ExternalCookieAuthenticationScheme,
                 AutomaticAuthenticate = false,
                 AutomaticChallenge = false
             });
@@ -68,7 +56,7 @@ namespace Host
             app.UseGoogleAuthentication(new GoogleOptions
             {
                 AuthenticationScheme = "Google",
-                SignInScheme = "Temp",
+                SignInScheme = IdentityServerConstants.ExternalCookieAuthenticationScheme,
                 ClientId = "434483408261-55tc8n0cs4ff1fe21ea8df2o443v2iuc.apps.googleusercontent.com",
                 ClientSecret = "3gcoTrEDPPJ0ukn_aYYT6PWo"
             });

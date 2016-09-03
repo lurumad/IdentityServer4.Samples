@@ -1,38 +1,48 @@
-﻿using IdentityServer4;
+﻿// Copyright (c) Brock Allen & Dominick Baier. All rights reserved.
+// Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
+
 using IdentityServer4.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System.Linq;
 using System.Threading.Tasks;
 using IdentityServer4.Models;
+using IdentityServer4.Stores;
+using IdentityServer4.Quickstart.UI.Models;
 
-namespace Host.UI.Consent
+namespace IdentityServer4.Quickstart.UI.Controllers
 {
+    /// <summary>
+    /// This controller implements the consent logic
+    /// </summary>
     public class ConsentController : Controller
     {
         private readonly ILogger<ConsentController> _logger;
         private readonly IClientStore _clientStore;
-        private readonly IUserInteractionService _interaction;
         private readonly IScopeStore _scopeStore;
-        private readonly ILocalizationService _localization;
-
+        private readonly IIdentityServerInteractionService _interaction;
+        
         public ConsentController(
             ILogger<ConsentController> logger,
-            IUserInteractionService interaction,
+            IIdentityServerInteractionService interaction,
             IClientStore clientStore,
-            IScopeStore scopeStore,
-            ILocalizationService localization)
+            IScopeStore scopeStore)
         {
             _logger = logger;
             _interaction = interaction;
             _clientStore = clientStore;
             _scopeStore = scopeStore;
-            _localization = localization;
         }
 
-        [HttpGet("ui/consent", Name = "Consent")]
+        /// <summary>
+        /// Shows the consent screen
+        /// </summary>
+        /// <param name="returnUrl"></param>
+        /// <returns></returns>
+        [HttpGet]
         public async Task<IActionResult> Index(string returnUrl)
         {
+            // todo: check for valid return URL?
             var vm = await BuildViewModelAsync(returnUrl);
             if (vm != null)
             {
@@ -42,19 +52,26 @@ namespace Host.UI.Consent
             return View("Error");
         }
 
-        [HttpPost("ui/consent")]
+        /// <summary>
+        /// Handles the consent screen postback
+        /// </summary>
+        [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Index(string button, ConsentInputModel model)
+        public async Task<IActionResult> Index(ConsentInputModel model)
         {
-            var request = await _interaction.GetConsentContextAsync(model.ReturnUrl);
+            // parse the return URL back to an AuthorizeRequest object
+            var request = await _interaction.GetAuthorizationContextAsync(model.ReturnUrl);
             ConsentResponse response = null;
 
-            if (button == "no")
+            // user clicked 'no' - send back the standard 'access_denied' response
+            if (model.Button == "no")
             {
                 response = ConsentResponse.Denied;
             }
-            else if (button == "yes" && model != null)
+            // user clicked 'yes' - validate the data
+            else if (model.Button == "yes" && model != null)
             {
+                // if the user consented to some scope, build the response model
                 if (model.ScopesConsented != null && model.ScopesConsented.Any())
                 {
                     response = new ConsentResponse
@@ -75,7 +92,11 @@ namespace Host.UI.Consent
 
             if (response != null)
             {
+                // communicate outcome of consent back to identityserver
                 await _interaction.GrantConsentAsync(request, response);
+
+                // todo: check for valid return URL?
+                // redirect back to authorization endpoint
                 return Redirect(model.ReturnUrl);
             }
 
@@ -88,49 +109,32 @@ namespace Host.UI.Consent
             return View("Error");
         }
 
-        //async Task<IActionResult> BuildConsentResponse(string id, string[] scopesConsented, bool rememberConsent)
-        //{
-        //    if (id != null)
-        //    {
-        //        var request = await _interaction.GetRequestAsync(id);
-        //    }
-
-        //    return View("Error");
-        //}
-
         async Task<ConsentViewModel> BuildViewModelAsync(string returnUrl, ConsentInputModel model = null)
         {
-            if (returnUrl != null)
+            var request = await _interaction.GetAuthorizationContextAsync(returnUrl);
+            if (request != null)
             {
-                var request = await _interaction.GetConsentContextAsync(returnUrl);
-                if (request != null)
+                var client = await _clientStore.FindClientByIdAsync(request.ClientId);
+                if (client != null)
                 {
-                    var client = await _clientStore.FindClientByIdAsync(request.ClientId);
-                    if (client != null)
+                    var scopes = await _scopeStore.FindScopesAsync(request.ScopesRequested);
+                    if (scopes != null && scopes.Any())
                     {
-                        var scopes = await _scopeStore.FindScopesAsync(request.ScopesRequested);
-                        if (scopes != null && scopes.Any())
-                        {
-                            return new ConsentViewModel(model, returnUrl, request, client, scopes, _localization);
-                        }
-                        else
-                        {
-                            _logger.LogError("No scopes matching: {0}", request.ScopesRequested.Aggregate((x, y) => x + ", " + y));
-                        }
+                        return new ConsentViewModel(model, returnUrl, request, client, scopes);
                     }
                     else
                     {
-                        _logger.LogError("Invalid client id: {0}", request.ClientId);
+                        _logger.LogError("No scopes matching: {0}", request.ScopesRequested.Aggregate((x, y) => x + ", " + y));
                     }
                 }
                 else
                 {
-                    _logger.LogError("No consent request matching id: {0}", returnUrl);
+                    _logger.LogError("Invalid client id: {0}", request.ClientId);
                 }
             }
             else
             {
-                _logger.LogError("No returnUrl passed");
+                _logger.LogError("No consent request matching request: {0}", returnUrl);
             }
 
             return null;

@@ -1,14 +1,15 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using IdentityServer4.Extensions;
-using IdentityServer4.Models;
-using IdentityServer4.Services;
+﻿// Copyright (c) Brock Allen & Dominick Baier. All rights reserved.
+// Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
 
-namespace Host.UI.Consent
+using System.Collections.Generic;
+using System.Linq;
+using IdentityServer4.Models;
+
+namespace IdentityServer4.Quickstart.UI.Models
 {
     public class ConsentViewModel : ConsentInputModel
     {
-        public ConsentViewModel(ConsentInputModel model, string returnUrl, AuthorizationRequest request, Client client, IEnumerable<Scope> scopes, ILocalizationService localization)
+        public ConsentViewModel(ConsentInputModel model, string returnUrl, AuthorizationRequest request, Client client, IEnumerable<Scope> scopes)
         {
             RememberConsent = model?.RememberConsent ?? true;
             ScopesConsented = model?.ScopesConsented ?? Enumerable.Empty<string>();
@@ -20,8 +21,8 @@ namespace Host.UI.Consent
             ClientLogoUrl = client.LogoUri;
             AllowRememberConsent = client.AllowRememberConsent;
 
-            IdentityScopes = scopes.Where(x => x.Type == ScopeType.Identity).Select(x => new ScopeViewModel(localization, x, ScopesConsented.Contains(x.Name) || model == null)).ToArray();
-            ResourceScopes = scopes.Where(x => x.Type == ScopeType.Resource).Select(x => new ScopeViewModel(localization, x, ScopesConsented.Contains(x.Name) || model == null)).ToArray();
+            IdentityScopes = scopes.Where(x => x.Type == ScopeType.Identity).Select(x => new ScopeViewModel(x, ScopesConsented.Contains(x.Name) || model == null)).ToArray();
+            ResourceScopes = scopes.Where(x => x.Type == ScopeType.Resource).Select(x => new ScopeViewModel(x, ScopesConsented.Contains(x.Name) || model == null)).ToArray();
         }
 
         public string ClientName { get; set; }
@@ -35,11 +36,11 @@ namespace Host.UI.Consent
 
     public class ScopeViewModel
     {
-        public ScopeViewModel(ILocalizationService localization, Scope scope, bool check)
+        public ScopeViewModel(Scope scope, bool check)
         {
             Name = scope.Name;
-            DisplayName = localization.GetScopeDisplayName(scope.Name) ?? scope.DisplayName;
-            Description = localization.GetScopeDescription(scope.Name) ?? scope.Description;
+            DisplayName = scope.DisplayName;
+            Description = scope.Description;
             Emphasize = scope.Emphasize;
             Required = scope.Required;
             Checked = check || scope.Required;
