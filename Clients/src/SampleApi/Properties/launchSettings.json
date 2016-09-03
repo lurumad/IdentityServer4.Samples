@@ -17,7 +17,6 @@
     },
     "SampleApi": {
       "commandName": "Project",
-      "launchBrowser": true,
       "launchUrl": "http://localhost:3721",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"

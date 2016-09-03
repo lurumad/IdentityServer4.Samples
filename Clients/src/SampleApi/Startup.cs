@@ -49,7 +49,7 @@ namespace SampleApi
                 Authority = "http://localhost:1941",
                 RequireHttpsMetadata = false,
 
-                EnableCaching = true,
+                EnableCaching = false,
 
                 ScopeName = "api1",
                 ScopeSecret = "secret"
