@@ -30,6 +30,7 @@ namespace Api
             services.AddApplicationInsightsTelemetry(Configuration);
 
             services.AddMvcCore()
+                .AddAuthorization()
                 .AddJsonFormatters();
         }
 

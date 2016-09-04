@@ -24,6 +24,7 @@ namespace MvcClient.Controllers
 
         public async Task Logout()
         {
+            await HttpContext.Authentication.SignOutAsync("Cookies");
             await HttpContext.Authentication.SignOutAsync("oidc");
         }
 
