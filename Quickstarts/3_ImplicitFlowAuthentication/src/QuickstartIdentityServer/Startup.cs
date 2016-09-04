@@ -23,7 +23,7 @@ namespace QuickstartIdentityServer
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
-            loggerFactory.AddConsole();
+            loggerFactory.AddConsole(LogLevel.Debug);
             app.UseDeveloperExceptionPage();
 
             app.UseIdentityServer();
