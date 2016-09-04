@@ -46,12 +46,7 @@ namespace IdentityServerWithAspNetIdentity
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
-            services.AddIdentity<ApplicationUser, IdentityRole>(options =>
-            {
-                options.ClaimsIdentity.UserIdClaimType = JwtClaimTypes.Subject;
-                options.ClaimsIdentity.UserNameClaimType = JwtClaimTypes.Name;
-                options.ClaimsIdentity.RoleClaimType = JwtClaimTypes.Role;
-            })
+            services.AddIdentity<ApplicationUser, IdentityRole>()
             .AddEntityFrameworkStores<ApplicationDbContext>()
             .AddDefaultTokenProviders();
 
@@ -64,11 +59,7 @@ namespace IdentityServerWithAspNetIdentity
             services.AddIdentityServerQuickstart()
                 .AddInMemoryScopes(Config.GetScopes())
                 .AddInMemoryClients(Config.GetClients())
-                .AddAspNetIdentity()
-                .AddResourceOwnerValidator<ResourceOwnerPasswordValidator>();
-           
-            services.AddTransient<IProfileService, AspNetIdentityProfileService>();
-            
+                .AddAspNetIdentity<ApplicationUser>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
