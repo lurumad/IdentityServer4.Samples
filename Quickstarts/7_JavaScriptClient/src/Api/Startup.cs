@@ -28,6 +28,7 @@ namespace Api
         {
             services.AddCors(options=>
             {
+                // this defines a CORS policy called "default"
                 options.AddPolicy("default", policy =>
                 {
                     policy.WithOrigins("http://localhost:5003")
@@ -46,6 +47,7 @@ namespace Api
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
 
+            // this uses the policy called "default"
             app.UseCors("default");
 
             app.UseIdentityServerAuthentication(new IdentityServerAuthenticationOptions
