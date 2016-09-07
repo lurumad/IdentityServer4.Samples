@@ -23,7 +23,7 @@ namespace QuickstartIdentityServer
 
             var connectionString = @"server=(localdb)\mssqllocaldb;database=IdentityServer4;trusted_connection=yes";
             var migrationsAssembly = typeof(Startup).GetTypeInfo().Assembly.GetName().Name;
-            
+
             // configure identity server with in-memory users, but EF stores for clients and scopes
             services.AddIdentityServerQuickstart()
                 .AddInMemoryUsers(Config.GetUsers())
@@ -37,11 +37,11 @@ namespace QuickstartIdentityServer
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
-            loggerFactory.AddConsole(LogLevel.Debug);
-            app.UseDeveloperExceptionPage();
-
             // this will do the initial DB population
             InitializeDatabase(app);
+
+            loggerFactory.AddConsole(LogLevel.Debug);
+            app.UseDeveloperExceptionPage();
 
             app.UseIdentityServer();
 
