@@ -3,7 +3,7 @@
 
   "dependencies": {
     "IdentityServer4": "1.0.0-rc1-update2",
-    "IdentityServer4.AspNetIdentity": "1.0.0-rc1-update1",
+    "IdentityServer4.AspNetIdentity": "1.0.0-rc1-update2",
 
     "Microsoft.NETCore.App": {
       "version": "1.0.0",
