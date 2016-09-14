@@ -1,11 +1,11 @@
-api:
+identityserver:
     build: .
-    dockerfile: docker-api.dockerfile
-    container_name: api
+    dockerfile: docker-identityserver.dockerfile
+    container_name: identityserver
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
     ports:
-      - "1773:1773"
+      - "5000:5000"
 
 client:
     build: .
@@ -16,11 +16,14 @@ client:
     ports:
       - "3308:3308"
 
-identityserver:
+api:
     build: .
-    dockerfile: docker-identityserver.dockerfile
-    container_name: identityserver
+    dockerfile: docker-api.dockerfile
+    container_name: api
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
+      - MVCAndAPISample_IdentityServer__Authority=http://identityserver:5000
     ports:
-      - "5000:5000"
+      - "1773:1773"
+    links:
+      - identityserver
