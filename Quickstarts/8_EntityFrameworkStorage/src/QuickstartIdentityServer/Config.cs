@@ -3,6 +3,7 @@
 
 using IdentityServer4.Models;
 using IdentityServer4.Quickstart;
+using IdentityServer4.Services.InMemory;
 using System.Collections.Generic;
 using System.Security.Claims;
 

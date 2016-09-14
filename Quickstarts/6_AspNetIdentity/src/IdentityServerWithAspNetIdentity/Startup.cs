@@ -56,7 +56,7 @@ namespace IdentityServerWithAspNetIdentity
             services.AddTransient<IEmailSender, AuthMessageSender>();
             services.AddTransient<ISmsSender, AuthMessageSender>();
 
-            services.AddIdentityServerQuickstart()
+            services.AddDeveloperIdentityServer()
                 .AddInMemoryScopes(Config.GetScopes())
                 .AddInMemoryClients(Config.GetClients())
                 .AddAspNetIdentity<ApplicationUser>();

@@ -13,7 +13,7 @@ namespace QuickstartIdentityServer
         public void ConfigureServices(IServiceCollection services)
         {
             // configure identity server with in-memory stores, keys, clients and scopes
-            services.AddIdentityServerQuickstart()
+            services.AddDeveloperIdentityServer()
                 .AddInMemoryScopes(Config.GetScopes())
                 .AddInMemoryClients(Config.GetClients())
                 .AddInMemoryUsers(Config.GetUsers());
