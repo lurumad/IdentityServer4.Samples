@@ -25,6 +25,7 @@ namespace AspNetCoreAuthentication
         {
             services.AddMvc();
             services.Configure<IdentityServerSettings>(_config.GetSection("IdentityServer"));
+            services.Configure<ApiSettings>(_config.GetSection("Api"));            
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory, IOptions<IdentityServerSettings> settings)

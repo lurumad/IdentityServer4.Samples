@@ -7,26 +7,28 @@ identityserver:
     ports:
       - "5000:5000"
 
-client:
-    build: .
-    dockerfile: docker-client.dockerfile
-    container_name: client
-    environment:
-      - ASPNETCORE_ENVIRONMENT=Development
-      - MVCAndAPISample_IdentityServer__Authority=http://identityserver:5000
-    ports:
-      - "3308:3308"
-    links:
-      - identityserver
-
 api:
     build: .
     dockerfile: docker-api.dockerfile
     container_name: api
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      - MVCAndAPISample_IdentityServer__Authority=http://identityserver:5000
+      - MVCAndAPISample_IdentityServer__Authority=http://localhost:5000
     ports:
       - "1773:1773"
     links:
-      - identityserver
+      - identityserver:localhost
+
+client:
+    build: .
+    dockerfile: docker-client.dockerfile
+    container_name: client
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - MVCAndAPISample_IdentityServer__Authority=http://localhost:5000
+      - MVCAndAPISample_Api__BaseAddress=http://api:1773
+    ports:
+      - "3308:3308"
+    links:
+      - identityserver:localhost
+      - api

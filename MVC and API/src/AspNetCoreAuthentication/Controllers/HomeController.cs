@@ -5,11 +5,20 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using Newtonsoft.Json.Linq;
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.Extensions.Options;
+using System;
 
 namespace AspNetCoreAuthentication.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly IOptions<ApiSettings> _apiSettings;
+
+        public HomeController (IOptions<ApiSettings> apiSettings)
+        {
+            _apiSettings = apiSettings;
+        }
+
         public IActionResult Index()
         {
             return View();
@@ -28,10 +37,14 @@ namespace AspNetCoreAuthentication.Controllers
         public async Task<IActionResult> CallApi()
         {
             var accessToken = await HttpContext.Authentication.GetTokenAsync("access_token");
-            var client = new HttpClient();
+            var client = new HttpClient 
+            {
+                BaseAddress = new Uri(_apiSettings.Value.BaseAddress)
+            };
+            
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
 
-            var response = await client.GetStringAsync("http://localhost:1773/claims");
+            var response = await client.GetStringAsync("/claims");
             ViewBag.Json = JArray.Parse(response).ToString();
 
             return View();
