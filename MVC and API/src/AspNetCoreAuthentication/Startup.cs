@@ -3,17 +3,31 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using System.IdentityModel.Tokens.Jwt;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Options;
 
 namespace AspNetCoreAuthentication
 {
     public class Startup
     {
+        private readonly IConfiguration _config;
+
+        public Startup(IHostingEnvironment hostEnv)
+        {
+            _config = new ConfigurationBuilder()
+                .SetBasePath(hostEnv.WebRootPath)    
+                .AddJsonFile("config.json")
+                .AddEnvironmentVariables("MVCAndAPISample")
+                .Build();
+        }
+        
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
+            services.Configure<IdentityServerSettings>(_config);
         }
 
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory, IOptions<IdentityServerSettings> settings)
         {
             JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
 
@@ -34,7 +48,7 @@ namespace AspNetCoreAuthentication
                 AuthenticationScheme = "oidc",
                 SignInScheme = "Cookies",
 
-                Authority = "http://localhost:5000",
+                Authority = settings.Value.Authority,
                 RequireHttpsMetadata = false,
                 PostLogoutRedirectUri = "http://localhost:3308/",
                 ClientId = "mvc",

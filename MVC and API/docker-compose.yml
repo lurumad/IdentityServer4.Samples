@@ -13,8 +13,11 @@ client:
     container_name: client
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
+      - MVCAndAPISample_IdentityServer__Authority=http://identityserver:5000
     ports:
       - "3308:3308"
+    links:
+      - identityserver
 
 api:
     build: .
