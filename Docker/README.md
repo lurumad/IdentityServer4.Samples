@@ -12,3 +12,5 @@ These should be all you need. After getting these, `cd` into this folder and run
 ![](./.media/Screenshot-2016-09-15-10.43.05.png)
 
 From this point on, you can visit `http://localhost:3308/` on your browser to follow the example.
+
+For questions and feedback - contact @tugberkugurlu
