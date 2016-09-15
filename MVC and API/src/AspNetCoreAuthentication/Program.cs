@@ -9,7 +9,7 @@ namespace AspNetCoreAuthentication
         {
             var host = new WebHostBuilder()
                 .UseKestrel()
-                .UseUrls("http://localhost:3308")
+                .UseUrls("http://0.0.0.0:3308")
                 .UseContentRoot(Directory.GetCurrentDirectory())
                 .UseIISIntegration()
                 .UseStartup<Startup>()

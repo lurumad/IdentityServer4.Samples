@@ -1,0 +1,9 @@
+{
+    "IdentityServer": {
+        "Authority": "http://localhost:5000"
+    },
+
+    "Api": {
+        "BaseAddress": "http://localhost:1773"
+    }
+}
