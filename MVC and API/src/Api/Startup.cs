@@ -12,11 +12,11 @@ namespace Api
         private readonly IConfiguration _config;
 
         public Startup(IHostingEnvironment hostEnv)
-        {
+        {   
             _config = new ConfigurationBuilder()
-                .SetBasePath(hostEnv.WebRootPath)    
+                .SetBasePath(hostEnv.ContentRootPath)
                 .AddJsonFile("config.json")
-                .AddEnvironmentVariables("MVCAndAPISample")
+                .AddEnvironmentVariables("MVCAndAPISample_")
                 .Build();
         }
 
@@ -26,7 +26,7 @@ namespace Api
                 .AddJsonFormatters()
                 .AddAuthorization();
 
-            services.Configure<IdentityServerSettings>(_config);
+            services.Configure<IdentityServerSettings>(_config.GetSection("IdentityServer"));
         }
 
         public void Configure(IApplicationBuilder app, IOptions<IdentityServerSettings> settings)

@@ -15,16 +15,16 @@ namespace AspNetCoreAuthentication
         public Startup(IHostingEnvironment hostEnv)
         {
             _config = new ConfigurationBuilder()
-                .SetBasePath(hostEnv.WebRootPath)    
+                .SetBasePath(hostEnv.ContentRootPath)    
                 .AddJsonFile("config.json")
-                .AddEnvironmentVariables("MVCAndAPISample")
+                .AddEnvironmentVariables("MVCAndAPISample_")
                 .Build();
         }
         
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
-            services.Configure<IdentityServerSettings>(_config);
+            services.Configure<IdentityServerSettings>(_config.GetSection("IdentityServer"));
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory, IOptions<IdentityServerSettings> settings)
@@ -48,7 +48,7 @@ namespace AspNetCoreAuthentication
                 AuthenticationScheme = "oidc",
                 SignInScheme = "Cookies",
 
-                Authority = settings.Value.Authority,
+                Authority = settings.Value.Authority,                
                 RequireHttpsMetadata = false,
                 PostLogoutRedirectUri = "http://localhost:3308/",
                 ClientId = "mvc",
