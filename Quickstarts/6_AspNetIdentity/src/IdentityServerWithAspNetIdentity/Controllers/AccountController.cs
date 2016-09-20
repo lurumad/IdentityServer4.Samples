@@ -463,8 +463,8 @@ namespace IdentityServerWithAspNetIdentity.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Logout(LogoutViewModel model)
         {
-            // delete authentication cookie
-            await HttpContext.Authentication.SignOutAsync();
+            // delete authentication cookies
+            await _signInManager.SignOutAsync();
 
             // set this so UI rendering sees an anonymous user
             HttpContext.User = new ClaimsPrincipal(new ClaimsIdentity());
