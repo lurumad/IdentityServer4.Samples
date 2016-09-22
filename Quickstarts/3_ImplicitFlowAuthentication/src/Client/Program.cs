@@ -5,18 +5,15 @@ using IdentityModel.Client;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Net.Http;
+using System.Threading.Tasks;
 
 namespace Client
 {
     public class Program
     {
-        public static void Main(string[] args)
-        {
-            new Program().Start();
-            Console.ReadLine();
-        }
+        public static void Main(string[] args) => MainAsync().GetAwaiter().GetResult();
 
-        private async void Start()
+        private static async Task MainAsync()
         {
             // discover endpoints from metadata
             var disco = await DiscoveryClient.GetAsync("http://localhost:5000");
