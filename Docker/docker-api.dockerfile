@@ -1,4 +1,4 @@
-FROM microsoft/dotnet:1.0.0-preview2-onbuild
+FROM microsoft/dotnet:1.0.0-preview2-sdk
 
 COPY ./src/Api/project.json /app/
 COPY ./NuGet.Config /app/
