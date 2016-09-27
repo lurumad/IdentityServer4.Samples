@@ -43,7 +43,7 @@ namespace MvcImplicit
 
             app.UseCookieAuthentication(new CookieAuthenticationOptions
             {
-                AuthenticationScheme = "cookies",
+                AuthenticationScheme = "Cookies",
                 AutomaticAuthenticate = true,
                 ExpireTimeSpan = TimeSpan.FromMinutes(60)
             });
