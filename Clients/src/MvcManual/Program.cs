@@ -1,7 +1,7 @@
 ﻿using System.IO;
 using Microsoft.AspNetCore.Hosting;
 
-namespace MvcHybrid
+namespace MvcImplicit
 {
     public class Program
     {
@@ -9,7 +9,7 @@ namespace MvcHybrid
         {
             var host = new WebHostBuilder()
                 .UseKestrel()
-                .UseUrls("http://localhost:21402")
+                .UseUrls("http://localhost:44077")
                 .UseContentRoot(Directory.GetCurrentDirectory())
                 .UseIISIntegration()
                 .UseStartup<Startup>()

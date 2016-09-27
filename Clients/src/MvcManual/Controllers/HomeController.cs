@@ -11,7 +11,6 @@ namespace MvcImplicit.Controllers
             return View();
         }
 
-        [Authorize]
         public IActionResult Secure()
         {
             return View();
