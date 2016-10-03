@@ -40,6 +40,7 @@ namespace SampleApi
 
                 policy.AllowAnyHeader();
                 policy.AllowAnyMethod();
+                policy.WithExposedHeaders("WWW-Authenticate");
             });
 
             app.UseIdentityServerAuthentication(new IdentityServerAuthenticationOptions
