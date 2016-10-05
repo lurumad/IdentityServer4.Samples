@@ -23,8 +23,7 @@ namespace ConsoleResourceOwnerFlowPublic
         {
             var client = new TokenClient(
                 Constants.TokenEndpoint, 
-                "roclient.public",
-                AuthenticationStyle.PostValues);
+                "roclient.public");
 
             // idsrv supports additional non-standard parameters 
             // that get passed through to the user service
