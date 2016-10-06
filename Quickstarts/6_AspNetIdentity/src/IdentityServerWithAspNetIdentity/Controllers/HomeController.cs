@@ -36,9 +36,6 @@ namespace IdentityServerWithAspNetIdentity.Controllers
             return View();
         }
 
-        /// <summary>
-        /// Shows the error page
-        /// </summary>
         public async Task<IActionResult> Error(string errorId)
         {
             var vm = new ErrorViewModel();

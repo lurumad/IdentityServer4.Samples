@@ -20,7 +20,7 @@ namespace ResourceOwnerClient
 
             // request token
             var tokenClient = new TokenClient(disco.TokenEndpoint, "ro.client", "secret");
-            var tokenResponse = await tokenClient.RequestResourceOwnerPasswordAsync("alice@gmail.com", "Pass123$", "api1");
+            var tokenResponse = await tokenClient.RequestResourceOwnerPasswordAsync("brockallen@gmail.com", "Pass123$", "api1");
 
             if (tokenResponse.IsError)
             {
