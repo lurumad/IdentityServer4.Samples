@@ -8,13 +8,13 @@ using IdentityServer4.EntityFramework.DbContexts;
 namespace QuickstartIdentityServer.Migrations.ConfigurationDb
 {
     [DbContext(typeof(ConfigurationDbContext))]
-    [Migration("20160907201023_1-InitialIdentityServerMigration")]
-    partial class _1InitialIdentityServerMigration
+    [Migration("20161007164359_InitialIdentityServerMigration")]
+    partial class InitialIdentityServerMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
-                .HasAnnotation("ProductVersion", "1.0.0-rtm-21431")
+                .HasAnnotation("ProductVersion", "1.0.1")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
             modelBuilder.Entity("IdentityServer4.EntityFramework.Entities.Client", b =>
@@ -84,6 +84,9 @@ namespace QuickstartIdentityServer.Migrations.ConfigurationDb
                     b.Property<bool>("UpdateAccessTokenClaimsOnRefresh");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ClientId")
+                        .IsUnique();
 
                     b.ToTable("Clients");
                 });
@@ -285,6 +288,9 @@ namespace QuickstartIdentityServer.Migrations.ConfigurationDb
                     b.Property<int>("Type");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("Name")
+                        .IsUnique();
 
                     b.ToTable("Scopes");
                 });

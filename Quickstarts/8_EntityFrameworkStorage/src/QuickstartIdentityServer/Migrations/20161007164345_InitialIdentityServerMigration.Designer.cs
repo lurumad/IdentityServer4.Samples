@@ -8,13 +8,13 @@ using IdentityServer4.EntityFramework.DbContexts;
 namespace QuickstartIdentityServer.Migrations
 {
     [DbContext(typeof(PersistedGrantDbContext))]
-    [Migration("20160907201006_InitialIdentityServerMigration")]
+    [Migration("20161007164345_InitialIdentityServerMigration")]
     partial class InitialIdentityServerMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
-                .HasAnnotation("ProductVersion", "1.0.0-rtm-21431")
+                .HasAnnotation("ProductVersion", "1.0.1")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
             modelBuilder.Entity("IdentityServer4.EntityFramework.Entities.PersistedGrant", b =>
@@ -34,10 +34,15 @@ namespace QuickstartIdentityServer.Migrations
 
                     b.Property<DateTime>("Expiration");
 
-                    b.Property<string>("SubjectId")
-                        .IsRequired();
+                    b.Property<string>("SubjectId");
 
                     b.HasKey("Key", "Type");
+
+                    b.HasIndex("SubjectId");
+
+                    b.HasIndex("SubjectId", "ClientId");
+
+                    b.HasIndex("SubjectId", "ClientId", "Type");
 
                     b.ToTable("PersistedGrants");
                 });

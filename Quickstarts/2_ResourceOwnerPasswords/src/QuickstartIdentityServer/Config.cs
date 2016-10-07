@@ -33,14 +33,11 @@ namespace QuickstartIdentityServer
                     ClientId = "client",
                     AllowedGrantTypes = GrantTypes.ClientCredentials,
 
-                    ClientSecrets = new List<Secret>
+                    ClientSecrets =
                     {
                         new Secret("secret".Sha256())
                     },
-                    AllowedScopes = new List<string>
-                    {
-                        "api1"
-                    }
+                    AllowedScopes = { "api1" }
                 },
 
                 // resource owner password grant client
@@ -49,14 +46,11 @@ namespace QuickstartIdentityServer
                     ClientId = "ro.client",
                     AllowedGrantTypes = GrantTypes.ResourceOwnerPassword,
 
-                    ClientSecrets = new List<Secret>
+                    ClientSecrets = 
                     {
                         new Secret("secret".Sha256())
                     },
-                    AllowedScopes = new List<string>
-                    {
-                        "api1"
-                    }
+                    AllowedScopes = { "api1" }
                 }
             };
         }

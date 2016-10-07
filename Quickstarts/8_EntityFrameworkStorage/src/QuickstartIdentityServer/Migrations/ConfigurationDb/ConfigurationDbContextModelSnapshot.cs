@@ -13,7 +13,7 @@ namespace QuickstartIdentityServer.Migrations.ConfigurationDb
         protected override void BuildModel(ModelBuilder modelBuilder)
         {
             modelBuilder
-                .HasAnnotation("ProductVersion", "1.0.0-rtm-21431")
+                .HasAnnotation("ProductVersion", "1.0.1")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
             modelBuilder.Entity("IdentityServer4.EntityFramework.Entities.Client", b =>
@@ -83,6 +83,9 @@ namespace QuickstartIdentityServer.Migrations.ConfigurationDb
                     b.Property<bool>("UpdateAccessTokenClaimsOnRefresh");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ClientId")
+                        .IsUnique();
 
                     b.ToTable("Clients");
                 });
@@ -284,6 +287,9 @@ namespace QuickstartIdentityServer.Migrations.ConfigurationDb
                     b.Property<int>("Type");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("Name")
+                        .IsUnique();
 
                     b.ToTable("Scopes");
                 });

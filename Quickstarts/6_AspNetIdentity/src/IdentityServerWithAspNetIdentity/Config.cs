@@ -39,14 +39,11 @@ namespace QuickstartIdentityServer
                     ClientId = "client",
                     AllowedGrantTypes = GrantTypes.ClientCredentials,
 
-                    ClientSecrets = new List<Secret>
+                    ClientSecrets = 
                     {
                         new Secret("secret".Sha256())
                     },
-                    AllowedScopes = new List<string>
-                    {
-                        "api1"
-                    }
+                    AllowedScopes = { "api1" }
                 },
 
                 // resource owner password grant client
@@ -55,14 +52,11 @@ namespace QuickstartIdentityServer
                     ClientId = "ro.client",
                     AllowedGrantTypes = GrantTypes.ResourceOwnerPassword,
 
-                    ClientSecrets = new List<Secret>
+                    ClientSecrets = 
                     {
                         new Secret("secret".Sha256())
                     },
-                    AllowedScopes = new List<string>
-                    {
-                        "api1"
-                    }
+                    AllowedScopes = { "api1" }
                 },
 
                 // OpenID Connect hybrid flow and client credentials client (MVC)
@@ -74,21 +68,15 @@ namespace QuickstartIdentityServer
 
                     RequireConsent = true,
 
-                    ClientSecrets = new List<Secret>
+                    ClientSecrets = 
                     {
                         new Secret("secret".Sha256())
                     },
 
-                    RedirectUris = new List<string>
-                    {
-                        "http://localhost:5002/signin-oidc"
-                    },
-                    PostLogoutRedirectUris = new List<string>
-                    {
-                        "http://localhost:5002"
-                    },
+                    RedirectUris = { "http://localhost:5002/signin-oidc" },
+                    PostLogoutRedirectUris = { "http://localhost:5002" },
 
-                    AllowedScopes = new List<string>
+                    AllowedScopes =
                     {
                         StandardScopes.OpenId.Name,
                         StandardScopes.Profile.Name,

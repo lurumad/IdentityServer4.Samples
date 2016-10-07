@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace QuickstartIdentityServer.Migrations.ConfigurationDb
 {
-    public partial class _1InitialIdentityServerMigration : Migration
+    public partial class InitialIdentityServerMigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -282,6 +282,12 @@ namespace QuickstartIdentityServer.Migrations.ConfigurationDb
                 });
 
             migrationBuilder.CreateIndex(
+                name: "IX_Clients_ClientId",
+                table: "Clients",
+                column: "ClientId",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
                 name: "IX_ClientClaims_ClientId",
                 table: "ClientClaims",
                 column: "ClientId");
@@ -320,6 +326,12 @@ namespace QuickstartIdentityServer.Migrations.ConfigurationDb
                 name: "IX_ClientSecrets_ClientId",
                 table: "ClientSecrets",
                 column: "ClientId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Scopes_Name",
+                table: "Scopes",
+                column: "Name",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_ScopeClaims_ScopeId",
