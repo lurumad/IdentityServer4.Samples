@@ -72,7 +72,7 @@
         </div>
     </div>
 
-    <script src="libs/oidc-client.js"></script>
+    <script src="libs/oidc-client.min.js"></script>
 
     <script>
         var config = {
@@ -98,7 +98,7 @@
             // wouldn't care about them or want them taking up space
             filterProtocolClaims: false
         };
-        Oidc.Log.logger = window.console;
+        //Oidc.Log.logger = window.console;
 
         var mgr = new Oidc.UserManager(config);
 
