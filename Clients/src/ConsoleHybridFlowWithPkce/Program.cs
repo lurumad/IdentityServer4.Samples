@@ -1,24 +1,34 @@
-﻿using IdentityModel.OidcClient;
+﻿using Clients;
+using IdentityModel.OidcClient;
+using Microsoft.Extensions.Logging;
+using Newtonsoft.Json.Linq;
 using Serilog;
 using System;
-using System.Diagnostics;
-using System.Net;
-using System.Runtime.InteropServices;
-using System.Text;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net.Http;
+using System.Threading.Tasks;
 
-namespace ConsoleHybridFlowWithPkce
+namespace ConsoleCoreHybridFlowWithPkce
 {
-    class Program
+    public class Program
     {
-        const string authority = "http://localhost:1941";
+        const string authority = Constants.BaseAddress;
+        const string clientId = "console.hybrid.pkce";
+        const int callbackPort= 7890;
+        const string callbackPath = "/";
+        const string callbackBase = "http://127.0.0.1:";
+        const string scope = "openid profile api1";
+        const string apiUrl = Constants.AspNetWebApiSampleApi;
 
-        static void Main(string[] args)
+        public static void Main(string[] args) => MainAsync().GetAwaiter().GetResult();
+
+        public static async Task MainAsync()
         {
             Log.Logger = new LoggerConfiguration()
-                            .MinimumLevel.Debug()
-                            .WriteTo.LiterateConsole()
-                            .CreateLogger();
-
+                           .MinimumLevel.Debug()
+                           .WriteTo.LiterateConsole()
+                           .CreateLogger();
 
             Console.WriteLine("+-----------------------+");
             Console.WriteLine("|  Sign in with OIDC    |");
@@ -27,114 +37,57 @@ namespace ConsoleHybridFlowWithPkce
             Console.WriteLine("Press any key to sign in...");
             Console.ReadKey();
 
-            Program p = new Program();
-            p.SignIn();
+            var token = await RequestTokenAsync();
 
-            Console.ReadKey();
+            Console.WriteLine();
+            Console.WriteLine("Press any key to call the api...");
+            Console.ReadLine();
+
+            await CallServiceAsync(token);
         }
 
-        private async void SignIn()
+        static async Task<string> RequestTokenAsync()
         {
-            // create a redirect URI using an available port on the loopback address.
-            string redirectUri = string.Format("http://127.0.0.1:7890/");
-            Console.WriteLine("redirect URI: " + redirectUri);
+            var webView = new LoopbackWebView(callbackPort, callbackPath);
 
-            // create an HttpListener to listen for requests on that redirect URI.
-            var http = new HttpListener();
-            http.Prefixes.Add(redirectUri);
-            Console.WriteLine("Listening..");
-            http.Start();
+            var loggerFactory = new LoggerFactory();
+            // uncomment this line for logging inside OidcClient
+            //loggerFactory.AddSerilog(Log.Logger);
 
-            var options = new OidcClientOptions(
-                authority,
-                "console.hybrid.pkce",
-                "not_used",
-                "openid profile api1",
-                redirectUri);
-
-            options.UseFormPost = true;
-            options.Style = OidcClientOptions.AuthenticationStyle.Hybrid;
-
-            var client = new OidcClient(options);
-            var state = await client.PrepareLoginAsync();
-
-            Console.WriteLine($"Start URL: {state.StartUrl}");
-
-            // open system browser to start authentication
-            Process.Start(state.StartUrl);
-
-            // wait for the authorization response.
-            var context = await http.GetContextAsync();
-
-            var formData = GetRequestPostData(context.Request);
-
-            // Brings the Console to Focus.
-            BringConsoleToFront();
-
-            // sends an HTTP response to the browser.
-            var response = context.Response;
-            string responseString = $"<html><head><meta http-equiv='refresh' content='10;url={authority}'></head><body>Please return to the app.</body></html>";
-            var buffer = Encoding.UTF8.GetBytes(responseString);
-            response.ContentLength64 = buffer.Length;
-            var responseOutput = response.OutputStream;
-            await responseOutput.WriteAsync(buffer, 0, buffer.Length);
-            responseOutput.Close();
-
-            Console.WriteLine($"Form Data: {formData}");
-            var result = await client.ValidateResponseAsync(formData, state);
-
-            if (result.Success)
+            var opts = new OidcClientOptions(authority,
+                scope,
+                callbackBase + callbackPort + callbackPath,
+                clientId,
+                webView: webView,
+                loggerFactory: loggerFactory)
             {
-                Console.WriteLine("\n\n\n\nClaims:");
-                foreach (var claim in result.Claims)
-                {
-                    Console.WriteLine("{0}: {1}", claim.Type, claim.Value);
-                }
+                UseFormPost = true
+            };
 
-                Console.WriteLine();
-                Console.WriteLine("Access token:\n{0}", result.AccessToken);
-
-                if (!string.IsNullOrWhiteSpace(result.RefreshToken))
-                {
-                    Console.WriteLine("Refresh token:\n{0}", result.RefreshToken);
-                }
-            }
-            else
+            var client = new OidcClient(opts);
+            var result = await client.LoginAsync();
+            if (!result.Success)
             {
-                Console.WriteLine("\n\nError:\n{0}", result.Error);
-            }
-
-            http.Stop();
-        }
-
-        private void BringConsoleToFront()
-        {
-            SetForegroundWindow(GetConsoleWindow());
-        }
-
-        private string GetRequestPostData(HttpListenerRequest request)
-        {
-            if (!request.HasEntityBody)
-            {
+                Console.WriteLine($"Error: {result.Error}.");
                 return null;
             }
 
-            using (var body = request.InputStream)
-            {
-                using (var reader = new System.IO.StreamReader(body, request.ContentEncoding))
-                {
-                    return reader.ReadToEnd();
-                }
-            }
+            Console.WriteLine($"Access token: {result.AccessToken}");
+            return result.AccessToken;
         }
 
-        // Hack to bring the Console window to front.
-        // ref: http://stackoverflow.com/a/12066376
-        [DllImport("kernel32.dll", ExactSpelling = true)]
-        public static extern IntPtr GetConsoleWindow();
+        static async Task CallServiceAsync(string token)
+        {
+            var client = new HttpClient
+            {
+                BaseAddress = new Uri(apiUrl)
+            };
 
-        [DllImport("user32.dll")]
-        [return: MarshalAs(UnmanagedType.Bool)]
-        public static extern bool SetForegroundWindow(IntPtr hWnd);
+            client.SetBearerToken(token);
+            var response = await client.GetStringAsync("identity");
+
+            "\n\nService claims:".ConsoleGreen();
+            Console.WriteLine(JArray.Parse(response));
+        }
     }
 }
