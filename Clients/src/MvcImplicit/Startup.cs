@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Microsoft.IdentityModel.Tokens;
 using System;
 using System.IdentityModel.Tokens.Jwt;
 
@@ -52,31 +53,28 @@ namespace MvcImplicit
 
             JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
 
-            var oidcOptions = new OpenIdConnectOptions
+            app.UseOpenIdConnectAuthentication(new OpenIdConnectOptions
             {
                 AuthenticationScheme = "oidc",
                 SignInScheme = "cookies",
 
                 Authority = Clients.Constants.BaseAddress,
                 RequireHttpsMetadata = false,
+
                 ClientId = "mvc.implicit",
+                PostLogoutRedirectUri = "http://localhost:44077/",
+
                 ResponseType = "id_token",
+                Scope = { "openid", "profile", "email", "roles" },
+
                 SaveTokens = true,
 
-                TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters
+                TokenValidationParameters = new TokenValidationParameters
                 {
                     NameClaimType = JwtClaimTypes.Name,
                     RoleClaimType = JwtClaimTypes.Role,
                 }
-            };
-
-            oidcOptions.Scope.Clear();
-            oidcOptions.Scope.Add("openid");
-            oidcOptions.Scope.Add("profile");
-            oidcOptions.Scope.Add("email");
-            oidcOptions.Scope.Add("roles");
-
-            app.UseOpenIdConnectAuthentication(oidcOptions);
+            });
 
             app.UseMvcWithDefaultRoute();
         }
