@@ -1,3 +1,3 @@
-# Quickstart #7: JavaScript clients
+# Quickstart #8: EntityFramework configuration
 
-This quickstart shows how to build a JavaScript client for IdentityServer.
+This quickstart shows how to use EntityFramework for the cofniguration data.

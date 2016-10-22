@@ -1,3 +1,3 @@
-# Quickstart #5: OpenID Connect Hybrid Flow Authentication and API Access Tokens
+# Quickstart #6: IdentityServer and ASP.NET Identity
 
-This quickstart adds support for Google authentication.
+This quickstart uses ASP.NET Identity for identity management.
