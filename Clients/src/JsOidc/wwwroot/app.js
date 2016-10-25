@@ -8,7 +8,7 @@ var config = {
 
     // if we choose to use popup window instead for logins
     popup_redirect_uri: window.location.protocol + "//" + window.location.host + "/popup.html",
-    popupWindowFeatures: "location=no,toolbar=no,width=600,height=600,left=100,top=100",
+    popupWindowFeatures: "menubar=yes,location=yes,toolbar=yes,width=1200,height=800,left=100,top=100;resizable=yes",
 
     // these two will be done dynamically from the buttons clicked, but are
     // needed if you want to use the silent_renew
@@ -21,7 +21,7 @@ var config = {
     // silent renew will get a new access_token via an iframe 
     // just prior to the old access_token expiring (60 seconds prior)
     silent_redirect_uri: window.location.protocol + "//" + window.location.host + "/silent_renew.html",
-    automaticSilentRenew: false,
+    automaticSilentRenew: true,
 
     // will revoke (reference) access tokens at logout time
     revokeAccessTokenOnSignout: true,
@@ -35,12 +35,15 @@ var config = {
 var mgr = new Oidc.UserManager(config);
 
 mgr.events.addUserLoaded(function (user) {
-    console.log("user/token loaded");
+    display("#response", { message: "User loaded" });
     showTokens();
 });
 mgr.events.addUserUnloaded(function () {
-    display("#response", { message: "Logged Out" });
+    display("#response", { message: "User logged out locally" });
     showTokens();
+});
+mgr.events.addAccessTokenExpiring(function () {
+    display("#response", { message: "Access token expiring..." });
 });
 mgr.events.addSilentRenewError(function (err) {
     display("#response", { message: "Silent renew error: " + err.message });
@@ -89,10 +92,15 @@ function handleCallback() {
 }
 
 function authorize(scope, response_type) {
-    mgr.signinRedirect({ scope: scope, response_type: response_type });
-    //mgr.signinPopup({ scope: scope, response_type: response_type }).then(function () {
-    //    display("#response", { message: "Logged In" });
-    //});
+    var use_popup = false;
+    if (!use_popup) {
+        mgr.signinRedirect({ scope: scope, response_type: response_type });
+    }
+    else {
+        mgr.signinPopup({ scope: scope, response_type: response_type }).then(function () {
+            display("#response", { message: "Logged In" });
+        });
+    }
 }
 
 function logout() {
