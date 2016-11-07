@@ -5,11 +5,11 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using IdentityServer4.EntityFramework.DbContexts;
 
-namespace QuickstartIdentityServer.Migrations.ConfigurationDb
+namespace QuickstartIdentityServer.Data.Migrations.IdentityServer.ConfigurationDb
 {
     [DbContext(typeof(ConfigurationDbContext))]
-    [Migration("20161007164359_InitialIdentityServerMigration")]
-    partial class InitialIdentityServerMigration
+    [Migration("20161107155949_InitialIdentityServerConfigurationDbMigration")]
+    partial class InitialIdentityServerConfigurationDbMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -32,7 +32,7 @@ namespace QuickstartIdentityServer.Migrations.ConfigurationDb
 
                     b.Property<bool>("AllowAccessTokensViaBrowser");
 
-                    b.Property<bool>("AllowPromptNone");
+                    b.Property<bool>("AllowPlainTextPkce");
 
                     b.Property<bool>("AllowRememberConsent");
 
@@ -67,7 +67,9 @@ namespace QuickstartIdentityServer.Migrations.ConfigurationDb
 
                     b.Property<bool>("PrefixClientClaims");
 
-                    b.Property<bool>("PublicClient");
+                    b.Property<string>("ProtocolType")
+                        .IsRequired()
+                        .HasAnnotation("MaxLength", 200);
 
                     b.Property<int>("RefreshTokenExpiration");
 
