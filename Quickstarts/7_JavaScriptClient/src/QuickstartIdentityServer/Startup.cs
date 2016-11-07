@@ -16,7 +16,9 @@ namespace QuickstartIdentityServer
             services.AddMvc();
 
             // configure identity server with in-memory stores, keys, clients and scopes
-            services.AddDeveloperIdentityServer()
+            services.AddIdentityServer()
+                .AddTemporarySigningCredential()
+                .AddInMemoryPersistedGrants()
                 .AddInMemoryScopes(Config.GetScopes())
                 .AddInMemoryClients(Config.GetClients())
                 .AddInMemoryUsers(Config.GetUsers());
