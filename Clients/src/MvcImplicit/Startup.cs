@@ -73,7 +73,18 @@ namespace MvcImplicit
                 {
                     NameClaimType = JwtClaimTypes.Name,
                     RoleClaimType = JwtClaimTypes.Role,
-                }
+                },
+
+                //Events = new OpenIdConnectEvents
+                //{
+                //    OnRedirectToIdentityProvider = n =>
+                //    {
+                //        // acr_values is where you can pass custom hints/params
+                //        //n.ProtocolMessage.AcrValues = "tenant:foo";
+                //        //n.ProtocolMessage.AcrValues = "idp:Google";
+                //        return Task.FromResult(0);
+                //    }
+                //}
             });
 
             app.UseMvcWithDefaultRoute();
