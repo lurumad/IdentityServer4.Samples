@@ -3,7 +3,7 @@
 var config = {
     authority: "http://localhost:1941/",
     client_id: "js_oidc",
-    redirect_uri: window.location.protocol + "//" + window.location.host + "/index.html",
+    redirect_uri: window.location.protocol + "//" + window.location.host + "/callback.html",
     post_logout_redirect_uri: window.location.protocol + "//" + window.location.host + "/index.html",
 
     // if we choose to use popup window instead for logins
@@ -20,7 +20,7 @@ var config = {
 
     // silent renew will get a new access_token via an iframe 
     // just prior to the old access_token expiring (60 seconds prior)
-    silent_redirect_uri: window.location.protocol + "//" + window.location.host + "/silent_renew.html",
+    silent_redirect_uri: window.location.protocol + "//" + window.location.host + "/silent.html",
     automaticSilentRenew: true,
 
     // will revoke (reference) access tokens at logout time
