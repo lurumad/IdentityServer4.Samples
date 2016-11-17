@@ -56,40 +56,30 @@ namespace MvcHybrid
 
             JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
 
-            var oidcOptions = new OpenIdConnectOptions
+            app.UseOpenIdConnectAuthentication(new OpenIdConnectOptions
             {
                 AuthenticationScheme = "oidc",
                 SignInScheme = "cookies",
 
                 Authority = Clients.Constants.BaseAddress,
                 RequireHttpsMetadata = false,
+
                 ClientId = "mvc.hybrid",
                 ClientSecret = "secret",
+
                 ResponseType = "code id_token",
+                Scope = { "openid", "profile", "email", "roles", "api1", "offline_access" },
+
                 SaveTokens = true,
-                
+
                 TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters
                 {
                     NameClaimType = JwtClaimTypes.Name,
                     RoleClaimType = JwtClaimTypes.Role,
                 }
-            };
-
-            oidcOptions.Scope.Clear();
-            oidcOptions.Scope.Add("openid");
-            oidcOptions.Scope.Add("profile");
-            oidcOptions.Scope.Add("email");
-            oidcOptions.Scope.Add("roles");
-            oidcOptions.Scope.Add("api1");
-            oidcOptions.Scope.Add("offline_access");
-
-            app.UseOpenIdConnectAuthentication(oidcOptions);
-            app.UseMvc(routes =>
-            {
-                routes.MapRoute(
-                    name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
             });
+
+            app.UseMvcWithDefaultRoute();
         }
     }
 }
