@@ -12,12 +12,8 @@ namespace JsOidc
 
         public void Configure(IApplicationBuilder app)
         {
+            app.UseDefaultFiles();
             app.UseStaticFiles();
-            app.Run(ctx =>
-            {
-                ctx.Response.Redirect("/index.html");
-                return Task.FromResult(0);
-            });
         }
     }
 }
