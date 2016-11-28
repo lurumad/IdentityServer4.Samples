@@ -24,7 +24,7 @@ namespace ConsoleResourceOwnerFlowUserInfo
                 "roclient",
                 "secret");
 
-            return client.RequestResourceOwnerPasswordAsync("bob", "bob", "openid email").Result;
+            return client.RequestResourceOwnerPasswordAsync("bob", "bob", "openid custom.profile").Result;
         }
 
         static void GetClaims(string token)

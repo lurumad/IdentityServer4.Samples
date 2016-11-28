@@ -68,7 +68,7 @@ namespace MvcHybrid
                 ClientSecret = "secret",
 
                 ResponseType = "code id_token",
-                Scope = { "openid", "profile", "email", "roles", "api1", "offline_access" },
+                Scope = { "openid", "profile", "email", "api1", "offline_access" },
 
                 SaveTokens = true,
 

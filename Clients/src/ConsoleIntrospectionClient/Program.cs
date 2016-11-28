@@ -20,7 +20,7 @@ namespace ConsoleIntrospectionClient
                 "roclient.reference",
                 "secret");
 
-            return client.RequestResourceOwnerPasswordAsync("bob", "bob", "api1 api2").Result;
+            return client.RequestResourceOwnerPasswordAsync("bob", "bob", "api1 api2.read_only").Result;
         }
 
         private static void Introspection(string accessToken)

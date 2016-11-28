@@ -33,7 +33,7 @@ namespace ConsoleResourceOwnerFlow
                 acr_values = "tenant:custom_account_store1 foo bar quux"
             };
 
-            return client.RequestResourceOwnerPasswordAsync("bob", "bob", "api1 api2", optional).Result;
+            return client.RequestResourceOwnerPasswordAsync("bob", "bob", "api1 api2.read_only", optional).Result;
         }
 
         static void CallService(string token)

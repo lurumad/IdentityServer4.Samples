@@ -65,7 +65,7 @@ namespace MvcImplicit
                 PostLogoutRedirectUri = "http://localhost:44077/",
 
                 ResponseType = "id_token",
-                Scope = { "openid", "profile", "email", "roles" },
+                Scope = { "openid", "profile", "email" },
 
                 SaveTokens = true,
 

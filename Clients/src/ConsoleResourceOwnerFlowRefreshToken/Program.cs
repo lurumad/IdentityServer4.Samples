@@ -44,7 +44,7 @@ namespace ConsoleResourceOwnerFlowRefreshToken
         static TokenResponse RequestToken()
         {
             return _tokenClient.RequestResourceOwnerPasswordAsync
-                ("bob", "bob", "api1 api2 offline_access").Result;
+                ("bob", "bob", "api1 api2.read_only offline_access").Result;
         }
 
         private static TokenResponse RefreshToken(string refreshToken)
