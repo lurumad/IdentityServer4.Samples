@@ -43,9 +43,11 @@ namespace Client
             {
                 Console.WriteLine(response.StatusCode);
             }
-
-            var content = response.Content.ReadAsStringAsync().Result;
-            Console.WriteLine(JArray.Parse(content));
+            else
+            {
+                var content = response.Content.ReadAsStringAsync().Result;
+                Console.WriteLine(JArray.Parse(content));
+            }
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Brock Allen & Dominick Baier. All rights reserved.
 // Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
 
+using IdentityServer4;
 using IdentityServer4.Models;
 using IdentityServer4.Services.InMemory;
 using System.Collections.Generic;
@@ -11,18 +12,20 @@ namespace QuickstartIdentityServer
     public class Config
     {
         // scopes define the resources in your system
-        public static IEnumerable<Scope> GetScopes()
+        public static IEnumerable<IdentityResource> GetIdentityResources()
         {
-            return new List<Scope>
+            return new List<IdentityResource>
             {
-                StandardScopes.OpenId,
-                StandardScopes.Profile,
+                new IdentityResources.OpenId(),
+                new IdentityResources.Profile(),
+            };
+        }
 
-                new Scope
-                {
-                    Name = "api1",
-                    Description = "My API"
-                }
+        public static IEnumerable<ApiResource> GetApiResources()
+        {
+            return new List<ApiResource>
+            {
+                new ApiResource("api1", "My API")
             };
         }
 
@@ -69,8 +72,8 @@ namespace QuickstartIdentityServer
 
                     AllowedScopes =
                     {
-                        StandardScopes.OpenId.Name,
-                        StandardScopes.Profile.Name
+                        IdentityServerConstants.StandardScopes.OpenId,
+                        IdentityServerConstants.StandardScopes.Profile
                     }
                 }
             };

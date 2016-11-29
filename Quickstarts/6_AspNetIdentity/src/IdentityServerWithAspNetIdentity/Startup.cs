@@ -59,7 +59,8 @@ namespace IdentityServerWithAspNetIdentity
             services.AddIdentityServer()
                 .AddTemporarySigningCredential()
                 .AddInMemoryPersistedGrants()
-                .AddInMemoryScopes(Config.GetScopes())
+                .AddInMemoryIdentityResources(Config.GetIdentityResources())
+                .AddInMemoryApiResources(Config.GetApiResources())
                 .AddInMemoryClients(Config.GetClients())
                 .AddAspNetIdentity<ApplicationUser>();
         }

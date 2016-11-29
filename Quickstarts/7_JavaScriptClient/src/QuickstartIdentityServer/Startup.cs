@@ -19,7 +19,8 @@ namespace QuickstartIdentityServer
             services.AddIdentityServer()
                 .AddTemporarySigningCredential()
                 .AddInMemoryPersistedGrants()
-                .AddInMemoryScopes(Config.GetScopes())
+                .AddInMemoryIdentityResources(Config.GetIdentityResources())
+                .AddInMemoryApiResources(Config.GetApiResources())
                 .AddInMemoryClients(Config.GetClients())
                 .AddInMemoryUsers(Config.GetUsers());
         }

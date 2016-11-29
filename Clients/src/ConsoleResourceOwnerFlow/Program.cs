@@ -73,7 +73,7 @@ namespace ConsoleResourceOwnerFlow
             }
             else
             {
-                if (response.ErrorType == TokenResponse.ResponseErrorType.Http)
+                if (response.ErrorType == ResponseErrorType.Http)
                 {
                     "HTTP error: ".ConsoleGreen();
                     Console.WriteLine(response.Error);

@@ -8,7 +8,7 @@ using IdentityServer4.EntityFramework.DbContexts;
 namespace QuickstartIdentityServer.Data.Migrations.IdentityServer.PersistedGrantDb
 {
     [DbContext(typeof(PersistedGrantDbContext))]
-    [Migration("20161107155938_InitialIdentityServerPersistedGrantDbMigration")]
+    [Migration("20161129195158_InitialIdentityServerPersistedGrantDbMigration")]
     partial class InitialIdentityServerPersistedGrantDbMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

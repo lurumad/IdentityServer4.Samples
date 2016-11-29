@@ -10,7 +10,7 @@
       "version": "1.0.0"
     },
 
-    "IdentityModel": "2.0.0-rc3"
+    "IdentityModel": "2.0.0"
   },
 
   "frameworks": {

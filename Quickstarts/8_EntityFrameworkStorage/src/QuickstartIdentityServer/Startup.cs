@@ -85,11 +85,20 @@ namespace QuickstartIdentityServer
                     context.SaveChanges();
                 }
 
-                if (!context.Scopes.Any())
+                if (!context.IdentityResources.Any())
                 {
-                    foreach (var client in Config.GetScopes())
+                    foreach (var resource in Config.GetIdentityResources())
                     {
-                        context.Scopes.Add(client.ToEntity());
+                        context.IdentityResources.Add(resource.ToEntity());
+                    }
+                    context.SaveChanges();
+                }
+
+                if (!context.ApiResources.Any())
+                {
+                    foreach (var resource in Config.GetApiResources())
+                    {
+                        context.ApiResources.Add(resource.ToEntity());
                     }
                     context.SaveChanges();
                 }

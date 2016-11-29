@@ -16,7 +16,8 @@ namespace QuickstartIdentityServer
             // configure identity server with in-memory stores, keys, clients and scopes
             services.AddIdentityServer()
                 .AddTemporarySigningCredential()
-                .AddInMemoryScopes(Config.GetScopes())
+                .AddInMemoryIdentityResources(Config.GetIdentityResources())
+                .AddInMemoryApiResources(Config.GetApiResources())
                 .AddInMemoryClients(Config.GetClients())
                 .AddInMemoryUsers(Config.GetUsers());
         }

@@ -9,16 +9,12 @@ namespace QuickstartIdentityServer
 {
     public class Config
     {
-        // scopes define the resources in your system
-        public static IEnumerable<Scope> GetScopes()
+        // scopes define the API resources in your system
+        public static IEnumerable<ApiResource> GetApiResources()
         {
-            return new List<Scope>
+            return new List<ApiResource>
             {
-                new Scope
-                {
-                    Name = "api1",
-                    Description = "My API"
-                }
+                new ApiResource("api1", "My API")
             };
         }
 
