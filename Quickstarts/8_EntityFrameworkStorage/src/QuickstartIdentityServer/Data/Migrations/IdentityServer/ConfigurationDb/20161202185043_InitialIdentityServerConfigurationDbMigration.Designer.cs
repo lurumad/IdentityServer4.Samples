@@ -8,7 +8,7 @@ using IdentityServer4.EntityFramework.DbContexts;
 namespace QuickstartIdentityServer.Data.Migrations.IdentityServer.ConfigurationDb
 {
     [DbContext(typeof(ConfigurationDbContext))]
-    [Migration("20161129195214_InitialIdentityServerConfigurationDbMigration")]
+    [Migration("20161202185043_InitialIdentityServerConfigurationDbMigration")]
     partial class InitialIdentityServerConfigurationDbMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -21,6 +21,12 @@ namespace QuickstartIdentityServer.Data.Migrations.IdentityServer.ConfigurationD
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Description")
+                        .HasAnnotation("MaxLength", 1000);
+
+                    b.Property<string>("DisplayName")
+                        .HasAnnotation("MaxLength", 200);
 
                     b.Property<bool>("Enabled");
 
@@ -41,13 +47,8 @@ namespace QuickstartIdentityServer.Data.Migrations.IdentityServer.ConfigurationD
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<bool>("AlwaysIncludeInIdToken");
-
                     b.Property<int?>("ApiResourceId")
                         .IsRequired();
-
-                    b.Property<string>("Description")
-                        .HasAnnotation("MaxLength", 1000);
 
                     b.Property<string>("Type")
                         .IsRequired()
@@ -99,13 +100,8 @@ namespace QuickstartIdentityServer.Data.Migrations.IdentityServer.ConfigurationD
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<bool>("AlwaysIncludeInIdToken");
-
                     b.Property<int?>("ApiScopeId")
                         .IsRequired();
-
-                    b.Property<string>("Description")
-                        .HasAnnotation("MaxLength", 1000);
 
                     b.Property<string>("Type")
                         .IsRequired()
@@ -154,8 +150,6 @@ namespace QuickstartIdentityServer.Data.Migrations.IdentityServer.ConfigurationD
                     b.Property<int>("AccessTokenLifetime");
 
                     b.Property<int>("AccessTokenType");
-
-                    b.Property<bool>("AllowAccessToAllScopes");
 
                     b.Property<bool>("AllowAccessTokensViaBrowser");
 
@@ -389,11 +383,6 @@ namespace QuickstartIdentityServer.Data.Migrations.IdentityServer.ConfigurationD
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
-
-                    b.Property<bool>("AlwaysIncludeInIdToken");
-
-                    b.Property<string>("Description")
-                        .HasAnnotation("MaxLength", 1000);
 
                     b.Property<int?>("IdentityResourceId")
                         .IsRequired();
