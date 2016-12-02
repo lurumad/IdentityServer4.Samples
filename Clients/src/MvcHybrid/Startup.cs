@@ -69,6 +69,7 @@ namespace MvcHybrid
 
                 ResponseType = "code id_token",
                 Scope = { "openid", "profile", "email", "api1", "offline_access" },
+                GetClaimsFromUserInfoEndpoint = true,
 
                 SaveTokens = true,
 
