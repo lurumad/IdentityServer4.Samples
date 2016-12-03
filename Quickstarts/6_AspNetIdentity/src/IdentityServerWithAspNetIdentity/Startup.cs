@@ -88,6 +88,13 @@ namespace IdentityServerWithAspNetIdentity
             app.UseIdentityServer();
 
             // Add external authentication middleware below. To configure them please see http://go.microsoft.com/fwlink/?LinkID=532715
+            app.UseGoogleAuthentication(new GoogleOptions
+            {
+                AuthenticationScheme = "Google",
+                SignInScheme = "Identity.External", // this is the name of the cookie middleware registered by UseIdentity()
+                ClientId = "998042782978-s07498t8i8jas7npj4crve1skpromf37.apps.googleusercontent.com",
+                ClientSecret = "HsnwJri_53zn7VcO1Fm7THBb",
+            });
 
             app.UseMvc(routes =>
             {
