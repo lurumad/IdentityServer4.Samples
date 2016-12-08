@@ -21,7 +21,7 @@ namespace QuickstartIdentityServer
         {
             services.AddMvc();
 
-            var connectionString = @"server=(localdb)\mssqllocaldb;database=IdentityServer4;trusted_connection=yes";
+            var connectionString = @"server=(localdb)\mssqllocaldb;database=IdentityServer4.QuickStart;trusted_connection=yes";
             var migrationsAssembly = typeof(Startup).GetTypeInfo().Assembly.GetName().Name;
 
             // configure identity server with in-memory users, but EF stores for clients and scopes
