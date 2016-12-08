@@ -19,7 +19,7 @@ namespace MvcImplicit.Controllers
 
         public IActionResult Logout()
         {
-            return new SignOutResult(new string[] { "oidc", "cookies" }, new AuthenticationProperties { RedirectUri = "/" });
+            return new SignOutResult(new string[] { "oidc", "Cookies" });
         }
 
         public IActionResult Error()

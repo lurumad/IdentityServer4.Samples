@@ -75,7 +75,7 @@ namespace MvcHybrid.Controllers
 
         public IActionResult Logout()
         {
-            return new SignOutResult("oidc", new AuthenticationProperties { RedirectUri = "/" });
+            return new SignOutResult(new[] { "Cookies", "oidc" });
         }
 
         public IActionResult Error()

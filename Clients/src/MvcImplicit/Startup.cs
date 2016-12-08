@@ -46,7 +46,7 @@ namespace MvcImplicit
 
             app.UseCookieAuthentication(new CookieAuthenticationOptions
             {
-                AuthenticationScheme = "cookies",
+                AuthenticationScheme = "Cookies",
                 AutomaticAuthenticate = true,
                 ExpireTimeSpan = TimeSpan.FromMinutes(60)
             });
@@ -56,13 +56,12 @@ namespace MvcImplicit
             app.UseOpenIdConnectAuthentication(new OpenIdConnectOptions
             {
                 AuthenticationScheme = "oidc",
-                SignInScheme = "cookies",
+                SignInScheme = "Cookies",
 
                 Authority = Clients.Constants.BaseAddress,
                 RequireHttpsMetadata = false,
 
                 ClientId = "mvc.implicit",
-                PostLogoutRedirectUri = "http://localhost:44077/",
 
                 ResponseType = "id_token",
                 Scope = { "openid", "profile", "email" },

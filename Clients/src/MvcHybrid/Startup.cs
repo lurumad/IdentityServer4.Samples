@@ -49,7 +49,7 @@ namespace MvcHybrid
 
             app.UseCookieAuthentication(new CookieAuthenticationOptions
             {
-                AuthenticationScheme = "cookies",
+                AuthenticationScheme = "Cookies",
                 AutomaticAuthenticate = true,
                 ExpireTimeSpan = TimeSpan.FromMinutes(60)
             });
@@ -59,7 +59,7 @@ namespace MvcHybrid
             app.UseOpenIdConnectAuthentication(new OpenIdConnectOptions
             {
                 AuthenticationScheme = "oidc",
-                SignInScheme = "cookies",
+                SignInScheme = "Cookies",
 
                 Authority = Clients.Constants.BaseAddress,
                 RequireHttpsMetadata = false,
