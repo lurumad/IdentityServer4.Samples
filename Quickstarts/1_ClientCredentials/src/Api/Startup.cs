@@ -39,9 +39,9 @@ namespace Api
             app.UseIdentityServerAuthentication(new IdentityServerAuthenticationOptions
             {
                 Authority = "http://localhost:5000",
-                AllowedScopes = { "api1" },
+                RequireHttpsMetadata = false,
 
-                RequireHttpsMetadata = false
+                ApiName = "api1"
             });
 
             app.UseMvc();
