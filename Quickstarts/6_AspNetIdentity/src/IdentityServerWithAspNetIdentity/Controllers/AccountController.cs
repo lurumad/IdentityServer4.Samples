@@ -8,20 +8,22 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Logging;
+using IdentityServerWithAspNetIdentity.Models;
 using IdentityServerWithAspNetIdentity.Models.AccountViewModels;
+using IdentityServerWithAspNetIdentity.Services;
 using IdentityServer4.Quickstart.UI.Models;
 using IdentityServer4.Services;
 using IdentityServer4.Stores;
 using IdentityServer4.Models;
-using IdentityServerWithAspNetIdentity.Models;
-using IdentityServerWithAspNetIdentity.Services;
 using IdentityModel;
 using IdentityServer4;
 using Microsoft.AspNetCore.Http.Authentication;
+using IdentityServerWithAspNetIdentity.Filters;
 
 namespace IdentityServerWithAspNetIdentity.Controllers
 {
     [Authorize]
+    [SecurityHeaders]
     public class AccountController : Controller
     {
         private readonly UserManager<ApplicationUser> _userManager;

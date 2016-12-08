@@ -7,7 +7,7 @@ using IdentityServer4.Services.InMemory;
 using System.Collections.Generic;
 using System.Security.Claims;
 
-namespace QuickstartIdentityServer
+namespace IdentityServerWithAspNetIdentity
 {
     public class Config
     {

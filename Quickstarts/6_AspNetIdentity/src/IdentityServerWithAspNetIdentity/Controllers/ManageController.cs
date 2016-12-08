@@ -6,13 +6,15 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using IdentityServerWithAspNetIdentity.Models.ManageViewModels;
 using IdentityServerWithAspNetIdentity.Models;
+using IdentityServerWithAspNetIdentity.Models.ManageViewModels;
 using IdentityServerWithAspNetIdentity.Services;
+using IdentityServerWithAspNetIdentity.Filters;
 
 namespace IdentityServerWithAspNetIdentity.Controllers
 {
     [Authorize]
+    [SecurityHeaders]
     public class ManageController : Controller
     {
         private readonly UserManager<ApplicationUser> _userManager;

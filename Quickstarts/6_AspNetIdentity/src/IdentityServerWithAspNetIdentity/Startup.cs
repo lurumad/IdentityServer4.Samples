@@ -12,7 +12,7 @@ using Microsoft.Extensions.Logging;
 using IdentityServerWithAspNetIdentity.Data;
 using IdentityServerWithAspNetIdentity.Models;
 using IdentityServerWithAspNetIdentity.Services;
-using QuickstartIdentityServer;
+using IdentityServerWithAspNetIdentity;
 using IdentityServer4.Services;
 using IdentityModel;
 
