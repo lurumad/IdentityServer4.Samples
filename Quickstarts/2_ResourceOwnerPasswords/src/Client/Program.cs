@@ -12,7 +12,7 @@ namespace Client
     public class Program
     {
         public static void Main(string[] args) => MainAsync().GetAwaiter().GetResult();
-
+        
         private static async Task MainAsync()
         {
             // discover endpoints from metadata
@@ -42,7 +42,7 @@ namespace Client
             }
             else
             {
-                var content = response.Content.ReadAsStringAsync().Result;
+                var content = await response.Content.ReadAsStringAsync();
                 Console.WriteLine(JArray.Parse(content));
             }
         }
