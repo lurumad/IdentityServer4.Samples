@@ -19,7 +19,7 @@
 
     <script src="libs/oidc-client.js"></script>
     <script>
-        var mgr = new Oidc.UserManager({ loadUserInfo: false, filterProtocolClaims: true });
+        var mgr = new Oidc.UserManager({ loadUserInfo: true, filterProtocolClaims: true });
         mgr.signinRedirectCallback().then(function (user) {
             console.log(user);
             window.location = "index.html";
