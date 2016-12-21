@@ -62,9 +62,9 @@ namespace MvcHybrid.Controllers
                 var expiresAt = DateTime.UtcNow + TimeSpan.FromSeconds(tokenResult.ExpiresIn);
                 tokens.Add(new AuthenticationToken { Name = "expires_at", Value = expiresAt.ToString("o", CultureInfo.InvariantCulture) });
 
-                var info = await HttpContext.Authentication.GetAuthenticateInfoAsync("cookies");
+                var info = await HttpContext.Authentication.GetAuthenticateInfoAsync("Cookies");
                 info.Properties.StoreTokens(tokens);
-                await HttpContext.Authentication.SignInAsync("cookies", info.Principal, info.Properties);
+                await HttpContext.Authentication.SignInAsync("Cookies", info.Principal, info.Properties);
 
                 return Redirect("~/Home/Secure");
             }
