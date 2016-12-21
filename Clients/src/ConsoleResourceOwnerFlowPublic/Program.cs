@@ -1,25 +1,28 @@
 ﻿using Clients;
-using IdentityModel;
 using IdentityModel.Client;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Net.Http;
-using System.Text;
+using System.Threading.Tasks;
 
 namespace ConsoleResourceOwnerFlowPublic
 {
     public class Program
     {
-        static void Main(string[] args)
+        public static void Main(string[] args) => MainAsync().GetAwaiter().GetResult();
+
+        static async Task MainAsync()
         {
-            var response = RequestToken();
-            ShowResponse(response);
+            Console.Title = "Console ResourceOwner Flow Public";
+
+            var response = await RequestTokenAsync();
+            response.Show();
 
             Console.ReadLine();
-            CallService(response.AccessToken);
+            await CallServiceAsync(response.AccessToken);
         }
 
-        static TokenResponse RequestToken()
+        static async Task<TokenResponse> RequestTokenAsync()
         {
             var client = new TokenClient(
                 Constants.TokenEndpoint, 
@@ -32,10 +35,10 @@ namespace ConsoleResourceOwnerFlowPublic
                 acr_values = "tenant:custom_account_store1 foo bar quux"
             };
 
-            return client.RequestResourceOwnerPasswordAsync("bob", "bob", "api1 api2.read_only", optional).Result;
+            return await client.RequestResourceOwnerPasswordAsync("bob", "bob", "api1 api2.read_only", optional);
         }
 
-        static void CallService(string token)
+        static async Task CallServiceAsync(string token)
         {
             var baseAddress = Constants.AspNetWebApiSampleApi;
 
@@ -45,46 +48,10 @@ namespace ConsoleResourceOwnerFlowPublic
             };
 
             client.SetBearerToken(token);
-            var response = client.GetStringAsync("identity").Result;
+            var response = await client.GetStringAsync("identity");
 
             "\n\nService claims:".ConsoleGreen();
             Console.WriteLine(JArray.Parse(response));
-        }
-
-        private static void ShowResponse(TokenResponse response)
-        {
-            if (!response.IsError)
-            {
-                "Token response:".ConsoleGreen();
-                Console.WriteLine(response.Json);
-
-                if (response.AccessToken.Contains("."))
-                {
-                    "\nAccess Token (decoded):".ConsoleGreen();
-
-                    var parts = response.AccessToken.Split('.');
-                    var header = parts[0];
-                    var claims = parts[1];
-
-                    Console.WriteLine(JObject.Parse(Encoding.UTF8.GetString(Base64Url.Decode(header))));
-                    Console.WriteLine(JObject.Parse(Encoding.UTF8.GetString(Base64Url.Decode(claims))));
-                }
-            }
-            else
-            {
-                if (response.ErrorType == ResponseErrorType.Http)
-                {
-                    "HTTP error: ".ConsoleGreen();
-                    Console.WriteLine(response.Error);
-                    "HTTP status code: ".ConsoleGreen();
-                    Console.WriteLine(response.HttpStatusCode);
-                }
-                else
-                {
-                    "Protocol error response:".ConsoleGreen();
-                    Console.WriteLine(response.Json);
-                }
-            }
         }
     }
 }

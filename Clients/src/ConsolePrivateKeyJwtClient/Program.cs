@@ -9,22 +9,26 @@ using System.Net.Http;
 using System.Security.Claims;
 using System.Security.Cryptography.X509Certificates;
 using Newtonsoft.Json.Linq;
-using System.Text;
+using System.Threading.Tasks;
 
 namespace ConsolePrivateKeyJwtClient
 {
     public class Program
     {
-        public static void Main(string[] args)
+        public static void Main(string[] args) => MainAsync().GetAwaiter().GetResult();
+
+        public static async Task MainAsync()
         {
-            var response = RequestToken();
-            ShowResponse(response);
+            Console.Title = "Console Client Credentials Flow with JWT Assertion";
+
+            var response = await RequestTokenAsync();
+            response.Show();
 
             Console.ReadLine();
-            CallService(response.AccessToken);
+            await CallServiceAsync(response.AccessToken);
         }
 
-        static TokenResponse RequestToken()
+        static async Task<TokenResponse> RequestTokenAsync()
         {
             var clientToken = CreateClientToken("client.jwt", Constants.TokenEndpoint);
             var client = new TokenClient(Constants.TokenEndpoint, "client.jwt");
@@ -35,10 +39,10 @@ namespace ConsolePrivateKeyJwtClient
                 client_assertion = clientToken
             };
 
-            return client.RequestClientCredentialsAsync("api1", assertion).Result;
+            return await client.RequestClientCredentialsAsync("api1", assertion);
         }
 
-        static void CallService(string token)
+        static async Task CallServiceAsync(string token)
         {
             var baseAddress = Constants.AspNetWebApiSampleApi;
 
@@ -48,46 +52,10 @@ namespace ConsolePrivateKeyJwtClient
             };
 
             client.SetBearerToken(token);
-            var response = client.GetStringAsync("identity").Result;
+            var response = await client.GetStringAsync("identity");
 
             "\n\nService claims:".ConsoleGreen();
             Console.WriteLine(JArray.Parse(response));
-        }
-
-        private static void ShowResponse(TokenResponse response)
-        {
-            if (!response.IsError)
-            {
-                "Token response:".ConsoleGreen();
-                Console.WriteLine(response.Json);
-
-                if (response.AccessToken.Contains("."))
-                {
-                    "\nAccess Token (decoded):".ConsoleGreen();
-
-                    var parts = response.AccessToken.Split('.');
-                    var header = parts[0];
-                    var claims = parts[1];
-
-                    Console.WriteLine(JObject.Parse(Encoding.UTF8.GetString(Base64Url.Decode(header))));
-                    Console.WriteLine(JObject.Parse(Encoding.UTF8.GetString(Base64Url.Decode(claims))));
-                }
-            }
-            else
-            {
-                if (response.ErrorType == ResponseErrorType.Http)
-                {
-                    "HTTP error: ".ConsoleGreen();
-                    Console.WriteLine(response.Error);
-                    "HTTP status code: ".ConsoleGreen();
-                    Console.WriteLine(response.HttpStatusCode);
-                }
-                else
-                {
-                    "Protocol error response:".ConsoleGreen();
-                    Console.WriteLine(response.Json);
-                }
-            }
         }
 
         private static string CreateClientToken(string clientId, string audience)

@@ -2,28 +2,33 @@
 using IdentityModel.Client;
 using System;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace ConsoleIntrospectionClient
 {
     public class Program
     {
-        static void Main(string[] args)
+        public static void Main(string[] args) => MainAsync().GetAwaiter().GetResult();
+
+        static async Task MainAsync()
         {
-            var response = RequestToken();
-            Introspection(response.AccessToken);
+            Console.Title = "Console Introspection Client";
+
+            var response = await RequestTokenAsync();
+            await IntrospectAsync(response.AccessToken);
         }
 
-        static TokenResponse RequestToken()
+        static async Task<TokenResponse> RequestTokenAsync()
         {
             var client = new TokenClient(
                 Constants.TokenEndpoint,
                 "roclient.reference",
                 "secret");
 
-            return client.RequestResourceOwnerPasswordAsync("bob", "bob", "api1 api2.read_only").Result;
+            return await client.RequestResourceOwnerPasswordAsync("bob", "bob", "api1 api2.read_only");
         }
 
-        private static void Introspection(string accessToken)
+        private static async Task IntrospectAsync(string accessToken)
         {
             var client = new IntrospectionClient(
                 Constants.IntrospectionEndpoint,
@@ -35,7 +40,7 @@ namespace ConsoleIntrospectionClient
                 Token = accessToken
             };
 
-            var result = client.SendAsync(request).Result;
+            var result = await client.SendAsync(request);
 
             if (result.IsError)
             {

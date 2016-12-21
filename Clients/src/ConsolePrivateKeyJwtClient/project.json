@@ -13,7 +13,7 @@
       "version": "1.0.1"
     },
     "System.IdentityModel.Tokens.Jwt": "5.0.0",
-    "IdentityModel": "2.1.0",
+    "IdentityModel": "2.1.1",
     "Constants": {
       "target": "project"
     },

@@ -5,12 +5,12 @@
   },
 
   "dependencies": {
-    "System.Runtime.Serialization.Primitives": "4.1.1",
+    //"System.Runtime.Serialization.Primitives": "4.1.1",
     "Microsoft.NETCore.App": {
       "type": "platform",
       "version": "1.0.0"
     },
-    "IdentityModel": "2.1.0",
+    "IdentityModel": "2.1.1",
     "Constants": {
       "target": "project"
     }

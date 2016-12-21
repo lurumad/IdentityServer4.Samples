@@ -4,8 +4,6 @@ using Microsoft.Extensions.Logging;
 using Newtonsoft.Json.Linq;
 using Serilog;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 
@@ -25,6 +23,8 @@ namespace ConsoleCoreHybridFlowWithPkce
 
         public static async Task MainAsync()
         {
+            Console.Title = "Console Hybrid Flow with PKCE";
+
             Log.Logger = new LoggerConfiguration()
                            .MinimumLevel.Debug()
                            .WriteTo.LiterateConsole()

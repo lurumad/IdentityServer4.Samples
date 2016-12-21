@@ -8,7 +8,6 @@ using System.Net.Http;
 using Clients;
 using Newtonsoft.Json.Linq;
 using IdentityModel.Client;
-using Microsoft.AspNetCore.Http.Authentication;
 using Microsoft.IdentityModel.Protocols.OpenIdConnect;
 using System.Globalization;
 

@@ -1,26 +1,29 @@
 ﻿using Clients;
-using IdentityModel;
 using IdentityModel.Client;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
-using System.Text;
+using System.Threading.Tasks;
 
 namespace ConsoleCustomGrant
 {
     class Program
     {
-        static void Main(string[] args)
+        public static void Main(string[] args) => MainAsync().GetAwaiter().GetResult();
+
+        static async Task MainAsync()
         {
-            var response = RequestToken();
-            ShowResponse(response);
+            Console.Title = "Console Custom Grant";
+
+            var response = await RequestTokenAsync();
+            response.Show();
 
             Console.ReadLine();
-            CallService(response.AccessToken);
+            await CallServiceAsync(response.AccessToken);
         }
 
-        static TokenResponse RequestToken()
+        static async Task<TokenResponse> RequestTokenAsync()
         {
             var client = new TokenClient(
                 Constants.TokenEndpoint,
@@ -32,10 +35,10 @@ namespace ConsoleCustomGrant
                     { "custom_credential", "custom credential"}
                 };
 
-            return client.RequestCustomGrantAsync("custom", "api1", customParameters).Result;
+            return await client.RequestCustomGrantAsync("custom", "api1", customParameters);
         }
 
-        static void CallService(string token)
+        static async Task CallServiceAsync(string token)
         {
             var baseAddress = Constants.AspNetWebApiSampleApi;
 
@@ -45,46 +48,10 @@ namespace ConsoleCustomGrant
             };
 
             client.SetBearerToken(token);
-            var response = client.GetStringAsync("identity").Result;
+            var response = await client.GetStringAsync("identity");
 
             "\n\nService claims:".ConsoleGreen();
             Console.WriteLine(JArray.Parse(response));
-        }
-
-        private static void ShowResponse(TokenResponse response)
-        {
-            if (!response.IsError)
-            {
-                "Token response:".ConsoleGreen();
-                Console.WriteLine(response.Json);
-
-                if (response.AccessToken.Contains("."))
-                {
-                    "\nAccess Token (decoded):".ConsoleGreen();
-
-                    var parts = response.AccessToken.Split('.');
-                    var header = parts[0];
-                    var claims = parts[1];
-
-                    Console.WriteLine(JObject.Parse(Encoding.UTF8.GetString(Base64Url.Decode(header))));
-                    Console.WriteLine(JObject.Parse(Encoding.UTF8.GetString(Base64Url.Decode(claims))));
-                }
-            }
-            else
-            {
-                if (response.ErrorType == ResponseErrorType.Http)
-                {
-                    "HTTP error: ".ConsoleGreen();
-                    Console.WriteLine(response.Error);
-                    "HTTP status code: ".ConsoleGreen();
-                    Console.WriteLine(response.HttpStatusCode);
-                }
-                else
-                {
-                    "Protocol error response:".ConsoleGreen();
-                    Console.WriteLine(response.Json);
-                }
-            }
         }
     }
 }

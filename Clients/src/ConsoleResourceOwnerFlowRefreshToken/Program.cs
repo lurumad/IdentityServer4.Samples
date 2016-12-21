@@ -5,6 +5,7 @@ using Newtonsoft.Json.Linq;
 using System;
 using System.Net.Http;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace ConsoleResourceOwnerFlowRefreshToken
 {
@@ -12,15 +13,19 @@ namespace ConsoleResourceOwnerFlowRefreshToken
     {
         static TokenClient _tokenClient;
 
-        static void Main(string[] args)
+        public static void Main(string[] args) => MainAsync().GetAwaiter().GetResult();
+
+        static async Task MainAsync()
         {
+            Console.Title = "Console ResourceOwner Flow RefreshToken";
+
             _tokenClient = new TokenClient(
                 Constants.TokenEndpoint,
                 "roclient",
                 "secret");
 
-            var response = RequestToken();
-            ShowResponse(response);
+            var response = await RequestTokenAsync();
+            response.Show();
 
             Console.ReadLine();
 
@@ -28,11 +33,11 @@ namespace ConsoleResourceOwnerFlowRefreshToken
 
             while (true)
             {
-                response = RefreshToken(refresh_token);
+                response = await RefreshTokenAsync(refresh_token);
                 ShowResponse(response);
 
                 Console.ReadLine();
-                CallService(response.AccessToken);
+                await CallServiceAsync(response.AccessToken);
 
                 if (response.RefreshToken != refresh_token)
                 {
@@ -41,20 +46,22 @@ namespace ConsoleResourceOwnerFlowRefreshToken
             }
         }
 
-        static TokenResponse RequestToken()
+        static async Task<TokenResponse> RequestTokenAsync()
         {
-            return _tokenClient.RequestResourceOwnerPasswordAsync
-                ("bob", "bob", "api1 api2.read_only offline_access").Result;
+            return await _tokenClient.RequestResourceOwnerPasswordAsync(
+                "bob",
+                "bob", 
+                "api1 api2.read_only offline_access");
         }
 
-        private static TokenResponse RefreshToken(string refreshToken)
+        private static async Task<TokenResponse> RefreshTokenAsync(string refreshToken)
         {
             Console.WriteLine("Using refresh token: {0}", refreshToken);
 
-            return _tokenClient.RequestRefreshTokenAsync(refreshToken).Result;
+            return await _tokenClient.RequestRefreshTokenAsync(refreshToken);
         }
 
-        static void CallService(string token)
+        static async Task CallServiceAsync(string token)
         {
             var baseAddress = Constants.AspNetWebApiSampleApi;
 
@@ -64,7 +71,7 @@ namespace ConsoleResourceOwnerFlowRefreshToken
             };
 
             client.SetBearerToken(token);
-            var response = client.GetStringAsync("identity").Result;
+            var response = await client.GetStringAsync("identity");
 
             "\n\nService claims:".ConsoleGreen();
             Console.WriteLine(JArray.Parse(response));
