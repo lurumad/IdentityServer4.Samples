@@ -51,7 +51,7 @@ namespace SampleApi
                 EnableCaching = false,
 
                 ApiName = "api1",
-                ApiSecret = "secret",
+                ApiSecret = "secret"
             });
 
             app.UseMvc();
