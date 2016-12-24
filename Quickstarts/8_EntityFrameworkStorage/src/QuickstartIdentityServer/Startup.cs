@@ -27,7 +27,7 @@ namespace QuickstartIdentityServer
             // configure identity server with in-memory users, but EF stores for clients and scopes
             services.AddIdentityServer()
                 .AddTemporarySigningCredential()
-                .AddInMemoryUsers(Config.GetUsers())
+                .AddTestUsers(Config.GetUsers())
                 .AddConfigurationStore(builder =>
                     builder.UseSqlServer(connectionString, options =>
                         options.MigrationsAssembly(migrationsAssembly)))

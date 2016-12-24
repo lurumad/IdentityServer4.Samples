@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -12,9 +8,6 @@ using Microsoft.Extensions.Logging;
 using IdentityServerWithAspNetIdentity.Data;
 using IdentityServerWithAspNetIdentity.Models;
 using IdentityServerWithAspNetIdentity.Services;
-using IdentityServerWithAspNetIdentity;
-using IdentityServer4.Services;
-using IdentityModel;
 
 namespace IdentityServerWithAspNetIdentity
 {

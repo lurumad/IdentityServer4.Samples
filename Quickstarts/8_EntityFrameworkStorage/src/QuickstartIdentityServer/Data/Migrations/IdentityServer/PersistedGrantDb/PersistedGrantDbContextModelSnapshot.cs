@@ -33,7 +33,7 @@ namespace QuickstartIdentityServer.Data.Migrations.IdentityServer.PersistedGrant
                     b.Property<string>("Data")
                         .IsRequired();
 
-                    b.Property<DateTime>("Expiration");
+                    b.Property<DateTime?>("Expiration");
 
                     b.Property<string>("SubjectId")
                         .HasAnnotation("MaxLength", 200);

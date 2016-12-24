@@ -158,6 +158,8 @@ namespace QuickstartIdentityServer.Data.Migrations.IdentityServer.ConfigurationD
 
                     b.Property<bool>("AllowRememberConsent");
 
+                    b.Property<bool>("AlwaysIncludeUserClaimsInIdToken");
+
                     b.Property<bool>("AlwaysSendClientClaims");
 
                     b.Property<int>("AuthorizationCodeLifetime");

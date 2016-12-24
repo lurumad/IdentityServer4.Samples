@@ -22,7 +22,7 @@ namespace QuickstartIdentityServer
                 .AddInMemoryIdentityResources(Config.GetIdentityResources())
                 .AddInMemoryApiResources(Config.GetApiResources())
                 .AddInMemoryClients(Config.GetClients())
-                .AddInMemoryUsers(Config.GetUsers());
+                .AddTestUsers(Config.GetUsers());
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)

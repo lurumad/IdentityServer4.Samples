@@ -3,7 +3,7 @@
 
 using IdentityServer4;
 using IdentityServer4.Models;
-using IdentityServer4.Services.InMemory;
+using IdentityServer4.Test;
 using System.Collections.Generic;
 using System.Security.Claims;
 
@@ -86,13 +86,13 @@ namespace QuickstartIdentityServer
             };
         }
 
-        public static List<InMemoryUser> GetUsers()
+        public static List<TestUser> GetUsers()
         {
-            return new List<InMemoryUser>
+            return new List<TestUser>
             {
-                new InMemoryUser
+                new TestUser
                 {
-                    Subject = "1",
+                    SubjectId = "1",
                     Username = "alice",
                     Password = "password",
 
@@ -102,9 +102,9 @@ namespace QuickstartIdentityServer
                         new Claim("website", "https://alice.com")
                     }
                 },
-                new InMemoryUser
+                new TestUser
                 {
-                    Subject = "2",
+                    SubjectId = "2",
                     Username = "bob",
                     Password = "password",
 
