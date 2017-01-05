@@ -19,8 +19,11 @@ namespace ConsoleResourceOwnerFlowRefreshToken
         {
             Console.Title = "Console ResourceOwner Flow RefreshToken";
 
+            var disco = await DiscoveryClient.GetAsync(Constants.Authority);
+            if (disco.IsError) throw new Exception(disco.Error);
+
             _tokenClient = new TokenClient(
-                Constants.TokenEndpoint,
+                disco.TokenEndpoint,
                 "roclient",
                 "secret");
 
@@ -63,7 +66,7 @@ namespace ConsoleResourceOwnerFlowRefreshToken
 
         static async Task CallServiceAsync(string token)
         {
-            var baseAddress = Constants.AspNetWebApiSampleApi;
+            var baseAddress = Constants.SampleApi;
 
             var client = new HttpClient
             {

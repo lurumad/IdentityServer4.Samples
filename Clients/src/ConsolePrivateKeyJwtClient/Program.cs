@@ -30,8 +30,11 @@ namespace ConsolePrivateKeyJwtClient
 
         static async Task<TokenResponse> RequestTokenAsync()
         {
-            var clientToken = CreateClientToken("client.jwt", Constants.TokenEndpoint);
-            var client = new TokenClient(Constants.TokenEndpoint, "client.jwt");
+            var disco = await DiscoveryClient.GetAsync(Constants.Authority);
+            if (disco.IsError) throw new Exception(disco.Error);
+
+            var clientToken = CreateClientToken("client.jwt", disco.TokenEndpoint);
+            var client = new TokenClient(disco.TokenEndpoint, "client.jwt");
 
             var assertion = new
             {
@@ -44,7 +47,7 @@ namespace ConsolePrivateKeyJwtClient
 
         static async Task CallServiceAsync(string token)
         {
-            var baseAddress = Constants.AspNetWebApiSampleApi;
+            var baseAddress = Constants.SampleApi;
 
             var client = new HttpClient
             {

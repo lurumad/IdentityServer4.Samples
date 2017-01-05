@@ -1,4 +1,5 @@
-﻿using IdentityModel;
+﻿using Clients;
+using IdentityModel;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -58,7 +59,7 @@ namespace MvcImplicit
                 AuthenticationScheme = "oidc",
                 SignInScheme = "Cookies",
 
-                Authority = Clients.Constants.BaseAddress,
+                Authority = Constants.Authority,
                 RequireHttpsMetadata = false,
 
                 ClientId = "mvc.implicit",

@@ -20,8 +20,11 @@ namespace ConsoleIntrospectionClient
 
         static async Task<TokenResponse> RequestTokenAsync()
         {
+            var disco = await DiscoveryClient.GetAsync(Constants.Authority);
+            if (disco.IsError) throw new Exception(disco.Error);
+
             var client = new TokenClient(
-                Constants.TokenEndpoint,
+                disco.TokenEndpoint,
                 "roclient.reference",
                 "secret");
 
@@ -30,8 +33,11 @@ namespace ConsoleIntrospectionClient
 
         private static async Task IntrospectAsync(string accessToken)
         {
+            var disco = await DiscoveryClient.GetAsync(Constants.Authority);
+            if (disco.IsError) throw new Exception(disco.Error);
+
             var client = new IntrospectionClient(
-                Constants.IntrospectionEndpoint,
+                disco.IntrospectionEndpoint,
                 "api1",
                 "secret");
 

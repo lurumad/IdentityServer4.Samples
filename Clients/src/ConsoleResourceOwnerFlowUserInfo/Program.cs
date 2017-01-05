@@ -21,8 +21,11 @@ namespace ConsoleResourceOwnerFlowUserInfo
 
         static async Task<TokenResponse> RequestTokenAsync()
         {
+            var disco = await DiscoveryClient.GetAsync(Constants.Authority);
+            if (disco.IsError) throw new Exception(disco.Error);
+
             var client = new TokenClient(
-                Constants.TokenEndpoint,
+                disco.TokenEndpoint,
                 "roclient",
                 "secret");
 
@@ -31,7 +34,10 @@ namespace ConsoleResourceOwnerFlowUserInfo
 
         static async Task GetClaimsAsync(string token)
         {
-            var client = new UserInfoClient(Constants.UserInfoEndpoint);
+            var disco = await DiscoveryClient.GetAsync(Constants.Authority);
+            if (disco.IsError) throw new Exception(disco.Error);
+
+            var client = new UserInfoClient(disco.UserInfoEndpoint);
 
             var response = await client.GetAsync(token);
 

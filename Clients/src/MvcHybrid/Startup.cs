@@ -6,6 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using System.IdentityModel.Tokens.Jwt;
 using IdentityModel;
+using Clients;
 
 namespace MvcHybrid
 {
@@ -61,7 +62,7 @@ namespace MvcHybrid
                 AuthenticationScheme = "oidc",
                 SignInScheme = "Cookies",
 
-                Authority = Clients.Constants.BaseAddress,
+                Authority = Constants.Authority,
                 RequireHttpsMetadata = false,
 
                 ClientId = "mvc.hybrid",

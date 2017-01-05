@@ -24,8 +24,11 @@ namespace ConsoleClientCredentialsFlow
 
         static async Task<TokenResponse> RequestTokenAsync()
         {
+            var disco = await DiscoveryClient.GetAsync(Constants.Authority);
+            if (disco.IsError) throw new Exception(disco.Error);
+
             var client = new TokenClient(
-                Constants.TokenEndpoint,
+                disco.TokenEndpoint,
                 "client",
                 "secret");
 
@@ -34,7 +37,7 @@ namespace ConsoleClientCredentialsFlow
 
         static async Task CallServiceAsync(string token)
         {
-            var baseAddress = Constants.AspNetWebApiSampleApi;
+            var baseAddress = Constants.SampleApi;
 
             var client = new HttpClient
             {

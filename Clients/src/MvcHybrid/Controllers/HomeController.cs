@@ -35,7 +35,7 @@ namespace MvcHybrid.Controllers
             client.SetBearerToken(token);
             //client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
 
-            var response = await client.GetStringAsync(Constants.AspNetWebApiSampleApi + "identity");
+            var response = await client.GetStringAsync(Constants.SampleApi + "identity");
             ViewBag.Json = JArray.Parse(response).ToString();
 
             return View();
@@ -43,7 +43,10 @@ namespace MvcHybrid.Controllers
 
         public async Task<IActionResult> RenewTokens()
         {
-            var tokenClient = new TokenClient(Constants.TokenEndpoint, "mvc.hybrid", "secret");
+            var disco = await DiscoveryClient.GetAsync(Constants.Authority);
+            if (disco.IsError) throw new Exception(disco.Error);
+
+            var tokenClient = new TokenClient(disco.TokenEndpoint, "mvc.hybrid", "secret");
             var rt = await HttpContext.Authentication.GetTokenAsync("refresh_token");
             var tokenResult = await tokenClient.RequestRefreshTokenAsync(rt);
 

@@ -9,13 +9,12 @@ using System.Collections.Generic;
 using IdentityModel;
 using System.Security.Cryptography;
 using System.IdentityModel.Tokens.Jwt;
+using Clients;
 
 namespace MvcImplicit.Controllers
 {
     public class HomeController : Controller
     {
-        string _authority = "http://localhost:1941";
-
         public IActionResult Index()
         {
             return View();
@@ -32,7 +31,7 @@ namespace MvcImplicit.Controllers
         {
             await HttpContext.Authentication.SignOutAsync("Cookies");
 
-            var disco = await DiscoveryClient.GetAsync(_authority);
+            var disco = await DiscoveryClient.GetAsync(Constants.Authority);
             return Redirect(disco.EndSessionEndpoint);
         }
 
@@ -44,9 +43,9 @@ namespace MvcImplicit.Controllers
         private async Task<IActionResult> StartAuthentication()
         {
             // read discovery document to find authorize endpoint
-            var disco = await DiscoveryClient.GetAsync(_authority);
+            var disco = await DiscoveryClient.GetAsync(Constants.Authority);
 
-            var authorizeUrl = new AuthorizeRequest(disco.AuthorizationEndpoint).CreateAuthorizeUrl(
+            var authorizeUrl = new AuthorizeRequest(disco.AuthorizeEndpoint).CreateAuthorizeUrl(
                 clientId: "mvc.manual",
                 responseType: "id_token",
                 scope: "openid",
@@ -76,7 +75,7 @@ namespace MvcImplicit.Controllers
         private async Task<ClaimsPrincipal> ValidateIdentityToken(string idToken)
         {
             // read discovery document to find issuer and key material
-            var disco = await DiscoveryClient.GetAsync(_authority);
+            var disco = await DiscoveryClient.GetAsync(Constants.Authority);
 
             var keys = new List<SecurityKey>();
             foreach (var webKey in disco.KeySet.Keys)

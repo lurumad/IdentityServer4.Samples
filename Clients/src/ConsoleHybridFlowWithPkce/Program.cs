@@ -11,13 +11,13 @@ namespace ConsoleCoreHybridFlowWithPkce
 {
     public class Program
     {
-        const string authority = Constants.BaseAddress;
+        const string authority = Constants.Authority;
         const string clientId = "console.hybrid.pkce";
         const int callbackPort= 7890;
         const string callbackPath = "/";
         const string callbackBase = "http://127.0.0.1:";
         const string scope = "openid profile api1";
-        const string apiUrl = Constants.AspNetWebApiSampleApi;
+        const string apiUrl = Constants.SampleApi;
 
         public static void Main(string[] args) => MainAsync().GetAwaiter().GetResult();
 
