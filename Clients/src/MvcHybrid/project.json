@@ -10,7 +10,7 @@
     },
     "Constants": "1.0.0-*",
     "BundlerMinifier.Core": "2.2.306",
-    "IdentityModel": "2.1.1",
+    "IdentityModel": "2.2.2",
     "Microsoft.AspNetCore.Authentication.Cookies": "1.1.0",
     "Microsoft.AspNetCore.Authentication.OpenIdConnect": "1.1.0",
     "Microsoft.AspNetCore.Diagnostics": "1.1.0",
