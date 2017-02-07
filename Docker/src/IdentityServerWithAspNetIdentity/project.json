@@ -1,0 +1,66 @@
+{
+  "userSecretsId": "aspnet-IdentityServerWithAspNetIdentity-1e7bf5d8-6c32-4dd3-b77d-2d7d2e0f5099",
+
+  "dependencies": {
+    "IdentityServer4.AspNetIdentity": "1.0.0",
+    "Microsoft.NETCore.App": {
+      "version": "1.1.0",
+      "type": "platform"
+    },
+    "BundlerMinifier.Core": "2.2.306",
+    "Microsoft.AspNetCore.Authentication.Cookies": "1.1.0",
+    "Microsoft.AspNetCore.Authentication.Google": "1.1.0",
+    "Microsoft.AspNetCore.Diagnostics": "1.1.0",
+    "Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore": "1.1.0",
+    "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "1.1.0",
+    "Microsoft.AspNetCore.Mvc": "1.1.0",
+    "Microsoft.AspNetCore.Server.Kestrel": "1.1.0",
+    "Microsoft.AspNetCore.StaticFiles": "1.1.0",
+    "Microsoft.EntityFrameworkCore.InMemory": "1.1.0",
+    "Microsoft.Extensions.Configuration.EnvironmentVariables": "1.1.0",
+    "Microsoft.Extensions.Configuration.Json": "1.1.0",
+    "Microsoft.Extensions.Configuration.UserSecrets": "1.1.0",
+    "Microsoft.Extensions.Logging": "1.1.0",
+    "Microsoft.Extensions.Logging.Console": "1.1.0",
+    "Microsoft.Extensions.Logging.Debug": "1.1.0",
+    "Microsoft.Extensions.Options.ConfigurationExtensions": "1.1.0"
+  },
+
+  "tools": {
+    "Microsoft.Extensions.SecretManager.Tools": "1.1.0-preview4-final",
+    "BundlerMinifier.Core": "2.2.306"
+  },
+
+  "frameworks": {
+    "netcoreapp1.1": {
+      "imports": [
+        "dotnet5.6",
+        "portable-net45+win8"
+      ]
+    }
+  },
+
+  "buildOptions": {
+    "emitEntryPoint": true,
+    "preserveCompilationContext": true
+  },
+
+  "runtimeOptions": {
+    "configProperties": {
+      "System.GC.Server": true
+    }
+  },
+
+  "publishOptions": {
+    "include": [
+      "wwwroot",
+      "**/*.cshtml",
+      "appsettings.json",
+      "web.config"
+    ]
+  },
+
+  "scripts": {
+    "prepublish": [ "bower install", "dotnet bundle" ]
+  }
+}

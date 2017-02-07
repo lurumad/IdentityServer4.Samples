@@ -15,7 +15,7 @@ api:
       - ASPNETCORE_ENVIRONMENT=Development
       - MVCAndAPISample_IdentityServer__Authority=http://localhost:5000
     ports:
-      - "1773:1773"
+      - "5001:5001"
     links:
       - identityserver:localhost
 
@@ -26,9 +26,9 @@ client:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - MVCAndAPISample_IdentityServer__Authority=http://localhost:5000
-      - MVCAndAPISample_Api__BaseAddress=http://api:1773
+      - MVCAndAPISample_Api__BaseAddress=http://api:5001
     ports:
-      - "3308:3308"
+      - "5002:5002"
     links:
       - identityserver:localhost
       - api

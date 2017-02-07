@@ -1,45 +1,47 @@
-﻿using Microsoft.AspNetCore.Builder;
-using Microsoft.Extensions.DependencyInjection;
-using System.IdentityModel.Tokens.Jwt;
-using Microsoft.Extensions.Configuration;
+﻿// Copyright (c) Brock Allen & Dominick Baier. All rights reserved.
+// Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
+
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Options;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 
 namespace Api
 {
     public class Startup
     {
-        private readonly IConfiguration _config;
+        public Startup(IHostingEnvironment env)
+        {
+            var builder = new ConfigurationBuilder()
+                .SetBasePath(env.ContentRootPath)
+                .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
+                .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true);
 
-        public Startup(IHostingEnvironment hostEnv)
-        {   
-            _config = new ConfigurationBuilder()
-                .SetBasePath(hostEnv.ContentRootPath)
-                .AddJsonFile("config.json")
-                .AddEnvironmentVariables("MVCAndAPISample_")
-                .Build();
+            builder.AddEnvironmentVariables();
+            Configuration = builder.Build();
         }
+
+        public IConfigurationRoot Configuration { get; }
 
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvcCore()
-                .AddJsonFormatters()
-                .AddAuthorization();
-
-            services.Configure<IdentityServerSettings>(_config.GetSection("IdentityServer"));
+                .AddAuthorization()
+                .AddJsonFormatters();
         }
 
-        public void Configure(IApplicationBuilder app, IOptions<IdentityServerSettings> settings)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
-            JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
+            loggerFactory.AddConsole(Configuration.GetSection("Logging"));
+            loggerFactory.AddDebug();
 
             app.UseIdentityServerAuthentication(new IdentityServerAuthenticationOptions
             {
-                Authority = settings.Value.Authority,
+                Authority = "http://localhost:5000",
                 RequireHttpsMetadata = false,
 
-                ScopeName = "api1",
-                AutomaticAuthenticate = true
+                ApiName = "api1"
             });
 
             app.UseMvc();

@@ -1,5 +1,7 @@
 # ASP.NET MVC Core Application Calling an HTTP API Sample
 
+Taken from the "Quickstart #6: IdentityServer and ASP.NET Identity" sample within this repo but updated slightly. This quickstart uses ASP.NET Identity for identity management and stores its data in-memory.
+
 ## Running the solution
 
 Getting the project up and running on your machine should be fairly straight forward after you have the necessary tools listed below:
@@ -9,8 +11,8 @@ Getting the project up and running on your machine should be fairly straight for
 
 These should be all you need. After getting these, `cd` into this folder and run `docker-compose up` on your terminal. You should see the output smilar to this:
 
-![](./.media/Screenshot-2016-09-15-10.43.05.png)
+![](./.media/036a1b86-ecbc-11e6-99a3-b0d6ff98cc23.png)
 
-From this point on, you can visit `http://localhost:3308/` on your browser to follow the example.
+From this point on, you can visit `http://localhost:5002/` on your browser to follow the example.
 
 For questions and feedback - contact @tugberkugurlu

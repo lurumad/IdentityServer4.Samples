@@ -1,5 +1,0 @@
-{
-    "IdentityServer": {
-        "Authority": "http://localhost:5000"
-    }
-}
