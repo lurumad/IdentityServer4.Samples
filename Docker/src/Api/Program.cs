@@ -1,5 +1,10 @@
-﻿using System.IO;
+﻿// Copyright (c) Brock Allen & Dominick Baier. All rights reserved.
+// Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
+
+using System;
+using System.IO;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Builder;
 
 namespace Api
 {
@@ -7,11 +12,12 @@ namespace Api
     {
         public static void Main(string[] args)
         {
+            Console.Title = "API";
+
             var host = new WebHostBuilder()
                 .UseKestrel()
-                .UseUrls("http://0.0.0.0:1773")
+                .UseUrls("http://0.0.0.0:5001")
                 .UseContentRoot(Directory.GetCurrentDirectory())
-                .UseIISIntegration()
                 .UseStartup<Startup>()
                 .Build();
 

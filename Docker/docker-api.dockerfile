@@ -1,4 +1,4 @@
-FROM microsoft/dotnet:1.0.0-preview2-sdk
+FROM microsoft/dotnet:1.1.0-sdk-projectjson
 
 COPY ./src/Api/project.json /app/
 COPY ./NuGet.Config /app/
@@ -6,5 +6,7 @@ WORKDIR /app/
 RUN dotnet restore
 ADD ./src/Api/ /app/
 
-EXPOSE 1773
-ENTRYPOINT ["dotnet", "run"]
+RUN dotnet publish -c Debug -o out
+
+EXPOSE 5001
+ENTRYPOINT ["dotnet", "out/app.dll"]
