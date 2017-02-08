@@ -16,14 +16,24 @@ namespace ConsoleCustomGrant
         {
             Console.Title = "Console Custom Grant";
 
-            var response = await RequestTokenAsync();
+            // custom grant type with subject support
+            var response = await RequestTokenAsync("custom");
+            response.Show();
+
+            Console.ReadLine();
+            await CallServiceAsync(response.AccessToken);
+
+            Console.ReadLine();
+
+            // custom grant type without subject support
+            response = await RequestTokenAsync("custom.nosubject");
             response.Show();
 
             Console.ReadLine();
             await CallServiceAsync(response.AccessToken);
         }
 
-        static async Task<TokenResponse> RequestTokenAsync()
+        static async Task<TokenResponse> RequestTokenAsync(string grantType)
         {
             var disco = await DiscoveryClient.GetAsync(Constants.Authority);
             if (disco.IsError) throw new Exception(disco.Error);
@@ -38,7 +48,7 @@ namespace ConsoleCustomGrant
                     { "custom_credential", "custom credential"}
                 };
 
-            return await client.RequestCustomGrantAsync("custom", "api1", customParameters);
+            return await client.RequestCustomGrantAsync(grantType, "api1", customParameters);
         }
 
         static async Task CallServiceAsync(string token)
