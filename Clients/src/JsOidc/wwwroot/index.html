@@ -19,9 +19,9 @@
             <ul class="list-unstyled list-inline">
                 <li><a class="btn btn-primary" href="index.html">Home</a></li>
                 <li><button class="btn btn-default request" data-scope='openid' data-type='id_token'>Login Only</button></li>
-                <li><button class="btn btn-default request" data-scope='openid profile email' data-type='id_token'>Login With Profile</button></li>
-                <li><button class="btn btn-default request" data-scope='openid profile email api1 api2.read_only' data-type='id_token token'>Login With Profile and Access Token</button></li>
-                <li><button class="btn btn-default request" data-scope='api1 api2.read_only' data-type='token'>Access Token Only</button></li>
+                <li><button class="btn btn-default request" data-scope='openid profile email' data-type='id_token'>Profile</button></li>
+                <li><button class="btn btn-default request" data-scope='openid profile email' data-type='id_token token'>Profile and Access Token</button></li>
+                <li><button class="btn btn-default request" data-scope='openid profile email api1 api2.read_only' data-type='id_token token'>Profile and API Access</button></li>
                 <li><button class="btn btn-primary call">Call Service</button></li>
                 <li><button class="btn btn-info revoke">Revoke Access Token</button></li>
                 <li><button class="btn btn-info logout">Logout</button></li>
@@ -43,25 +43,25 @@
         </div>
 
         <div class="row">
-            <div class="col-sm-4">
+            <div class="col-sm-6">
                 <div class="panel panel-default">
-                    <div class="panel-heading">ID Token Contents</div>
+                    <div class="panel-heading">Authorization Result</div>
                     <div class="panel-body">
                         <pre id="id-token"></pre>
                     </div>
                 </div>
             </div>
 
-            <div class="col-sm-4">
+            <!--<div class="col-sm-4">
                 <div class="panel panel-default">
                     <div class="panel-heading">Access Token</div>
                     <div class="panel-body">
                         <pre id="access-token"></pre>
                     </div>
                 </div>
-            </div>
+            </div>-->
 
-            <div class="col-sm-4">
+            <div class="col-sm-6">
                 <div class="panel panel-default">
                     <div class="panel-heading">Ajax Result</div>
                     <div class="panel-body">

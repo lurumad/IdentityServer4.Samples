@@ -30,7 +30,8 @@ var config = {
     // wouldn't care about them or want them taking up space
     filterProtocolClaims: false
 };
-//Oidc.Log.logger = window.console;
+Oidc.Log.logger = window.console;
+Oidc.Log.level = Oidc.Log.INFO;
 
 var mgr = new Oidc.UserManager(config);
 
@@ -66,7 +67,7 @@ function showTokens() {
     mgr.getUser().then(function (user) {
         if (user) {
             display("#id-token", user || "");
-            display("#access-token", user.access_token && { access_token: user.access_token, expires_in: user.expires_in } || "");
+            //display("#access-token", user.access_token && { access_token: user.access_token, expires_in: user.expires_in } || "");
         }
         else {
             display("#response", { message: "Not logged in" });
