@@ -11,7 +11,7 @@
     "Microsoft.AspNetCore.Mvc": "1.1.*",
     "Microsoft.AspNetCore.StaticFiles": "1.1.*",
 
-    "IdentityServer4": "1.0.0"
+    "IdentityServer4": "1.2.0"
   },
 
   "tools": {

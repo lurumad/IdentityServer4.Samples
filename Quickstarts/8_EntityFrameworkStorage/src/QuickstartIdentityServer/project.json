@@ -5,6 +5,7 @@
       "type": "platform"
     },
     "IdentityServer4.EntityFramework": "1.0.0",
+    "IdentityServer4": "1.2.0",
 
     "Microsoft.EntityFrameworkCore.Tools": {
       "version": "1.0.0-preview2-final",
