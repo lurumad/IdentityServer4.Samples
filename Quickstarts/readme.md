@@ -36,4 +36,4 @@ This quickstart shows how to build a JavaScript client for IdentityServer.
 
 # Quickstart #8: EntityFramework configuration
 
-This quickstart shows how to use EntityFramework for the cofniguration data.
+This quickstart shows how to use EntityFramework for the configuration data.
