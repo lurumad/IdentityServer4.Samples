@@ -1,52 +1,49 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.26228.4
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{187AC294-0420-4726-808B-ED49148C0632}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{179A2A2C-3B3D-437C-B5F3-3B81472C8335}"
-	ProjectSection(SolutionItems) = preProject
-		global.json = global.json
-	EndProjectSection
-EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Console Client Credentials Flow", "src\ConsoleClientCredentialsFlow\Console Client Credentials Flow.xproj", "{6729A51B-A7D9-43F3-8F48-D55478254AB7}"
-EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Constants", "src\Constants\Constants.xproj", "{2096C1D4-5C89-46D5-874A-66E78C9E5A98}"
-EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Console ResourceOwner Flow", "src\ConsoleResourceOwnerFlow\Console ResourceOwner Flow.xproj", "{9BFE1F4E-C2F4-49FC-917E-BE25C0F42D84}"
-EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Console ClientCredentials Flow PostBody", "src\ConsoleClientCredentialsFlowPostBody\Console ClientCredentials Flow PostBody.xproj", "{BEA2C25F-0551-4AFC-9961-7DB934724FF1}"
-EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Console ResourceOwner Flow RefreshToken", "src\ConsoleResourceOwnerFlowRefreshToken\Console ResourceOwner Flow RefreshToken.xproj", "{2952A3E3-8831-419B-B14C-448C409961A7}"
-EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Console ResourceOwner Flow UserInfo", "src\ConsoleResourceOwnerFlowUserInfo\Console ResourceOwner Flow UserInfo.xproj", "{120F561D-5670-4C80-8CAB-4D770204DC91}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "API", "API", "{AFE7085F-051E-4829-955F-3426FE643BDD}"
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Console Introspection Client", "src\ConsoleIntrospectionClient\Console Introspection Client.xproj", "{395F9DF7-AE5A-403E-BE7A-4AF045B21BB3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleClientCredentialsFlow", "src\ConsoleClientCredentialsFlow\ConsoleClientCredentialsFlow.csproj", "{6729A51B-A7D9-43F3-8F48-D55478254AB7}"
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Console ResourceOwner Flow Reference", "src\ConsoleResourceOwnerFlowReference\Console ResourceOwner Flow Reference.xproj", "{0E9145DB-CC70-44F9-B52B-1D7D4C2B2E5F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Constants", "src\Constants\Constants.csproj", "{2096C1D4-5C89-46D5-874A-66E78C9E5A98}"
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Console Custom Grant", "src\ConsoleCustomGrant\Console Custom Grant.xproj", "{546267CD-BE21-44E1-A06E-C7558864EE4F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleResourceOwnerFlow", "src\ConsoleResourceOwnerFlow\ConsoleResourceOwnerFlow.csproj", "{9BFE1F4E-C2F4-49FC-917E-BE25C0F42D84}"
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Mvc Implicit", "src\MvcImplicit\Mvc Implicit.xproj", "{05150B7D-54DB-40AB-8BBB-0C34ACC27CE5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleClientCredentialsFlowPostBody", "src\ConsoleClientCredentialsFlowPostBody\ConsoleClientCredentialsFlowPostBody.csproj", "{BEA2C25F-0551-4AFC-9961-7DB934724FF1}"
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "JavaScript OAuth2", "src\JsOAuth2\JavaScript OAuth2.xproj", "{DE109531-37EB-41AB-A228-F93A4B157475}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleResourceOwnerFlowRefreshToken", "src\ConsoleResourceOwnerFlowRefreshToken\ConsoleResourceOwnerFlowRefreshToken.csproj", "{2952A3E3-8831-419B-B14C-448C409961A7}"
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "JavaScript Oidc", "src\JsOidc\JavaScript Oidc.xproj", "{A29115B9-30E4-4967-AD5A-C32394B8A64C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleResourceOwnerFlowUserInfo", "src\ConsoleResourceOwnerFlowUserInfo\ConsoleResourceOwnerFlowUserInfo.csproj", "{120F561D-5670-4C80-8CAB-4D770204DC91}"
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "SampleApi", "src\SampleApi\SampleApi.xproj", "{03D5E439-393F-4E03-BA8F-AD3462397B38}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleIntrospectionClient", "src\ConsoleIntrospectionClient\ConsoleIntrospectionClient.csproj", "{395F9DF7-AE5A-403E-BE7A-4AF045B21BB3}"
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Mvc Hybrid", "src\MvcHybrid\Mvc Hybrid.xproj", "{C48191D1-640C-4640-9AE3-832A8E426B10}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleResourceOwnerFlowReference", "src\ConsoleResourceOwnerFlowReference\ConsoleResourceOwnerFlowReference.csproj", "{0E9145DB-CC70-44F9-B52B-1D7D4C2B2E5F}"
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Console ResourceOwner Flow Public", "src\ConsoleResourceOwnerFlowPublic\Console ResourceOwner Flow Public.xproj", "{8648122C-EE91-4B3B-98CD-355C3F1B9FDF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleCustomGrant", "src\ConsoleCustomGrant\ConsoleCustomGrant.csproj", "{546267CD-BE21-44E1-A06E-C7558864EE4F}"
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Mvc Manual", "src\MvcManual\Mvc Manual.xproj", "{598447F2-CBF0-494C-B530-584C33A90084}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MvcImplicit", "src\MvcImplicit\MvcImplicit.csproj", "{05150B7D-54DB-40AB-8BBB-0C34ACC27CE5}"
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Console Client Credentials Flow with JWT Assertion", "src\ConsolePrivateKeyJwtClient\Console Client Credentials Flow with JWT Assertion.xproj", "{1EC25581-781E-4FEA-A8AC-72BBD599FB87}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JsOAuth2", "src\JsOAuth2\JsOAuth2.csproj", "{DE109531-37EB-41AB-A228-F93A4B157475}"
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Console Hybrid Flow with PKCE", "src\ConsoleHybridFlowWithPkce\Console Hybrid Flow with PKCE.xproj", "{E7836ABA-39CA-4984-AEE4-EC9360FBAFE9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JsOidc", "src\JsOidc\JsOidc.csproj", "{A29115B9-30E4-4967-AD5A-C32394B8A64C}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SampleApi", "src\SampleApi\SampleApi.csproj", "{03D5E439-393F-4E03-BA8F-AD3462397B38}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MvcHybrid", "src\MvcHybrid\MvcHybrid.csproj", "{C48191D1-640C-4640-9AE3-832A8E426B10}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleResourceOwnerFlowPublic", "src\ConsoleResourceOwnerFlowPublic\ConsoleResourceOwnerFlowPublic.csproj", "{8648122C-EE91-4B3B-98CD-355C3F1B9FDF}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MvcManual", "src\MvcManual\MvcManual.csproj", "{598447F2-CBF0-494C-B530-584C33A90084}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsolePrivateKeyJwtClient", "src\ConsolePrivateKeyJwtClient\ConsolePrivateKeyJwtClient.csproj", "{1EC25581-781E-4FEA-A8AC-72BBD599FB87}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleHybridWithPkce", "src\ConsoleHybridWithPkce\ConsoleHybridWithPkce.csproj", "{BB38F47A-1BBF-47E1-9872-088FC81DC825}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -122,22 +119,22 @@ Global
 		{1EC25581-781E-4FEA-A8AC-72BBD599FB87}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1EC25581-781E-4FEA-A8AC-72BBD599FB87}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1EC25581-781E-4FEA-A8AC-72BBD599FB87}.Release|Any CPU.Build.0 = Release|Any CPU
-		{E7836ABA-39CA-4984-AEE4-EC9360FBAFE9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E7836ABA-39CA-4984-AEE4-EC9360FBAFE9}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E7836ABA-39CA-4984-AEE4-EC9360FBAFE9}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E7836ABA-39CA-4984-AEE4-EC9360FBAFE9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BB38F47A-1BBF-47E1-9872-088FC81DC825}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BB38F47A-1BBF-47E1-9872-088FC81DC825}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BB38F47A-1BBF-47E1-9872-088FC81DC825}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BB38F47A-1BBF-47E1-9872-088FC81DC825}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
+		{AFE7085F-051E-4829-955F-3426FE643BDD} = {187AC294-0420-4726-808B-ED49148C0632}
 		{6729A51B-A7D9-43F3-8F48-D55478254AB7} = {187AC294-0420-4726-808B-ED49148C0632}
 		{2096C1D4-5C89-46D5-874A-66E78C9E5A98} = {187AC294-0420-4726-808B-ED49148C0632}
 		{9BFE1F4E-C2F4-49FC-917E-BE25C0F42D84} = {187AC294-0420-4726-808B-ED49148C0632}
 		{BEA2C25F-0551-4AFC-9961-7DB934724FF1} = {187AC294-0420-4726-808B-ED49148C0632}
 		{2952A3E3-8831-419B-B14C-448C409961A7} = {187AC294-0420-4726-808B-ED49148C0632}
 		{120F561D-5670-4C80-8CAB-4D770204DC91} = {187AC294-0420-4726-808B-ED49148C0632}
-		{AFE7085F-051E-4829-955F-3426FE643BDD} = {187AC294-0420-4726-808B-ED49148C0632}
 		{395F9DF7-AE5A-403E-BE7A-4AF045B21BB3} = {187AC294-0420-4726-808B-ED49148C0632}
 		{0E9145DB-CC70-44F9-B52B-1D7D4C2B2E5F} = {187AC294-0420-4726-808B-ED49148C0632}
 		{546267CD-BE21-44E1-A06E-C7558864EE4F} = {187AC294-0420-4726-808B-ED49148C0632}
@@ -149,6 +146,6 @@ Global
 		{8648122C-EE91-4B3B-98CD-355C3F1B9FDF} = {187AC294-0420-4726-808B-ED49148C0632}
 		{598447F2-CBF0-494C-B530-584C33A90084} = {187AC294-0420-4726-808B-ED49148C0632}
 		{1EC25581-781E-4FEA-A8AC-72BBD599FB87} = {187AC294-0420-4726-808B-ED49148C0632}
-		{E7836ABA-39CA-4984-AEE4-EC9360FBAFE9} = {187AC294-0420-4726-808B-ED49148C0632}
+		{BB38F47A-1BBF-47E1-9872-088FC81DC825} = {187AC294-0420-4726-808B-ED49148C0632}
 	EndGlobalSection
 EndGlobal
