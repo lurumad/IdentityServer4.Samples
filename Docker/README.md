@@ -11,7 +11,7 @@ Getting the project up and running on your machine should be fairly straight for
 
 These should be all you need. After getting these, `cd` into this folder and run `docker-compose up` on your terminal. You should see the output smilar to this:
 
-![](./.media/036a1b86-ecbc-11e6-99a3-b0d6ff98cc23.png)
+![](./.media/ae9af6aa-0824-11e7-87d0-3ac6d2557916.png)
 
 From this point on, you can visit `http://localhost:5002/` on your browser to follow the example.
 
