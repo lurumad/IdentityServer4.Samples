@@ -11,6 +11,11 @@ namespace QuickstartIdentityServer
 {
     public class Startup
     {
+        public Startup(ILoggerFactory loggerFactory)
+        {
+            loggerFactory.AddConsole(LogLevel.Debug);
+        }
+
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
@@ -26,7 +31,6 @@ namespace QuickstartIdentityServer
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
-            loggerFactory.AddConsole(LogLevel.Debug);
             app.UseDeveloperExceptionPage();
 
             app.UseIdentityServer();

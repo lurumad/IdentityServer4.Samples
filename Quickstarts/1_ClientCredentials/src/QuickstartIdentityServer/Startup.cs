@@ -9,6 +9,11 @@ namespace QuickstartIdentityServer
 {
     public class Startup
     {
+        public Startup(ILoggerFactory loggerFactory)
+        {
+            loggerFactory.AddConsole(LogLevel.Debug);
+        }
+
         public void ConfigureServices(IServiceCollection services)
         {
             // configure identity server with in-memory stores, keys, clients and scopes
@@ -18,9 +23,8 @@ namespace QuickstartIdentityServer
                 .AddInMemoryClients(Config.GetClients());
         }
 
-        public void Configure(IApplicationBuilder app, ILoggerFactory loggerFactory)
+        public void Configure(IApplicationBuilder app)
         {
-            loggerFactory.AddConsole(LogLevel.Debug);
             app.UseDeveloperExceptionPage();
 
             app.UseIdentityServer();
