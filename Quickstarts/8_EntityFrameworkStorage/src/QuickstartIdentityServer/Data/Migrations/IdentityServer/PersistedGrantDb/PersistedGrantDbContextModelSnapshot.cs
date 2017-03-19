@@ -13,36 +13,34 @@ namespace QuickstartIdentityServer.Data.Migrations.IdentityServer.PersistedGrant
         protected override void BuildModel(ModelBuilder modelBuilder)
         {
             modelBuilder
-                .HasAnnotation("ProductVersion", "1.1.0-rtm-22752")
+                .HasAnnotation("ProductVersion", "1.1.1")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
             modelBuilder.Entity("IdentityServer4.EntityFramework.Entities.PersistedGrant", b =>
                 {
                     b.Property<string>("Key")
-                        .HasAnnotation("MaxLength", 200);
-
-                    b.Property<string>("Type")
-                        .HasAnnotation("MaxLength", 50);
+                        .HasMaxLength(200);
 
                     b.Property<string>("ClientId")
                         .IsRequired()
-                        .HasAnnotation("MaxLength", 200);
+                        .HasMaxLength(200);
 
                     b.Property<DateTime>("CreationTime");
 
                     b.Property<string>("Data")
-                        .IsRequired();
+                        .IsRequired()
+                        .HasMaxLength(50000);
 
                     b.Property<DateTime?>("Expiration");
 
                     b.Property<string>("SubjectId")
-                        .HasAnnotation("MaxLength", 200);
+                        .HasMaxLength(200);
 
-                    b.HasKey("Key", "Type");
+                    b.Property<string>("Type")
+                        .IsRequired()
+                        .HasMaxLength(50);
 
-                    b.HasIndex("SubjectId");
-
-                    b.HasIndex("SubjectId", "ClientId");
+                    b.HasKey("Key");
 
                     b.HasIndex("SubjectId", "ClientId", "Type");
 

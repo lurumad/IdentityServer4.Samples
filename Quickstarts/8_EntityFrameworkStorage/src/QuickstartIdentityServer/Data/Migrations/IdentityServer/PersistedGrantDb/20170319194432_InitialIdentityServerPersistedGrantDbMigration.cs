@@ -13,27 +13,17 @@ namespace QuickstartIdentityServer.Data.Migrations.IdentityServer.PersistedGrant
                 columns: table => new
                 {
                     Key = table.Column<string>(maxLength: 200, nullable: false),
-                    Type = table.Column<string>(maxLength: 50, nullable: false),
                     ClientId = table.Column<string>(maxLength: 200, nullable: false),
                     CreationTime = table.Column<DateTime>(nullable: false),
-                    Data = table.Column<string>(nullable: false),
+                    Data = table.Column<string>(maxLength: 50000, nullable: false),
                     Expiration = table.Column<DateTime>(nullable: true),
-                    SubjectId = table.Column<string>(maxLength: 200, nullable: true)
+                    SubjectId = table.Column<string>(maxLength: 200, nullable: true),
+                    Type = table.Column<string>(maxLength: 50, nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_PersistedGrants", x => new { x.Key, x.Type });
+                    table.PrimaryKey("PK_PersistedGrants", x => x.Key);
                 });
-
-            migrationBuilder.CreateIndex(
-                name: "IX_PersistedGrants_SubjectId",
-                table: "PersistedGrants",
-                column: "SubjectId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_PersistedGrants_SubjectId_ClientId",
-                table: "PersistedGrants",
-                columns: new[] { "SubjectId", "ClientId" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_PersistedGrants_SubjectId_ClientId_Type",
