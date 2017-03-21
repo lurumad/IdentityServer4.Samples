@@ -1,0 +1,41 @@
+{
+  "name": "express-oidc-jwks-x5c",
+  "version": "0.1.0",
+  "description": "Parse and verify JWS x5c from the OpenID Connect jwks_uri",
+  "main": "index.js",
+  "scripts": {
+    "test": "./node_modules/mocha/bin/mocha test",
+    "lint": "./node_modules/eslint/bin/eslint.js . || true"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/PDMLab/express-oidc-jwks-verify.git"
+  },
+  "keywords": [
+    "openid",
+    "x5c",
+    "jwk",
+    "jwks",
+    "jws",
+    "express",
+    "token"
+  ],
+  "author": "Alexander Zeitler <alexander.zeitler@pdmlab.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/PDMLab/express-oidc-jwks-verify/issues"
+  },
+  "homepage": "https://github.com/PDMLab/express-oidc-jwks-verify#readme",
+  "dependencies": {
+    "cors": "^2.8.1",
+    "express": "^4.14.1",
+    "express-oidc-jwks-verify": "^0.2.0",
+    "jsonwebtoken": "^7.3.0"
+  },
+  "devDependencies": {
+    "eslint": "^3.15.0",
+    "eslint-config-es": "^0.8.10",
+    "eslint-plugin-extended": "^0.2.0",
+    "mocha": "^3.2.0"
+  }
+}
