@@ -30,7 +30,9 @@ namespace ConsoleClientWithBrowser
         private static async Task SignIn()
         {
             // create a redirect URI using an available port on the loopback address.
-            string redirectUri = string.Format("http://127.0.0.1:7890/");
+            // requires the OP to allow random ports on 127.0.0.1 - otherwise set a static port
+            var browser = new SystemBrowser();
+            string redirectUri = string.Format($"http://127.0.0.1:{browser.Port}");
 
             var options = new OidcClientOptions
             {
@@ -39,7 +41,7 @@ namespace ConsoleClientWithBrowser
                 RedirectUri = redirectUri,
                 Scope = "openid profile api1",
                 FilterClaims = false,
-                Browser = new SystemBrowser(port: 7890)
+                Browser = browser
             };
 
             var serilog = new LoggerConfiguration()
