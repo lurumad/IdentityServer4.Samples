@@ -34,7 +34,7 @@ namespace ConsolePrivateKeyJwtClient
             if (disco.IsError) throw new Exception(disco.Error);
 
             var clientToken = CreateClientToken("client.jwt", disco.TokenEndpoint);
-            var client = new TokenClient(disco.TokenEndpoint, "client.jwt");
+            var client = new TokenClient(disco.TokenEndpoint);
 
             var assertion = new
             {
