@@ -1,7 +1,16 @@
-﻿<h1>Secure</h1>
+﻿@using Microsoft.AspNetCore.Authentication
+
+<h1>Secure</h1>
+
+@{ 
+    var id_token = await Context.Authentication.GetTokenAsync("id_token");
+}
 
 <div>
     <dl>
+        <dt>id_token</dt>
+        <dd>@id_token</dd>
+
         @foreach (var claim in User.Claims)
         {
             <dt>@claim.Type</dt>
