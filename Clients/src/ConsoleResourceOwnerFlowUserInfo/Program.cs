@@ -40,6 +40,7 @@ namespace ConsoleResourceOwnerFlowUserInfo
             var client = new UserInfoClient(disco.UserInfoEndpoint);
 
             var response = await client.GetAsync(token);
+            if (response.IsError) throw new Exception(response.Error);
 
             "\n\nUser claims:".ConsoleGreen();
             foreach (var claim in response.Claims)
