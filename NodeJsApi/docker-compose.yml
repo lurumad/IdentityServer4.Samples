@@ -3,7 +3,7 @@ version: "2"
 services: 
 
   identityserver:
-      build: ./src/QuickStartIdentityServer
+      build: ./src/QuickstartIdentityServer
       container_name: identityserver
       environment:
         - ASPNETCORE_ENVIRONMENT=Development

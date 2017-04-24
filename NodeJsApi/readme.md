@@ -17,5 +17,7 @@
 
 ![](assets/4.png)
 
++The password for the users `alice` and `bob` is: `password`.    
++You can add additional or change existing users/passwords in `/NodeJsApi/src/QuickstartIdentityServer/Config.cs`.
 
 For questions and feedback - contact @AlexZeitler
