@@ -41,7 +41,7 @@ namespace QuickstartIdentityServer
             return new List<ApiResource>
             {
                 new ApiResource("api1", "My API"),
-                new ApiResource("api2", "Second API")
+                new ApiResource("api2.read_only", "Second API")
             };
         }
 
@@ -70,7 +70,7 @@ namespace QuickstartIdentityServer
                         IdentityServerConstants.StandardScopes.Profile,
                         IdentityServerConstants.StandardScopes.Email,
                         "api1",
-                        "api2"
+                        "api2.read_only"
                     }
                 }
             };
