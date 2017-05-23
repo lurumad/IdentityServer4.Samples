@@ -70,6 +70,10 @@
 
             show(result);
 
+            window.history.replaceState({},
+                window.document.title,
+                window.location.origin + window.location.pathname);
+
             if (!result.error) {
                 if (result.state !== localStorage["state"]) {
                     show("invalid state");

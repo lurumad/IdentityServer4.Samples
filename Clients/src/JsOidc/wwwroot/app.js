@@ -3,11 +3,11 @@
 var config = {
     authority: "http://localhost:5000/",
     client_id: "js_oidc",
-    redirect_uri: window.location.protocol + "//" + window.location.host + "/callback.html",
-    post_logout_redirect_uri: window.location.protocol + "//" + window.location.host + "/index.html",
+    redirect_uri: window.location.origin + "/callback.html",
+    post_logout_redirect_uri: window.location.origin + "/index.html",
 
     // if we choose to use popup window instead for logins
-    popup_redirect_uri: window.location.protocol + "//" + window.location.host + "/popup.html",
+    popup_redirect_uri: window.location.origin + "/popup.html",
     popupWindowFeatures: "menubar=yes,location=yes,toolbar=yes,width=1200,height=800,left=100,top=100;resizable=yes",
 
     // these two will be done dynamically from the buttons clicked, but are
@@ -20,7 +20,7 @@ var config = {
 
     // silent renew will get a new access_token via an iframe 
     // just prior to the old access_token expiring (60 seconds prior)
-    silent_redirect_uri: window.location.protocol + "//" + window.location.host + "/silent.html",
+    silent_redirect_uri: window.location.origin + "/silent.html",
     automaticSilentRenew: true,
 
     // will revoke (reference) access tokens at logout time
@@ -87,6 +87,11 @@ function handleCallback() {
         display("#response", result);
 
         showTokens();
+
+        window.history.replaceState({},
+            window.document.title,
+            window.location.origin + window.location.pathname);
+
     }, function (error) {
         display("#response", error.message && { error: error.message } || error);
     });
@@ -126,18 +131,6 @@ function callApi() {
             else {
                 display("#ajax-result", xhr.response);
             }
-        };
-        xhr.onerror = function () {
-            if (xhr.status === 401) {
-                mgr.removeToken();
-                showTokens();
-            }
-
-            display("#ajax-result", {
-                status: xhr.status,
-                statusText: xhr.statusText,
-                wwwAuthenticate: xhr.getResponseHeader("WWW-Authenticate")
-            });
         };
         xhr.open("GET", "http://localhost:3721/identity", true);
         xhr.setRequestHeader("Authorization", "Bearer " + user.access_token);
