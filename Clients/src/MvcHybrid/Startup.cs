@@ -7,37 +7,39 @@ using Microsoft.Extensions.Logging;
 using System.IdentityModel.Tokens.Jwt;
 using IdentityModel;
 using Clients;
+using Microsoft.IdentityModel.Tokens;
 
 namespace MvcHybrid
 {
     public class Startup
     {
-        public Startup(IHostingEnvironment env)
+        public IConfigurationRoot Configuration { get; }
+        public IHostingEnvironment HostingEnvironment { get; }
+
+        public Startup(IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
+            HostingEnvironment = env;
+
             var builder = new ConfigurationBuilder()
                 .SetBasePath(env.ContentRootPath)
                 .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
                 .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
                 .AddEnvironmentVariables();
+
             Configuration = builder.Build();
+
+            loggerFactory.AddConsole(Configuration.GetSection("Logging"));
+            loggerFactory.AddDebug();
         }
 
-        public IConfigurationRoot Configuration { get; }
-
-        // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            // Add framework services.
             services.AddMvc();
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
+        public void Configure(IApplicationBuilder app)
         {
-            loggerFactory.AddConsole(Configuration.GetSection("Logging"));
-            loggerFactory.AddDebug();
-
-            if (env.IsDevelopment())
+            if (HostingEnvironment.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
@@ -51,12 +53,14 @@ namespace MvcHybrid
             app.UseCookieAuthentication(new CookieAuthenticationOptions
             {
                 AuthenticationScheme = "Cookies",
+
                 AutomaticAuthenticate = true,
-                ExpireTimeSpan = TimeSpan.FromMinutes(60)
+
+                ExpireTimeSpan = TimeSpan.FromMinutes(60),
+                CookieName = "mvchybrid"
             });
 
             JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
-
             app.UseOpenIdConnectAuthentication(new OpenIdConnectOptions
             {
                 AuthenticationScheme = "oidc",
@@ -74,7 +78,7 @@ namespace MvcHybrid
 
                 SaveTokens = true,
 
-                TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters
+                TokenValidationParameters = new TokenValidationParameters
                 {
                     NameClaimType = JwtClaimTypes.Name,
                     RoleClaimType = JwtClaimTypes.Role,

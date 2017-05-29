@@ -44,8 +44,11 @@ namespace MvcImplicit
             app.UseCookieAuthentication(new CookieAuthenticationOptions
             {
                 AuthenticationScheme = "Cookies",
+
                 AutomaticAuthenticate = true,
-                ExpireTimeSpan = TimeSpan.FromMinutes(60)
+
+                ExpireTimeSpan = TimeSpan.FromMinutes(60),
+                CookieName = "mvcmanual"
             });
 
             app.UseMvcWithDefaultRoute();

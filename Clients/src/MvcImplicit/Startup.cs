@@ -13,28 +13,31 @@ namespace MvcImplicit
 {
     public class Startup
     {
-        public Startup(IHostingEnvironment env)
+        public IConfigurationRoot Configuration { get; }
+        public IHostingEnvironment HostingEnvironment { get; }
+
+        public Startup(IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
+            HostingEnvironment = env;
+
             var builder = new ConfigurationBuilder()
                 .SetBasePath(env.ContentRootPath)
                 .AddJsonFile("appsettings.json")
                 .AddEnvironmentVariables();
             Configuration = builder.Build();
-        }
 
-        public IConfigurationRoot Configuration { get; set; }
+            loggerFactory.AddConsole(Configuration.GetSection("Logging"));
+            loggerFactory.AddDebug();
+        }
 
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
         }
 
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
+        public void Configure(IApplicationBuilder app)
         {
-            loggerFactory.AddConsole(Configuration.GetSection("Logging"));
-            loggerFactory.AddDebug();
-
-            if (env.IsDevelopment())
+            if (HostingEnvironment.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
@@ -48,8 +51,11 @@ namespace MvcImplicit
             app.UseCookieAuthentication(new CookieAuthenticationOptions
             {
                 AuthenticationScheme = "Cookies",
+
                 AutomaticAuthenticate = true,
-                ExpireTimeSpan = TimeSpan.FromMinutes(60)
+
+                ExpireTimeSpan = TimeSpan.FromMinutes(60),
+                CookieName = "mvcimplicit"
             });
 
             JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
