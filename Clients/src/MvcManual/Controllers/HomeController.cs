@@ -83,15 +83,17 @@ namespace MvcImplicit.Controllers
                 var e = Base64Url.Decode(webKey.E);
                 var n = Base64Url.Decode(webKey.N);
 
-                var key = new RsaSecurityKey(new RSAParameters { Exponent = e, Modulus = n });
-                key.KeyId = webKey.Kid;
+                var key = new RsaSecurityKey(new RSAParameters { Exponent = e, Modulus = n })
+                {
+                    KeyId = webKey.Kid
+                };
 
                 keys.Add(key);
             }
 
             var parameters = new TokenValidationParameters
             {
-                ValidIssuer = disco.TryGetString(OidcConstants.Discovery.Issuer),
+                ValidIssuer = disco.Issuer,
                 ValidAudience = "mvc.manual",
                 IssuerSigningKeys = keys,
 
@@ -102,8 +104,7 @@ namespace MvcImplicit.Controllers
             var handler = new JwtSecurityTokenHandler();
             handler.InboundClaimTypeMap.Clear();
 
-            SecurityToken token;
-            var user = handler.ValidateToken(idToken, parameters, out token);
+            var user = handler.ValidateToken(idToken, parameters, out var _);
 
             var nonce = user.FindFirst("nonce")?.Value ?? "";
             if (!string.Equals(nonce, "random_nonce")) throw new Exception("invalid nonce");

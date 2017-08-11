@@ -36,75 +36,31 @@ Oidc.Log.level = Oidc.Log.INFO;
 var mgr = new Oidc.UserManager(config);
 
 mgr.events.addUserLoaded(function (user) {
-    display("#response", { message: "User loaded" });
+    log("User loaded");
     showTokens();
 });
 mgr.events.addUserUnloaded(function () {
-    display("#response", { message: "User logged out locally" });
+    log("User logged out locally");
     showTokens();
 });
 mgr.events.addAccessTokenExpiring(function () {
-    display("#response", { message: "Access token expiring..." });
+    log("Access token expiring...");
 });
 mgr.events.addSilentRenewError(function (err) {
-    display("#response", { message: "Silent renew error: " + err.message });
+    log("Silent renew error: " + err.message);
 });
 mgr.events.addUserSignedOut(function () {
-    display("#response", { message: "User signed out of OP" });
+    log("User signed out of OP");
 });
 
-function display(selector, data) {
-    if (data && typeof data === 'string') {
-        data = JSON.parse(data);
-    }
-    if (data) {
-        data = JSON.stringify(data, null, 2);
-    }
-    document.querySelector(selector).textContent = data;
-}
-
-function showTokens() {
-    mgr.getUser().then(function (user) {
-        if (user) {
-            display("#id-token", user || "");
-            //display("#access-token", user.access_token && { access_token: user.access_token, expires_in: user.expires_in } || "");
-        }
-        else {
-            display("#response", { message: "Not logged in" });
-        }
-    });
-}
-showTokens();
-
-function handleCallback() {
-    mgr.signinRedirectCallback().then(function (user) {
-        var hash = window.location.hash.substr(1);
-        var result = hash.split('&').reduce(function (result, item) {
-            var parts = item.split('=');
-            result[parts[0]] = parts[1];
-            return result;
-        }, {});
-        display("#response", result);
-
-        showTokens();
-
-        window.history.replaceState({},
-            window.document.title,
-            window.location.origin + window.location.pathname);
-
-    }, function (error) {
-        display("#response", error.message && { error: error.message } || error);
-    });
-}
-
-function authorize(scope, response_type) {
+function login(scope, response_type) {
     var use_popup = false;
     if (!use_popup) {
         mgr.signinRedirect({ scope: scope, response_type: response_type });
     }
     else {
         mgr.signinPopup({ scope: scope, response_type: response_type }).then(function () {
-            display("#response", { message: "Logged In" });
+            log("Logged In");
         });
     }
 }
@@ -144,10 +100,71 @@ if (window.location.hash) {
 
 [].forEach.call(document.querySelectorAll(".request"), function (button) {
     button.addEventListener("click", function () {
-        authorize(this.dataset["scope"], this.dataset["type"]);
+        login(this.dataset["scope"], this.dataset["type"]);
     });
 });
 
 document.querySelector(".call").addEventListener("click", callApi, false);
 document.querySelector(".revoke").addEventListener("click", revoke, false);
 document.querySelector(".logout").addEventListener("click", logout, false);
+
+
+function log(data) {
+    document.getElementById('response').innerText = '';
+
+    Array.prototype.forEach.call(arguments, function (msg) {
+        if (msg instanceof Error) {
+            msg = "Error: " + msg.message;
+        }
+        else if (typeof msg !== 'string') {
+            msg = JSON.stringify(msg, null, 2);
+        }
+        document.getElementById('response').innerHTML += msg + '\r\n';
+    });
+}
+
+function display(selector, data) {
+    if (data && typeof data === 'string') {
+        try {
+            data = JSON.parse(data);
+        }
+        catch (e) { }
+    }
+    if (data && typeof data !== 'string') {
+        data = JSON.stringify(data, null, 2);
+    }
+    document.querySelector(selector).textContent = data;
+}
+
+function showTokens() {
+    mgr.getUser().then(function (user) {
+        if (user) {
+            display("#id-token", user);
+        }
+        else {
+            log("Not logged in");
+        }
+    });
+}
+showTokens();
+
+function handleCallback() {
+    mgr.signinRedirectCallback().then(function (user) {
+        var hash = window.location.hash.substr(1);
+        var result = hash.split('&').reduce(function (result, item) {
+            var parts = item.split('=');
+            result[parts[0]] = parts[1];
+            return result;
+        }, {});
+
+        log(result);
+        showTokens();
+
+        window.history.replaceState({},
+            window.document.title,
+            window.location.origin + window.location.pathname);
+
+    }, function (error) {
+        log(error);
+    });
+}
