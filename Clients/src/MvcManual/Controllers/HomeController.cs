@@ -51,7 +51,7 @@ namespace MvcImplicit.Controllers
                 clientId: "mvc.manual",
                 responseType: "id_token",
                 scope: "openid",
-                redirectUri: "http://localhost:44077/home/callback",
+                redirectUri: "http://localhost:44078/home/callback",
                 state: "random_state",
                 nonce: "random_nonce",
                 responseMode: "form_post");
