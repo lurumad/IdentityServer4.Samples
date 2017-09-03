@@ -10,6 +10,7 @@ using Newtonsoft.Json.Linq;
 using IdentityModel.Client;
 using Microsoft.IdentityModel.Protocols.OpenIdConnect;
 using System.Globalization;
+using Microsoft.AspNetCore.Http;
 
 namespace MvcHybrid.Controllers
 {
@@ -29,11 +30,10 @@ namespace MvcHybrid.Controllers
         [Authorize]
         public async Task<IActionResult> CallApi()
         {
-            var token = await HttpContext.Authentication.GetTokenAsync("access_token");
+            var token = await HttpContext.GetTokenAsync("access_token");
 
             var client = new HttpClient();
             client.SetBearerToken(token);
-            //client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
 
             var response = await client.GetStringAsync(Constants.SampleApi + "identity");
             ViewBag.Json = JArray.Parse(response).ToString();
@@ -47,12 +47,12 @@ namespace MvcHybrid.Controllers
             if (disco.IsError) throw new Exception(disco.Error);
 
             var tokenClient = new TokenClient(disco.TokenEndpoint, "mvc.hybrid", "secret");
-            var rt = await HttpContext.Authentication.GetTokenAsync("refresh_token");
+            var rt = await HttpContext.GetTokenAsync("refresh_token");
             var tokenResult = await tokenClient.RequestRefreshTokenAsync(rt);
 
             if (!tokenResult.IsError)
             {
-                var old_id_token = await HttpContext.Authentication.GetTokenAsync("id_token");
+                var old_id_token = await HttpContext.GetTokenAsync("id_token");
                 var new_access_token = tokenResult.AccessToken;
                 var new_refresh_token = tokenResult.RefreshToken;
 
@@ -64,9 +64,9 @@ namespace MvcHybrid.Controllers
                 var expiresAt = DateTime.UtcNow + TimeSpan.FromSeconds(tokenResult.ExpiresIn);
                 tokens.Add(new AuthenticationToken { Name = "expires_at", Value = expiresAt.ToString("o", CultureInfo.InvariantCulture) });
 
-                var info = await HttpContext.Authentication.GetAuthenticateInfoAsync("Cookies");
+                var info = await HttpContext.AuthenticateAsync("Cookies");
                 info.Properties.StoreTokens(tokens);
-                await HttpContext.Authentication.SignInAsync("Cookies", info.Principal, info.Properties);
+                await HttpContext.SignInAsync("Cookies", info.Principal, info.Properties);
 
                 return Redirect("~/Home/Secure");
             }
@@ -85,5 +85,4 @@ namespace MvcHybrid.Controllers
             return View();
         }
     }
-
 }

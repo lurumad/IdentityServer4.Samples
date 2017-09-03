@@ -1,90 +1,68 @@
 ﻿using System;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
 using System.IdentityModel.Tokens.Jwt;
 using IdentityModel;
 using Clients;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 namespace MvcHybrid
 {
     public class Startup
     {
-        public IConfigurationRoot Configuration { get; }
-        public IHostingEnvironment HostingEnvironment { get; }
-
-        public Startup(IHostingEnvironment env, ILoggerFactory loggerFactory)
+        public Startup()
         {
-            HostingEnvironment = env;
-
-            var builder = new ConfigurationBuilder()
-                .SetBasePath(env.ContentRootPath)
-                .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
-                .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
-                .AddEnvironmentVariables();
-
-            Configuration = builder.Build();
-
-            loggerFactory.AddConsole(Configuration.GetSection("Logging"));
-            loggerFactory.AddDebug();
+            JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
         }
 
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
+
+            services.AddAuthentication(options =>
+            {
+                options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = "oidc";
+            })
+                .AddCookie(options =>
+                {
+                    options.ExpireTimeSpan = TimeSpan.FromMinutes(60);
+                    options.Cookie.Name = "mvchybrid";
+                })
+                .AddOpenIdConnect("oidc", options =>
+                {
+                    options.Authority = Constants.Authority;
+                    options.RequireHttpsMetadata = false;
+
+                    options.ClientSecret = "secret";
+                    options.ClientId = "mvc.hybrid";
+
+                    options.ResponseType = "code id_token";
+
+                    options.Scope.Clear();
+                    options.Scope.Add("openid");
+                    options.Scope.Add("profile");
+                    options.Scope.Add("email");
+                    options.Scope.Add("api1");
+                    options.Scope.Add("offline_access");
+
+                    options.GetClaimsFromUserInfoEndpoint = true;
+                    options.SaveTokens = true;
+
+                    options.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        NameClaimType = JwtClaimTypes.Name,
+                        RoleClaimType = JwtClaimTypes.Role,
+                    };
+                });
         }
 
         public void Configure(IApplicationBuilder app)
         {
-            if (HostingEnvironment.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-            }
-            else
-            {
-                app.UseExceptionHandler("/Home/Error");
-            }
-
+            app.UseDeveloperExceptionPage();
             app.UseStaticFiles();
-
-            app.UseCookieAuthentication(new CookieAuthenticationOptions
-            {
-                AuthenticationScheme = "Cookies",
-
-                AutomaticAuthenticate = true,
-
-                ExpireTimeSpan = TimeSpan.FromMinutes(60),
-                CookieName = "mvchybrid"
-            });
-
-            JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
-            app.UseOpenIdConnectAuthentication(new OpenIdConnectOptions
-            {
-                AuthenticationScheme = "oidc",
-                SignInScheme = "Cookies",
-
-                Authority = Constants.Authority,
-                RequireHttpsMetadata = false,
-
-                ClientId = "mvc.hybrid",
-                ClientSecret = "secret",
-
-                ResponseType = "code id_token",
-                Scope = { "openid", "profile", "email", "api1", "offline_access" },
-                GetClaimsFromUserInfoEndpoint = true,
-
-                SaveTokens = true,
-
-                TokenValidationParameters = new TokenValidationParameters
-                {
-                    NameClaimType = JwtClaimTypes.Name,
-                    RoleClaimType = JwtClaimTypes.Role,
-                }
-            });
-
+            app.UseAuthentication();
             app.UseMvcWithDefaultRoute();
         }
     }

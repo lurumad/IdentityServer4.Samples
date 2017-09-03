@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using System;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 namespace SampleApi
 {
@@ -18,21 +18,19 @@ namespace SampleApi
             services.AddWebEncoders();
             services.AddCors();
             services.AddDistributedMemoryCache();
+
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer(options =>
+                {
+                    options.Authority = Constants.Authority;
+                    options.RequireHttpsMetadata = false;
+
+                    options.Audience = "api1";
+                });
         }
 
         public void Configure(IApplicationBuilder app, ILoggerFactory loggerFactory)
         {
-            Func<string, LogLevel, bool> filter = (scope, level) => 
-                scope.StartsWith("Microsoft.AspNetCore.Authentication") || 
-                scope.StartsWith("Microsoft.AspNetCore.Authorization") ||
-                scope.StartsWith("IdentityServer") ||
-                scope.StartsWith("IdentityModel") ||
-                level == LogLevel.Error ||
-                level == LogLevel.Critical;
-
-            loggerFactory.AddConsole(filter);
-            loggerFactory.AddDebug(filter);
-
             app.UseCors(policy =>
             {
                 policy.WithOrigins(
@@ -44,17 +42,7 @@ namespace SampleApi
                 policy.WithExposedHeaders("WWW-Authenticate");
             });
 
-            app.UseIdentityServerAuthentication(new IdentityServerAuthenticationOptions
-            {
-                Authority = Constants.Authority,
-                RequireHttpsMetadata = false,
-
-                EnableCaching = false,
-
-                ApiName = "api1",
-                ApiSecret = "secret"
-            });
-
+            app.UseAuthentication();
             app.UseMvc();
         }
     }

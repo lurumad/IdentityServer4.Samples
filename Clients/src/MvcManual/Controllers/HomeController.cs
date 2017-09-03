@@ -10,6 +10,8 @@ using IdentityModel;
 using System.Security.Cryptography;
 using System.IdentityModel.Tokens.Jwt;
 using Clients;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 namespace MvcImplicit.Controllers
 {
@@ -29,7 +31,7 @@ namespace MvcImplicit.Controllers
 
         public async Task <IActionResult> Logout()
         {
-            await HttpContext.Authentication.SignOutAsync("Cookies");
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
 
             var disco = await DiscoveryClient.GetAsync(Constants.Authority);
             return Redirect(disco.EndSessionEndpoint);
@@ -68,7 +70,7 @@ namespace MvcImplicit.Controllers
 
             var user = await ValidateIdentityToken(idToken);
 
-            await HttpContext.Authentication.SignInAsync("Cookies", user);
+            await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, user);
             return Redirect("/home/secure");
         }
 

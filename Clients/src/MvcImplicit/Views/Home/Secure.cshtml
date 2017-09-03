@@ -3,7 +3,7 @@
 <h1>Secure</h1>
 
 @{ 
-    var id_token = await Context.Authentication.GetTokenAsync("id_token");
+    var id_token = await Context.GetTokenAsync("id_token");
 }
 
 <div>
