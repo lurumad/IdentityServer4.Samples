@@ -15,9 +15,7 @@ namespace ConsolePrivateKeyJwtClient
 {
     public class Program
     {
-        public static void Main(string[] args) => MainAsync().GetAwaiter().GetResult();
-
-        public static async Task MainAsync()
+        public static async Task Main()
         {
             Console.Title = "Console Client Credentials Flow with JWT Assertion";
 

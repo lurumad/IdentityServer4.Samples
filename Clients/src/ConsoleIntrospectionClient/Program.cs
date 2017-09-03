@@ -8,9 +8,7 @@ namespace ConsoleIntrospectionClient
 {
     public class Program
     {
-        public static void Main(string[] args) => MainAsync().GetAwaiter().GetResult();
-
-        static async Task MainAsync()
+        static async Task Main()
         {
             Console.Title = "Console Introspection Client";
 
