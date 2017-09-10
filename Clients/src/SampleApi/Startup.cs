@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using IdentityServer4.AccessTokenValidation;
 
 namespace SampleApi
 {
@@ -19,14 +20,22 @@ namespace SampleApi
             services.AddCors();
             services.AddDistributedMemoryCache();
 
-            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-                .AddJwtBearer(options =>
+            services.AddAuthentication(IdentityServerAuthenticationDefaults.AuthenticationScheme)
+                .AddIdentityServerAuthentication(options =>
                 {
                     options.Authority = Constants.Authority;
                     options.RequireHttpsMetadata = false;
 
-                    options.Audience = "api1";
+                    options.ApiName = "api1";
+                    options.ApiSecret = "secret";
                 });
+                //.AddJwtBearer(options =>
+                //{
+                //    options.Authority = Constants.Authority;
+                //    options.RequireHttpsMetadata = false;
+
+                //    options.Audience = "api1";
+                //});
         }
 
         public void Configure(IApplicationBuilder app, ILoggerFactory loggerFactory)
