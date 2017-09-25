@@ -18,10 +18,10 @@
     "Api": {
       "commandName": "Project",
       "launchUrl": "http://localhost:5000/api/values",
-      "applicationUrl": "http://localhost:5001",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
-      }
+      },
+      "applicationUrl": "http://localhost:5001"
     }
   }
 }
