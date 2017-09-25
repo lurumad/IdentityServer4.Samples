@@ -29,7 +29,6 @@ namespace QuickstartIdentityServer
             };
         }
 
-
         // clients want to access resources (aka scopes)
         public static IEnumerable<Client> GetClients()
         {
@@ -39,10 +38,9 @@ namespace QuickstartIdentityServer
                 new Client
                 {
                     ClientId = "client",
-                    ClientName = "Client",
                     AllowedGrantTypes = GrantTypes.ClientCredentials,
 
-                    ClientSecrets =
+                    ClientSecrets = 
                     {
                         new Secret("secret".Sha256())
                     },
@@ -53,7 +51,6 @@ namespace QuickstartIdentityServer
                 new Client
                 {
                     ClientId = "ro.client",
-                    ClientName = "Resource Owner Client",
                     AllowedGrantTypes = GrantTypes.ResourceOwnerPassword,
 
                     ClientSecrets = 
@@ -78,7 +75,7 @@ namespace QuickstartIdentityServer
                     RedirectUris = { "http://localhost:5002/signin-oidc" },
                     PostLogoutRedirectUris = { "http://localhost:5002/signout-callback-oidc" },
 
-                    AllowedScopes =
+                    AllowedScopes = 
                     {
                         IdentityServerConstants.StandardScopes.OpenId,
                         IdentityServerConstants.StandardScopes.Profile,
@@ -104,7 +101,7 @@ namespace QuickstartIdentityServer
                         IdentityServerConstants.StandardScopes.OpenId,
                         IdentityServerConstants.StandardScopes.Profile,
                         "api1"
-                    }
+                    },
                 }
             };
         }
