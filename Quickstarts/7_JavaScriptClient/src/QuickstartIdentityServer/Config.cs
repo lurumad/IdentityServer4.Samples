@@ -40,7 +40,7 @@ namespace QuickstartIdentityServer
                     ClientId = "client",
                     AllowedGrantTypes = GrantTypes.ClientCredentials,
 
-                    ClientSecrets =
+                    ClientSecrets = 
                     {
                         new Secret("secret".Sha256())
                     },
@@ -67,7 +67,7 @@ namespace QuickstartIdentityServer
                     ClientName = "MVC Client",
                     AllowedGrantTypes = GrantTypes.HybridAndClientCredentials,
 
-                    ClientSecrets =
+                    ClientSecrets = 
                     {
                         new Secret("secret".Sha256())
                     },
@@ -75,7 +75,7 @@ namespace QuickstartIdentityServer
                     RedirectUris = { "http://localhost:5002/signin-oidc" },
                     PostLogoutRedirectUris = { "http://localhost:5002/signout-callback-oidc" },
 
-                    AllowedScopes =
+                    AllowedScopes = 
                     {
                         IdentityServerConstants.StandardScopes.OpenId,
                         IdentityServerConstants.StandardScopes.Profile,
