@@ -40,7 +40,7 @@ namespace QuickstartIdentityServer
                     ClientId = "client",
                     AllowedGrantTypes = GrantTypes.ClientCredentials,
 
-                    ClientSecrets =
+                    ClientSecrets = 
                     {
                         new Secret("secret".Sha256())
                     },
@@ -53,7 +53,7 @@ namespace QuickstartIdentityServer
                     ClientId = "ro.client",
                     AllowedGrantTypes = GrantTypes.ResourceOwnerPassword,
 
-                    ClientSecrets =
+                    ClientSecrets = 
                     {
                         new Secret("secret".Sha256())
                     },
