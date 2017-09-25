@@ -200,3 +200,6 @@ FakesAssemblies/
 
 .DS_STORE
 .idea/
+
+#IdentityServer's developer key
+tempkey.rsa
