@@ -1,8 +1,6 @@
 ﻿using Clients;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using IdentityServer4.AccessTokenValidation;
 
 namespace SampleApi
@@ -29,16 +27,9 @@ namespace SampleApi
                     options.ApiName = "api1";
                     options.ApiSecret = "secret";
                 });
-                //.AddJwtBearer(options =>
-                //{
-                //    options.Authority = Constants.Authority;
-                //    options.RequireHttpsMetadata = false;
-
-                //    options.Audience = "api1";
-                //});
         }
 
-        public void Configure(IApplicationBuilder app, ILoggerFactory loggerFactory)
+        public void Configure(IApplicationBuilder app)
         {
             app.UseCors(policy =>
             {
