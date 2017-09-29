@@ -72,18 +72,14 @@ namespace IdentityServerWithAspNetIdentity
             services.AddAuthentication()
                 .AddGoogle("Google", options =>
                 {
-                    options.SignInScheme = IdentityServerConstants.ExternalCookieAuthenticationScheme;
-
                     options.ClientId = "434483408261-55tc8n0cs4ff1fe21ea8df2o443v2iuc.apps.googleusercontent.com";
                     options.ClientSecret = "3gcoTrEDPPJ0ukn_aYYT6PWo";
                 })
                 .AddOpenIdConnect("oidc", "OpenID Connect", options =>
                 {
-                    options.SignInScheme = IdentityServerConstants.ExternalCookieAuthenticationScheme;
-                    options.SignOutScheme = IdentityServerConstants.SignoutScheme;
-
                     options.Authority = "https://demo.identityserver.io/";
                     options.ClientId = "implicit";
+                    options.SaveTokens = true;
 
                     options.TokenValidationParameters = new TokenValidationParameters
                     {
@@ -96,8 +92,9 @@ namespace IdentityServerWithAspNetIdentity
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
-            // this will do the initial DB population
-            InitializeDatabase(app);
+            // this will do the initial DB population, but we only need to do it once
+            // this is just in here as a easy, yet hacky, way to get our DB created/populated
+            //InitializeDatabase(app);
 
             if (env.IsDevelopment())
             {
