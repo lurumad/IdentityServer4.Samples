@@ -58,9 +58,17 @@ namespace QuickstartIdentityServer
                     ClientName = "JavaScript Client",
                     AllowedGrantTypes = GrantTypes.Implicit,
                     AllowAccessTokensViaBrowser = true,
-                    
 
-                    RedirectUris = { $"http://{HOST_IP}:5005/callback.html" },
+                    AbsoluteRefreshTokenLifetime = 200,
+                    IdentityTokenLifetime = 15,
+                    AccessTokenLifetime = 100,
+                    AuthorizationCodeLifetime = 15,
+                    SlidingRefreshTokenLifetime = 120,
+
+                    RedirectUris = {
+                        $"http://{HOST_IP}:5005/callback.html",
+                        $"http://{HOST_IP}:5005/silent.html"
+                    },
                     PostLogoutRedirectUris = { $"http://{HOST_IP}:5005/index.html" },
                     AllowedCorsOrigins = { $"http://{HOST_IP}:5005" },
 
