@@ -14,7 +14,6 @@ namespace SampleApi
                 .AddJsonFormatters()
                 .AddAuthorization();
 
-            services.AddWebEncoders();
             services.AddCors();
             services.AddDistributedMemoryCache();
 
