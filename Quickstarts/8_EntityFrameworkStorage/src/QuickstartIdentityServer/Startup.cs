@@ -72,8 +72,9 @@ namespace QuickstartIdentityServer
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
-            // this will do the initial DB population
-            InitializeDatabase(app);
+            // this will do the initial DB population, but we only need to do it once
+            // this is just in here as a easy, yet hacky, way to get our DB created/populated
+            //InitializeDatabase(app);
 
             if (env.IsDevelopment())
             {

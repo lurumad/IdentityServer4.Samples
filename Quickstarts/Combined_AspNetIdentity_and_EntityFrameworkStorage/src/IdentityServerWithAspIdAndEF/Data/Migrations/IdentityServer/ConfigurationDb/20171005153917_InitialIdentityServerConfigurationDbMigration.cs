@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 using System;
 using System.Collections.Generic;
 
-namespace QuickstartIdentityServer.Data.Migrations.IdentityServer.ConfigurationDb
+namespace IdentityServerWithAspIdAndEF.Data.Migrations.IdentityServer.ConfigurationDb
 {
     public partial class InitialIdentityServerConfigurationDbMigration : Migration
     {
@@ -42,7 +42,8 @@ namespace QuickstartIdentityServer.Data.Migrations.IdentityServer.ConfigurationD
                     AlwaysSendClientClaims = table.Column<bool>(type: "bit", nullable: false),
                     AuthorizationCodeLifetime = table.Column<int>(type: "int", nullable: false),
                     BackChannelLogoutSessionRequired = table.Column<bool>(type: "bit", nullable: false),
-                    BackChannelLogoutUri = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    BackChannelLogoutUri = table.Column<string>(type: "nvarchar(2000)", maxLength: 2000, nullable: true),
+                    ClientClaimsPrefix = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     ClientId = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
                     ClientName = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     ClientUri = table.Column<string>(type: "nvarchar(2000)", maxLength: 2000, nullable: true),
@@ -51,12 +52,11 @@ namespace QuickstartIdentityServer.Data.Migrations.IdentityServer.ConfigurationD
                     EnableLocalLogin = table.Column<bool>(type: "bit", nullable: false),
                     Enabled = table.Column<bool>(type: "bit", nullable: false),
                     FrontChannelLogoutSessionRequired = table.Column<bool>(type: "bit", nullable: false),
-                    FrontChannelLogoutUri = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    FrontChannelLogoutUri = table.Column<string>(type: "nvarchar(2000)", maxLength: 2000, nullable: true),
                     IdentityTokenLifetime = table.Column<int>(type: "int", nullable: false),
                     IncludeJwtId = table.Column<bool>(type: "bit", nullable: false),
-                    LogoUri = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    NormalizedClientId = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    PrefixClientClaims = table.Column<bool>(type: "bit", nullable: false),
+                    LogoUri = table.Column<string>(type: "nvarchar(2000)", maxLength: 2000, nullable: true),
+                    PairWiseSubjectSalt = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     ProtocolType = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
                     RefreshTokenExpiration = table.Column<int>(type: "int", nullable: false),
                     RefreshTokenUsage = table.Column<int>(type: "int", nullable: false),

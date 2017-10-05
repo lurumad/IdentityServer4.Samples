@@ -10,7 +10,7 @@ using System;
 namespace QuickstartIdentityServer.Data.Migrations.IdentityServer.PersistedGrantDb
 {
     [DbContext(typeof(PersistedGrantDbContext))]
-    [Migration("20170925203931_InitialIdentityServerPersistedGrantDbMigration")]
+    [Migration("20171005153857_InitialIdentityServerPersistedGrantDbMigration")]
     partial class InitialIdentityServerPersistedGrantDbMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
