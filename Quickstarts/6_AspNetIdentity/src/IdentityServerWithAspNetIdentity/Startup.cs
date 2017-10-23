@@ -71,7 +71,7 @@ namespace IdentityServerWithAspNetIdentity
 
             app.UseStaticFiles();
 
-            // app.UseIdentity(); // not needed, since UseIdentityServer adds the authentication middleware
+            // app.UseAuthentication(); // not needed, since UseIdentityServer adds the authentication middleware
             app.UseIdentityServer();
 
             app.UseMvc(routes =>
