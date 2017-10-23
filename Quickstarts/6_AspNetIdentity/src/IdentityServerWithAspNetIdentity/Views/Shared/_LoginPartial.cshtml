@@ -3,8 +3,10 @@
 
 @inject SignInManager<ApplicationUser> SignInManager
 @inject UserManager<ApplicationUser> UserManager
-
-@if (SignInManager.IsSignedIn(User))
+@{
+    bool signedOut = ViewData["signed-out"] != null && (bool)ViewData["signed-out"];
+}  
+@if (SignInManager.IsSignedIn(User) && !signedOut)
 {
     <form asp-area="" asp-controller="Account" asp-action="Logout" method="post" id="logoutForm" class="navbar-right">
         <ul class="nav navbar-nav navbar-right">
