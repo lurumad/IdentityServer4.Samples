@@ -17,6 +17,11 @@ namespace ResourceOwnerClient
         {
             // discover endpoints from metadata
             var disco = await DiscoveryClient.GetAsync("http://localhost:5000");
+            if (disco.IsError)
+            {
+                Console.WriteLine(disco.Error);
+                return;
+            }
 
             // request token
             var tokenClient = new TokenClient(disco.TokenEndpoint, "ro.client", "secret");
