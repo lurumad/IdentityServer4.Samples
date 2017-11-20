@@ -39,7 +39,7 @@ namespace Clients
                 else
                 {
                     "Protocol error response:".ConsoleGreen();
-                    Console.WriteLine(response.Json);
+                    Console.WriteLine(response.Raw);
                 }
             }
         }
