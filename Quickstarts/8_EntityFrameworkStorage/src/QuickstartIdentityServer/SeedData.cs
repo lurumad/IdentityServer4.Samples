@@ -15,12 +15,16 @@ namespace QuickstartIdentityServer
 
             using (var scope = serviceProvider.GetRequiredService<IServiceScopeFactory>().CreateScope())
             {
-                scope.ServiceProvider.GetRequiredService<PersistedGrantDbContext>().Database.Migrate();
+                using (var context = scope.ServiceProvider.GetService<PersistedGrantDbContext>())
+                {
+                    context.Database.Migrate();
+                }
 
-                var context = scope.ServiceProvider.GetRequiredService<ConfigurationDbContext>();
-                context.Database.Migrate();
-
-                EnsureSeedData(context);
+                using (var context = scope.ServiceProvider.GetRequiredService<ConfigurationDbContext>())
+                {
+                  context.Database.Migrate();
+                  EnsureSeedData(context);
+                }
             }
 
             Console.WriteLine("Done seeding database.");
