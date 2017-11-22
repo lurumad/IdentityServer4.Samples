@@ -62,6 +62,11 @@ namespace IdentityServerWithAspNetIdentity.Controllers
             // Clear the existing external cookie to ensure a clean login process
             await HttpContext.SignOutAsync(IdentityConstants.ExternalScheme);
 
+            if (context?.IdP != null && (await _signInManager.GetExternalAuthenticationSchemesAsync()).Any(p => string.Equals(p.Name, context.IdP, StringComparison.InvariantCultureIgnoreCase)))
+            {
+                return ExternalLogin(context.IdP, returnUrl);
+            }
+
             ViewData["ReturnUrl"] = returnUrl;
             return View();
         }
