@@ -20,7 +20,6 @@ namespace IdentityServerWithAspIdAndEF
 
                 var context = scope.ServiceProvider.GetRequiredService<ConfigurationDbContext>();
                 context.Database.Migrate();
-
                 EnsureSeedData(context);
             }
 
