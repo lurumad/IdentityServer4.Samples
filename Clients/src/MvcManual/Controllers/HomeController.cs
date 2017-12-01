@@ -37,6 +37,20 @@ namespace MvcImplicit.Controllers
             return Redirect(disco.EndSessionEndpoint);
         }
 
+        public async Task<IActionResult> Cleanup(string sid)
+        {
+            if (User.Identity.IsAuthenticated)
+            {
+                var currentSid = User.FindFirst("sid")?.Value ?? "";
+                if (string.Equals(currentSid, sid, StringComparison.Ordinal))
+                {
+                    await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+                }
+            }
+
+            return NoContent();
+        }
+
         public IActionResult Error()
         {
             return View();
