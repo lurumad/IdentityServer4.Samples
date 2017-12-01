@@ -6,6 +6,7 @@ using IdentityModel;
 using Clients;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication;
 
 namespace MvcHybrid
 {
@@ -46,6 +47,9 @@ namespace MvcHybrid
                     options.Scope.Add("email");
                     options.Scope.Add("api1");
                     options.Scope.Add("offline_access");
+
+                    options.ClaimActions.Remove("amr");
+                    options.ClaimActions.MapJsonKey("website", "website");
 
                     options.GetClaimsFromUserInfoEndpoint = true;
                     options.SaveTokens = true;
