@@ -12,6 +12,8 @@ using System.IdentityModel.Tokens.Jwt;
 using Clients;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authorization;
+using Newtonsoft.Json.Linq;
 
 namespace MvcImplicit.Controllers
 {
@@ -37,7 +39,7 @@ namespace MvcImplicit.Controllers
             return Redirect(disco.EndSessionEndpoint);
         }
 
-        public async Task<IActionResult> Cleanup(string sid)
+        public async Task<IActionResult> FrontChannelLogout(string sid)
         {
             if (User.Identity.IsAuthenticated)
             {
@@ -47,6 +49,19 @@ namespace MvcImplicit.Controllers
                     await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
                 }
             }
+
+            return NoContent();
+        }
+
+        [HttpPost]
+        [AllowAnonymous]
+        public async Task<IActionResult> BackChannelLogout(string logout_token)
+        {
+            var user = await ValidateLogoutToken(logout_token);
+
+            // these are the sub & sid to signout
+            var sub = user.FindFirst("sub")?.Value;
+            var sid = user.FindFirst("sid")?.Value;
 
             return NoContent();
         }
@@ -64,7 +79,7 @@ namespace MvcImplicit.Controllers
             var authorizeUrl = new AuthorizeRequest(disco.AuthorizeEndpoint).CreateAuthorizeUrl(
                 clientId: "mvc.manual",
                 responseType: "id_token",
-                scope: "openid",
+                scope: "openid profile",
                 redirectUri: "http://localhost:44078/home/callback",
                 state: "random_state",
                 nonce: "random_nonce",
@@ -89,6 +104,30 @@ namespace MvcImplicit.Controllers
         }
 
         private async Task<ClaimsPrincipal> ValidateIdentityToken(string idToken)
+        {
+            var user = await ValidateJwt(idToken);
+
+            var nonce = user.FindFirst("nonce")?.Value ?? "";
+            if (!string.Equals(nonce, "random_nonce")) throw new Exception("invalid nonce");
+
+            return user;
+        }
+
+        private async Task<ClaimsPrincipal> ValidateLogoutToken(string logoutToken)
+        {
+            var claims = await ValidateJwt(logoutToken);
+
+            var eventsJson = claims.FindFirst("events")?.Value;
+            if (String.IsNullOrWhiteSpace(eventsJson)) throw new Exception("Invalid logout token");
+
+            var events = JObject.Parse(eventsJson);
+            var logoutEvent = events.TryGetValue("http://schemas.openid.net/event/backchannel-logout");
+            if (logoutEvent == null) throw new Exception("Invalid logout token");
+
+            return claims;
+        }
+
+        private static async Task<ClaimsPrincipal> ValidateJwt(string jwt)
         {
             // read discovery document to find issuer and key material
             var disco = await DiscoveryClient.GetAsync(Constants.Authority);
@@ -120,11 +159,7 @@ namespace MvcImplicit.Controllers
             var handler = new JwtSecurityTokenHandler();
             handler.InboundClaimTypeMap.Clear();
 
-            var user = handler.ValidateToken(idToken, parameters, out var _);
-
-            var nonce = user.FindFirst("nonce")?.Value ?? "";
-            if (!string.Equals(nonce, "random_nonce")) throw new Exception("invalid nonce");
-
+            var user = handler.ValidateToken(jwt, parameters, out var _);
             return user;
         }
     }
