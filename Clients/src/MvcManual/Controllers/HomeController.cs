@@ -117,6 +117,11 @@ namespace MvcImplicit.Controllers
         {
             var claims = await ValidateJwt(logoutToken);
 
+            if (claims.FindFirst("sub") == null && claims.FindFirst("sid") == null) throw new Exception("Invalid logout token");
+
+            var nonce = claims.FindFirstValue("nonce");
+            if (!String.IsNullOrWhiteSpace(nonce)) throw new Exception("Invalid logout token");
+
             var eventsJson = claims.FindFirst("events")?.Value;
             if (String.IsNullOrWhiteSpace(eventsJson)) throw new Exception("Invalid logout token");
 
