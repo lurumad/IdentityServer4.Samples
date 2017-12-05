@@ -27,15 +27,24 @@ namespace MvcHybrid.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> Index(string logout_token)
         {
-            var user = await ValidateLogoutToken(logout_token);
+            Response.Headers.Add("Cache-Control", "no-cache, no-store");
+            Response.Headers.Add("Pragma", "no-cache");
 
-            // these are the sub & sid to signout
-            var sub = user.FindFirst("sub")?.Value;
-            var sid = user.FindFirst("sid")?.Value;
+            try
+            {
+                var user = await ValidateLogoutToken(logout_token);
 
-            LogoutSessions.Add(sub, sid);
+                // these are the sub & sid to signout
+                var sub = user.FindFirst("sub")?.Value;
+                var sid = user.FindFirst("sid")?.Value;
 
-            return NoContent();
+                LogoutSessions.Add(sub, sid);
+
+                return Ok();
+            }
+            catch { }
+
+            return BadRequest();
         }
 
         private async Task<ClaimsPrincipal> ValidateLogoutToken(string logoutToken)

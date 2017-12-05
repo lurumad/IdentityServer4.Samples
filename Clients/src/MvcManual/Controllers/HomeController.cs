@@ -57,13 +57,22 @@ namespace MvcImplicit.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> BackChannelLogout(string logout_token)
         {
-            var user = await ValidateLogoutToken(logout_token);
+            Response.Headers.Add("Cache-Control", "no-cache, no-store");
+            Response.Headers.Add("Pragma", "no-cache");
 
-            // these are the sub & sid to signout
-            var sub = user.FindFirst("sub")?.Value;
-            var sid = user.FindFirst("sid")?.Value;
+            try
+            {
+                var user = await ValidateLogoutToken(logout_token);
 
-            return NoContent();
+                // these are the sub & sid to signout
+                var sub = user.FindFirst("sub")?.Value;
+                var sid = user.FindFirst("sid")?.Value;
+
+                return Ok();
+            }
+            catch { }
+
+            return BadRequest();
         }
 
         public IActionResult Error()

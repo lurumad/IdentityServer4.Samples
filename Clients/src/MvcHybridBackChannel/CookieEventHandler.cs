@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authentication.Cookies;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authentication;
 
 namespace MvcHybrid
 {
@@ -12,7 +13,7 @@ namespace MvcHybrid
 
         public LogoutSessionManager LogoutSessions { get; }
 
-        public override Task ValidatePrincipal(CookieValidatePrincipalContext context)
+        public override async Task ValidatePrincipal(CookieValidatePrincipalContext context)
         {
             if (context.Principal.Identity.IsAuthenticated)
             {
@@ -22,11 +23,11 @@ namespace MvcHybrid
                 if (LogoutSessions.IsLoggedOut(sub, sid))
                 {
                     context.RejectPrincipal();
-                    return Task.CompletedTask;
+                    await context.HttpContext.SignOutAsync();
+
+                    // todo: if we have a refresh token, it should be revoked here.
                 }
             }
-
-            return base.ValidatePrincipal(context);
         }
     }
 }

@@ -17,14 +17,21 @@ namespace MvcHybrid
 
         public bool IsLoggedOut(string sub, string sid)
         {
-            var session = _sessions.Where(s => s.Sid == sid && s.Sub == sub);
-            return session.Any();
+            var matches = _sessions.Any(s => s.IsMatch(sub, sid));
+            return matches;
         }
 
         private class Session
         {
             public string Sub { get; set; }
             public string Sid { get; set; }
+
+            public bool IsMatch(string sub, string sid)
+            {
+                return (Sid == sid && Sub == sub) ||
+                       (Sid == sid && Sub == null) ||
+                       (Sid == null && Sub == sub);
+            }
         }
     }
 }
