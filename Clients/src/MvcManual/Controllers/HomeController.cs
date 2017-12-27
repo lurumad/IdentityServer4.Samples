@@ -85,7 +85,7 @@ namespace MvcImplicit.Controllers
             // read discovery document to find authorize endpoint
             var disco = await DiscoveryClient.GetAsync(Constants.Authority);
 
-            var authorizeUrl = new AuthorizeRequest(disco.AuthorizeEndpoint).CreateAuthorizeUrl(
+            var authorizeUrl = new RequestUrl(disco.AuthorizeEndpoint).CreateAuthorizeUrl(
                 clientId: "mvc.manual",
                 responseType: "id_token",
                 scope: "openid profile",
