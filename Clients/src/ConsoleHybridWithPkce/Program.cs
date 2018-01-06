@@ -45,13 +45,13 @@ namespace ConsoleClientWithBrowser
             var serilog = new LoggerConfiguration()
                 .MinimumLevel.Error()
                 .Enrich.FromLogContext()
-                .WriteTo.LiterateConsole(outputTemplate: "[{Timestamp:HH:mm:ss} {Level}] {SourceContext}{NewLine}{Message}{NewLine}{Exception}{NewLine}")
+                .WriteTo.Console(outputTemplate: "[{Timestamp:HH:mm:ss} {Level}] {SourceContext}{NewLine}{Message}{NewLine}{Exception}{NewLine}")
                 .CreateLogger();
 
             options.LoggerFactory.AddSerilog(serilog);
 
             _oidcClient = new OidcClient(options);
-            var result = await _oidcClient.LoginAsync();
+            var result = await _oidcClient.LoginAsync(new LoginRequest());
 
             ShowResult(result);
             await NextSteps(result);
