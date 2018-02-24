@@ -4,9 +4,8 @@
 using IdentityServer4;
 using IdentityServer4.Models;
 using System.Collections.Generic;
-using System.Security.Claims;
 
-namespace IdentityServerWithAspNetIdentity
+namespace IdentityServerWithAspIdAndEF
 {
     public class Config
     {
