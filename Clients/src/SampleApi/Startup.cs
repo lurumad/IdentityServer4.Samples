@@ -2,11 +2,22 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using IdentityServer4.AccessTokenValidation;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using System.Threading.Tasks;
+using System;
+using Microsoft.Extensions.Logging;
 
 namespace SampleApi
 {
     public class Startup
     {
+        private readonly ILogger<Startup> _logger;
+
+        public Startup(ILogger<Startup> logger)
+        {
+            _logger = logger;
+        }
+
         public void ConfigureServices(IServiceCollection services)
         {
             services
@@ -25,6 +36,33 @@ namespace SampleApi
 
                     options.ApiName = "api1";
                     options.ApiSecret = "secret";
+
+                    options.JwtBearerEvents = new JwtBearerEvents
+                    {
+                        OnMessageReceived = e =>
+                        {
+                            _logger.LogTrace("JWT: message received");
+                            return Task.CompletedTask;
+                        },
+
+                        OnTokenValidated = e =>
+                        {
+                            _logger.LogTrace("JWT: token validated");
+                            return Task.CompletedTask;
+                        },
+
+                        OnAuthenticationFailed = e =>
+                        {
+                            _logger.LogTrace("JWT: authentication failed");
+                            return Task.CompletedTask;
+                        },
+
+                        OnChallenge = e =>
+                        {
+                            _logger.LogTrace("JWT: challenge");
+                            return Task.CompletedTask;
+                        }
+                    };
                 });
         }
 
