@@ -1,10 +1,8 @@
 ﻿using Clients;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
-using IdentityServer4.AccessTokenValidation;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using System.Threading.Tasks;
-using System;
 using Microsoft.Extensions.Logging;
 
 namespace SampleApi
@@ -28,8 +26,8 @@ namespace SampleApi
             services.AddCors();
             services.AddDistributedMemoryCache();
 
-            services.AddAuthentication(IdentityServerAuthenticationDefaults.AuthenticationScheme)
-                .AddIdentityServerAuthentication(options =>
+            services.AddAuthentication("token")
+                .AddIdentityServerAuthentication("token", options =>
                 {
                     options.Authority = Constants.Authority;
                     options.RequireHttpsMetadata = false;
