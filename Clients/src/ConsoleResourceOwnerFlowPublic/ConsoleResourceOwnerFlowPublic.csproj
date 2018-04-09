@@ -9,10 +9,6 @@
     <ProjectReference Include="..\Constants\Constants.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <PackageReference Include="IdentityModel" Version="3.3.0" />
-  </ItemGroup>
-
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <LangVersion>latest</LangVersion>
   </PropertyGroup>

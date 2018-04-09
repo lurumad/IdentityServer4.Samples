@@ -29,7 +29,7 @@ namespace ConsoleClientCredentialsFlow
                 disco.TokenEndpoint,
                 "client",
                 "secret",
-                AuthenticationStyle.PostValues);
+                style: AuthenticationStyle.PostValues);
 
             return await client.RequestClientCredentialsAsync("api1");
         }
