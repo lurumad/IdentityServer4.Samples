@@ -73,6 +73,15 @@ function revoke() {
     mgr.revokeAccessToken();
 }
 
+function renewToken() {
+    mgr.signinSilent()
+        .then(function () {
+            log("silent renew success");
+            showTokens();
+        }).catch(function (err) {
+            log("silent renew error", err);
+        });
+}
 function callApi() {
     mgr.getUser().then(function (user) {
         var xhr = new XMLHttpRequest();
@@ -104,6 +113,7 @@ if (window.location.hash) {
     });
 });
 
+document.querySelector(".renew").addEventListener("click", renewToken, false);
 document.querySelector(".call").addEventListener("click", callApi, false);
 document.querySelector(".revoke").addEventListener("click", revoke, false);
 document.querySelector(".logout").addEventListener("click", logout, false);
