@@ -167,7 +167,9 @@ namespace MvcImplicit.Controllers
                 IssuerSigningKeys = keys,
 
                 NameClaimType = JwtClaimTypes.Name,
-                RoleClaimType = JwtClaimTypes.Role
+                RoleClaimType = JwtClaimTypes.Role,
+
+                RequireSignedTokens = true
             };
 
             var handler = new JwtSecurityTokenHandler();
