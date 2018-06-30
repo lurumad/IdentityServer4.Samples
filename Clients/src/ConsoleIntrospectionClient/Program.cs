@@ -1,7 +1,9 @@
 ﻿using Clients;
 using IdentityModel.Client;
+using IdentityModel.HttpClientExtensions;
 using System;
 using System.Linq;
+using System.Net.Http;
 using System.Threading.Tasks;
 
 namespace ConsoleIntrospectionClient
@@ -18,33 +20,42 @@ namespace ConsoleIntrospectionClient
 
         static async Task<TokenResponse> RequestTokenAsync()
         {
-            var disco = await DiscoveryClient.GetAsync(Constants.Authority);
+            var client = new HttpClient();
+
+            var disco = await client.GetDiscoveryDocumentAsync(Constants.Authority);
             if (disco.IsError) throw new Exception(disco.Error);
 
-            var client = new TokenClient(
-                disco.TokenEndpoint,
-                "roclient.reference",
-                "secret");
+            var response = await client.RequestPasswordTokenAsync(new PasswordTokenRequest
+            {
+                Address = disco.TokenEndpoint,
 
-            return await client.RequestResourceOwnerPasswordAsync("bob", "bob", "api1 api2.read_only");
+                ClientId = "roclient.reference",
+                ClientSecret = "secret",
+
+                UserName = "bob",
+                Password = "bob",
+                Scope = "api1 api2.read_only"
+            });
+
+            if (response.IsError) throw new Exception(response.Error);
+            return response;
         }
 
         private static async Task IntrospectAsync(string accessToken)
         {
-            var disco = await DiscoveryClient.GetAsync(Constants.Authority);
+            var client = new HttpClient();
+
+            var disco = await client.GetDiscoveryDocumentAsync(Constants.Authority);
             if (disco.IsError) throw new Exception(disco.Error);
 
-            var client = new IntrospectionClient(
-                disco.IntrospectionEndpoint,
-                "api1",
-                "secret");
-
-            var request = new IntrospectionRequest
+            var result = await client.IntrospectTokenAsync(new TokenIntrospectionRequest
             {
-                Token = accessToken
-            };
+                Address = disco.IntrospectionEndpoint,
 
-            var result = await client.SendAsync(request);
+                ClientId = "api1",
+                ClientSecret = "secret",
+                Token = accessToken
+            });
 
             if (result.IsError)
             {

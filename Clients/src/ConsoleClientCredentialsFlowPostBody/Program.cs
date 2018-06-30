@@ -1,5 +1,6 @@
 ﻿using Clients;
 using IdentityModel.Client;
+using IdentityModel.HttpClientExtensions;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Net.Http;
@@ -22,16 +23,23 @@ namespace ConsoleClientCredentialsFlow
 
         static async Task<TokenResponse> RequestTokenAsync()
         {
-            var disco = await DiscoveryClient.GetAsync(Constants.Authority);
+            var client = new HttpClient();
+
+            var disco = await client.GetDiscoveryDocumentAsync(Constants.Authority);
             if (disco.IsError) throw new Exception(disco.Error);
 
-            var client = new TokenClient(
-                disco.TokenEndpoint,
-                "client",
-                "secret",
-                style: AuthenticationStyle.PostValues);
+            var response = await client.RequestClientCredentialsTokenAsync(new ClientCredentialsTokenRequest
+            {
+                Address = disco.TokenEndpoint,
+                ClientCredentialStyle = ClientCredentialStyle.PostBody,
 
-            return await client.RequestClientCredentialsAsync("api1");
+                ClientId = "client",
+                ClientSecret = "secret",
+                Scope = "api1"
+            });
+
+            if (response.IsError) throw new Exception(response.Error);
+            return response;
         }
 
         static async Task CallServiceAsync(string token)

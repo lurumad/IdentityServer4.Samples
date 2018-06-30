@@ -1,6 +1,7 @@
 ﻿using Clients;
 using IdentityModel;
 using IdentityModel.Client;
+using IdentityModel.HttpClientExtensions;
 using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
@@ -28,19 +29,27 @@ namespace ConsolePrivateKeyJwtClient
 
         static async Task<TokenResponse> RequestTokenAsync()
         {
-            var disco = await DiscoveryClient.GetAsync(Constants.Authority);
+            var client = new HttpClient();
+
+            var disco = await client.GetDiscoveryDocumentAsync(Constants.Authority);
             if (disco.IsError) throw new Exception(disco.Error);
 
             var clientToken = CreateClientToken("client.jwt", disco.TokenEndpoint);
-            var client = new TokenClient(disco.TokenEndpoint);
 
-            var assertion = new
+            var response = await client.RequestClientCredentialsTokenAsync(new ClientCredentialsTokenRequest
             {
-                client_assertion_type = OidcConstants.ClientAssertionTypes.JwtBearer,
-                client_assertion = clientToken
-            };
+                Address = disco.TokenEndpoint,
+                Scope = "api1",
 
-            return await client.RequestClientCredentialsAsync("api1", assertion);
+                Parameters =
+                {
+                    { OidcConstants.TokenRequest.ClientAssertionType, OidcConstants.ClientAssertionTypes.JwtBearer },
+                    { OidcConstants.TokenRequest.ClientAssertion, clientToken }
+                }
+            });
+
+            if (response.IsError) throw new Exception(response.Error);
+            return response;
         }
 
         static async Task CallServiceAsync(string token)
