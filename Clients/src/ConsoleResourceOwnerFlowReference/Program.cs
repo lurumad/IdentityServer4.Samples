@@ -1,5 +1,6 @@
 ﻿using Clients;
 using IdentityModel.Client;
+using IdentityModel.HttpClientExtensions;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Net.Http;
@@ -22,15 +23,26 @@ namespace ConsoleResourceOwnerFlowReference
 
         static async Task<TokenResponse> RequestTokenAsync()
         {
-            var disco = await DiscoveryClient.GetAsync(Constants.Authority);
+            var client = new HttpClient();
+
+            var disco = await client.GetDiscoveryDocumentAsync(Constants.Authority);
             if (disco.IsError) throw new Exception(disco.Error);
 
-            var client = new TokenClient(
-                disco.TokenEndpoint,
-                "roclient.reference",
-                "secret");
+            var response = await client.RequestPasswordTokenAsync(new PasswordTokenRequest
+            {
+                Address = disco.TokenEndpoint,
 
-            return await client.RequestResourceOwnerPasswordAsync("bob", "bob", "api1");
+                ClientId = "roclient.reference",
+                ClientSecret = "secret",
+
+                UserName = "bob",
+                Password = "bob",
+
+                Scope = "api1"
+            });
+
+            if (response.IsError) throw new Exception(response.Error);
+            return response;
         }
 
         static async Task CallServiceAsync(string token)

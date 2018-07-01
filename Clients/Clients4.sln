@@ -25,7 +25,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleIntrospectionClient"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleResourceOwnerFlowReference", "src\ConsoleResourceOwnerFlowReference\ConsoleResourceOwnerFlowReference.csproj", "{0E9145DB-CC70-44F9-B52B-1D7D4C2B2E5F}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleCustomGrant", "src\ConsoleCustomGrant\ConsoleCustomGrant.csproj", "{546267CD-BE21-44E1-A06E-C7558864EE4F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleExtensionGrant", "src\ConsoleCustomGrant\ConsoleExtensionGrant.csproj", "{546267CD-BE21-44E1-A06E-C7558864EE4F}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MvcImplicit", "src\MvcImplicit\MvcImplicit.csproj", "{05150B7D-54DB-40AB-8BBB-0C34ACC27CE5}"
 EndProject

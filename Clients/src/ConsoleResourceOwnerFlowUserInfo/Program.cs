@@ -1,12 +1,17 @@
 ﻿using Clients;
 using IdentityModel.Client;
+using IdentityModel.HttpClientExtensions;
 using System;
+using System.Net.Http;
 using System.Threading.Tasks;
 
 namespace ConsoleResourceOwnerFlowUserInfo
 {
     class Program
     {
+        static HttpClient _tokenClient = new HttpClient();
+        static DiscoveryCache _cache = new DiscoveryCache(Constants.Authority);
+
         static async Task Main()
         {
             Console.Title = "Console ResourceOwner Flow UserInfo";
@@ -19,25 +24,37 @@ namespace ConsoleResourceOwnerFlowUserInfo
 
         static async Task<TokenResponse> RequestTokenAsync()
         {
-            var disco = await DiscoveryClient.GetAsync(Constants.Authority);
+            var disco = await _cache.GetAsync();
             if (disco.IsError) throw new Exception(disco.Error);
 
-            var client = new TokenClient(
-                disco.TokenEndpoint,
-                "roclient",
-                "secret");
+            var response = await _tokenClient.RequestPasswordTokenAsync(new PasswordTokenRequest
+            {
+                Address = disco.TokenEndpoint,
 
-            return await client.RequestResourceOwnerPasswordAsync("bob", "bob", "openid custom.profile");
+                ClientId = "roclient",
+                ClientSecret = "secret",
+
+                UserName = "bob",
+                Password = "bob",
+
+                Scope = "openid custom.profile"
+            });
+
+            if (response.IsError) throw new Exception(response.Error);
+            return response;
         }
 
         static async Task GetClaimsAsync(string token)
         {
-            var disco = await DiscoveryClient.GetAsync(Constants.Authority);
+            var disco = await _cache.GetAsync();
             if (disco.IsError) throw new Exception(disco.Error);
 
-            var client = new UserInfoClient(disco.UserInfoEndpoint);
+            var response = await _tokenClient.GetUserInfoAsync(new UserInfoRequest
+            {
+                Address = disco.UserInfoEndpoint,
+                Token = token
+            });
 
-            var response = await client.GetAsync(token);
             if (response.IsError) throw new Exception(response.Error);
 
             "\n\nUser claims:".ConsoleGreen();

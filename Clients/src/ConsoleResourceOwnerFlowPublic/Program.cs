@@ -1,5 +1,6 @@
 ﻿using Clients;
 using IdentityModel.Client;
+using IdentityModel.HttpClientExtensions;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Net.Http;
@@ -22,21 +23,30 @@ namespace ConsoleResourceOwnerFlowPublic
 
         static async Task<TokenResponse> RequestTokenAsync()
         {
-            var disco = await DiscoveryClient.GetAsync(Constants.Authority);
+            var client = new HttpClient();
+
+            var disco = await client.GetDiscoveryDocumentAsync(Constants.Authority);
             if (disco.IsError) throw new Exception(disco.Error);
 
-            var client = new TokenClient(
-                disco.TokenEndpoint, 
-                "roclient.public");
-
-            // idsrv supports additional non-standard parameters 
-            // that get passed through to the user service
-            var optional = new
+            var response = await client.RequestPasswordTokenAsync(new PasswordTokenRequest
             {
-                acr_values = "tenant:custom_account_store1 foo bar quux"
-            };
+                Address = disco.TokenEndpoint,
 
-            return await client.RequestResourceOwnerPasswordAsync("bob", "bob", "api1 api2.read_only", optional);
+                ClientId = "roclient.public",
+                
+                UserName = "bob",
+                Password = "bob",
+
+                Scope = "api1 api2.read_only",
+
+                Parameters =
+                {
+                    { "acr_values", "tenant:custom_account_store1 foo bar quux" }
+                }
+            });
+
+            if (response.IsError) throw new Exception(response.Error);
+            return response;
         }
 
         static async Task CallServiceAsync(string token)

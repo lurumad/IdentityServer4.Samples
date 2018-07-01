@@ -41,10 +41,10 @@ namespace ConsolePrivateKeyJwtClient
                 Address = disco.TokenEndpoint,
                 Scope = "api1",
 
-                Parameters =
+                Assertion =
                 {
-                    { OidcConstants.TokenRequest.ClientAssertionType, OidcConstants.ClientAssertionTypes.JwtBearer },
-                    { OidcConstants.TokenRequest.ClientAssertion, clientToken }
+                    Type = OidcConstants.ClientAssertionTypes.JwtBearer,
+                    Value = clientToken
                 }
             });
 

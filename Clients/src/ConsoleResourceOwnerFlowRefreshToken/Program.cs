@@ -1,6 +1,7 @@
 ﻿using Clients;
 using IdentityModel;
 using IdentityModel.Client;
+using IdentityModel.HttpClientExtensions;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Net.Http;
@@ -11,21 +12,12 @@ namespace ConsoleResourceOwnerFlowRefreshToken
 {
     public class Program
     {
-        static TokenClient _tokenClient;
+        static HttpClient _tokenClient = new HttpClient();
+        static DiscoveryCache _cache = new DiscoveryCache(Constants.Authority);
 
-        public static void Main(string[] args) => MainAsync().GetAwaiter().GetResult();
-
-        static async Task MainAsync()
+        static async Task Main()
         {
             Console.Title = "Console ResourceOwner Flow RefreshToken";
-
-            var disco = await DiscoveryClient.GetAsync(Constants.Authority);
-            if (disco.IsError) throw new Exception(disco.Error);
-
-            _tokenClient = new TokenClient(
-                disco.TokenEndpoint,
-                "roclient",
-                "secret");
 
             var response = await RequestTokenAsync();
             response.Show();
@@ -51,17 +43,41 @@ namespace ConsoleResourceOwnerFlowRefreshToken
 
         static async Task<TokenResponse> RequestTokenAsync()
         {
-            return await _tokenClient.RequestResourceOwnerPasswordAsync(
-                "bob",
-                "bob", 
-                "api1 api2.read_only offline_access");
+            var disco = await _cache.GetAsync();
+
+            var response = await _tokenClient.RequestPasswordTokenAsync(new PasswordTokenRequest
+            {
+                Address = disco.TokenEndpoint,
+
+                ClientId = "roclient",
+                ClientSecret = "secret",
+
+                UserName = "bob",
+                Password = "bob",
+
+                Scope = "api1 offline_access",
+            });
+
+            if (response.IsError) throw new Exception(response.Error);
+            return response;
         }
 
         private static async Task<TokenResponse> RefreshTokenAsync(string refreshToken)
         {
             Console.WriteLine("Using refresh token: {0}", refreshToken);
 
-            return await _tokenClient.RequestRefreshTokenAsync(refreshToken);
+            var disco = await _cache.GetAsync();
+            var response = await _tokenClient.RequestRefreshTokenAsync(new RefreshTokenRequest
+            {
+                Address = disco.TokenEndpoint,
+
+                ClientId = "roclient",
+                ClientSecret = "secret",
+                RefreshToken = refreshToken
+            });
+
+            if (response.IsError) throw new Exception(response.Error);
+            return response;
         }
 
         static async Task CallServiceAsync(string token)

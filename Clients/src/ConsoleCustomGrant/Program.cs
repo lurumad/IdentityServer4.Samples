@@ -1,8 +1,8 @@
 ﻿using Clients;
 using IdentityModel.Client;
+using IdentityModel.HttpClientExtensions;
 using Newtonsoft.Json.Linq;
 using System;
-using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
 
@@ -10,6 +10,8 @@ namespace ConsoleCustomGrant
 {
     class Program
     {
+        static DiscoveryCache _cache = new DiscoveryCache(Constants.Authority);
+
         static async Task Main()
         {
             Console.Title = "Console Custom Grant";
@@ -33,20 +35,28 @@ namespace ConsoleCustomGrant
 
         static async Task<TokenResponse> RequestTokenAsync(string grantType)
         {
-            var disco = await DiscoveryClient.GetAsync(Constants.Authority);
+            var client = new HttpClient();
+
+            var disco = await _cache.GetAsync();
             if (disco.IsError) throw new Exception(disco.Error);
 
-            var client = new TokenClient(
-                disco.TokenEndpoint,
-                "client.custom",
-                "secret");
+            var response = await client.RequestTokenAsync(new TokenRequest
+            {
+                Address = disco.TokenEndpoint,
+                GrantType = grantType,
 
-            var customParameters = new Dictionary<string, string>
+                ClientId = "client.custom",
+                ClientSecret = "secret",
+
+                Parameters =
                 {
+                    { "scope", "api1" },
                     { "custom_credential", "custom credential"}
-                };
+                }
+            });
 
-            return await client.RequestCustomGrantAsync(grantType, "api1", customParameters);
+            if (response.IsError) throw new Exception(response.Error);
+            return response;
         }
 
         static async Task CallServiceAsync(string token)

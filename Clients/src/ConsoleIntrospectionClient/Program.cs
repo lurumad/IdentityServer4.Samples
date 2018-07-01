@@ -10,6 +10,8 @@ namespace ConsoleIntrospectionClient
 {
     public class Program
     {
+        static DiscoveryCache _cache = new DiscoveryCache(Constants.Authority);
+
         static async Task Main()
         {
             Console.Title = "Console Introspection Client";
@@ -20,11 +22,10 @@ namespace ConsoleIntrospectionClient
 
         static async Task<TokenResponse> RequestTokenAsync()
         {
-            var client = new HttpClient();
-
-            var disco = await client.GetDiscoveryDocumentAsync(Constants.Authority);
+            var disco = await _cache.GetAsync();
             if (disco.IsError) throw new Exception(disco.Error);
 
+            var client = new HttpClient();
             var response = await client.RequestPasswordTokenAsync(new PasswordTokenRequest
             {
                 Address = disco.TokenEndpoint,
@@ -43,11 +44,10 @@ namespace ConsoleIntrospectionClient
 
         private static async Task IntrospectAsync(string accessToken)
         {
-            var client = new HttpClient();
-
-            var disco = await client.GetDiscoveryDocumentAsync(Constants.Authority);
+            var disco = await _cache.GetAsync();
             if (disco.IsError) throw new Exception(disco.Error);
 
+            var client = new HttpClient();
             var result = await client.IntrospectTokenAsync(new TokenIntrospectionRequest
             {
                 Address = disco.IntrospectionEndpoint,
