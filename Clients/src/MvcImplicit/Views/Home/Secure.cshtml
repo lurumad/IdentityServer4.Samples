@@ -1,20 +1,21 @@
 ﻿@using Microsoft.AspNetCore.Authentication
 
-<h1>Secure</h1>
+<h2>Claims</h2>
 
-@{ 
-    var id_token = await Context.GetTokenAsync("id_token");
-}
+<dl>
+    @foreach (var claim in User.Claims)
+    {
+        <dt>@claim.Type</dt>
+        <dd>@claim.Value</dd>
+    }
+</dl>
 
-<div>
-    <dl>
-        <dt>id_token</dt>
-        <dd>@id_token</dd>
+<h2>Properties</h2>
 
-        @foreach (var claim in User.Claims)
-        {
-            <dt>@claim.Type</dt>
-            <dd>@claim.Value</dd>
-        }
-    </dl>
-</div>
+<dl>
+    @foreach (var prop in (await Context.AuthenticateAsync()).Properties.Items)
+    {
+        <dt>@prop.Key</dt>
+        <dd>@prop.Value</dd>
+    }
+</dl>
