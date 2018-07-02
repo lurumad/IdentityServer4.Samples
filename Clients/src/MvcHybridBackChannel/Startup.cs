@@ -7,6 +7,7 @@ using Clients;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication;
+using IdentityModel.Client;
 
 namespace MvcHybrid
 {
@@ -20,6 +21,9 @@ namespace MvcHybrid
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
+            services.AddHttpClient();
+
+            services.AddSingleton(r => new DiscoveryCache(Constants.Authority));
             services.AddTransient<CookieEventHandler>();
             services.AddSingleton<LogoutSessionManager>();
 
