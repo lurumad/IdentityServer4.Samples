@@ -1,4 +1,5 @@
 ﻿using IdentityModel.Client;
+using IdentityModel.HttpClientExtensions;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
@@ -9,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -18,6 +20,7 @@ namespace MvcHybrid
     {
         private readonly IOptionsSnapshot<OpenIdConnectOptions> _oidcOptions;
         private readonly IAuthenticationSchemeProvider _schemeProvider;
+        private readonly IHttpClientFactory _httpClientFactory;
         private readonly ILogger _logger;
         private readonly ISystemClock _clock;
         private readonly AutoRefreshOptions _refreshOptions;
@@ -26,12 +29,14 @@ namespace MvcHybrid
             IOptions<AutoRefreshOptions> refreshOptions,
             IOptionsSnapshot<OpenIdConnectOptions> oidcOptions,
             IAuthenticationSchemeProvider schemeProvider,
+            IHttpClientFactory httpClientFactory,
             ILogger<AutoRefreshCookieEvents> logger,
             ISystemClock clock)
         {
             _refreshOptions = refreshOptions.Value;
             _oidcOptions = oidcOptions;
             _schemeProvider = schemeProvider;
+            _httpClientFactory = httpClientFactory;
             _logger = logger;
             _clock = clock;
         }
@@ -68,45 +73,35 @@ namespace MvcHybrid
                 var oidcOptions = await GetOidcOptionsAsync();
                 var configuration = await oidcOptions.ConfigurationManager.GetConfigurationAsync(default(CancellationToken));
 
-                TokenClient tokenClient;
-                if (_refreshOptions.TokenBackChannelHandler != null)
+                var tokenClient = _httpClientFactory.CreateClient("tokenClient");
+
+                var response = await tokenClient.RequestRefreshTokenAsync(new RefreshTokenRequest
                 {
-                    tokenClient = new TokenClient(
-                        configuration.TokenEndpoint,
-                        oidcOptions.ClientId,
-                        oidcOptions.ClientSecret,
-                        _refreshOptions.TokenBackChannelHandler);
-                }
-                else
+                    Address = configuration.TokenEndpoint,
+                    
+                    ClientId = oidcOptions.ClientId, 
+                    ClientSecret = oidcOptions.ClientSecret,
+                    RefreshToken = refreshToken.Value
+                });
+
+                if (response.IsError)
                 {
-                    tokenClient = new TokenClient(
-                        configuration.TokenEndpoint,
-                        oidcOptions.ClientId,
-                        oidcOptions.ClientSecret);
+                    _logger.LogWarning("Error refreshing token: {error}", response.Error);
+                    return;
                 }
 
-                using (tokenClient)
-                {
-                    var response = await tokenClient.RequestRefreshTokenAsync(refreshToken.Value);
-                    if (response.IsError)
-                    {
-                        _logger.LogWarning("Error refreshing token: {error}", response.Error);
-                        return;
-                    }
-                    
-                    var newTokens = new List<AuthenticationToken>
+                var newTokens = new List<AuthenticationToken>
                     {
                         new AuthenticationToken { Name = OpenIdConnectParameterNames.IdToken, Value = tokens.Single(t => t.Name == OpenIdConnectParameterNames.IdToken).Value },
                         new AuthenticationToken { Name = OpenIdConnectParameterNames.AccessToken, Value = response.AccessToken },
                         new AuthenticationToken { Name = OpenIdConnectParameterNames.RefreshToken, Value = response.RefreshToken }
                     };
 
-                    var newExpiresAt = DateTime.UtcNow + TimeSpan.FromSeconds(response.ExpiresIn);
-                    newTokens.Add(new AuthenticationToken { Name = "expires_at", Value = newExpiresAt.ToString("o", CultureInfo.InvariantCulture) });
+                var newExpiresAt = DateTime.UtcNow + TimeSpan.FromSeconds(response.ExpiresIn);
+                newTokens.Add(new AuthenticationToken { Name = "expires_at", Value = newExpiresAt.ToString("o", CultureInfo.InvariantCulture) });
 
-                    context.Properties.StoreTokens(newTokens);
-                    await context.HttpContext.SignInAsync(context.Principal, context.Properties);
-                }
+                context.Properties.StoreTokens(newTokens);
+                await context.HttpContext.SignInAsync(context.Principal, context.Properties);
             }
         }
 

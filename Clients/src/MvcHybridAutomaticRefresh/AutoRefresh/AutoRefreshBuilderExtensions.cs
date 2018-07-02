@@ -19,6 +19,8 @@ namespace MvcHybrid
             builder.Services.AddTransient<AutoRefreshCookieEvents>();
             builder.Services.AddSingleton<IConfigureOptions<CookieAuthenticationOptions>, AutoRefreshConfigureCookieOptions>();
 
+            builder.Services.AddHttpClient("tokenClient");
+
             return builder;
         }
     }

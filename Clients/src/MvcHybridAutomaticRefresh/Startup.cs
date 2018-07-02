@@ -20,6 +20,7 @@ namespace MvcHybrid
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
+            services.AddHttpClient();
             
             services.AddAuthentication(options =>
             {
@@ -49,8 +50,7 @@ namespace MvcHybrid
                     options.Scope.Add("api1");
                     options.Scope.Add("offline_access");
 
-                    options.ClaimActions.Remove("amr");
-                    options.ClaimActions.MapJsonKey("website", "website");
+                    options.ClaimActions.MapAllExcept("iss", "nbf", "exp", "aud", "nonce", "iat", "c_hash");
 
                     options.GetClaimsFromUserInfoEndpoint = true;
                     options.SaveTokens = true;

@@ -7,6 +7,5 @@ namespace MvcHybrid
     {
         public string Scheme { get; set; }
         public TimeSpan RefreshBeforeExpiration { get; set; } = TimeSpan.FromMinutes(1);
-        public HttpMessageHandler TokenBackChannelHandler { get; set; }
     }
 }
