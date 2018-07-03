@@ -90,17 +90,12 @@ namespace MvcHybrid
                     return;
                 }
 
-                var newTokens = new List<AuthenticationToken>
-                    {
-                        new AuthenticationToken { Name = OpenIdConnectParameterNames.IdToken, Value = tokens.Single(t => t.Name == OpenIdConnectParameterNames.IdToken).Value },
-                        new AuthenticationToken { Name = OpenIdConnectParameterNames.AccessToken, Value = response.AccessToken },
-                        new AuthenticationToken { Name = OpenIdConnectParameterNames.RefreshToken, Value = response.RefreshToken }
-                    };
+                context.Properties.UpdateTokenValue("access_token", response.AccessToken);
+                context.Properties.UpdateTokenValue("refresh_token", response.RefreshToken);
 
                 var newExpiresAt = DateTime.UtcNow + TimeSpan.FromSeconds(response.ExpiresIn);
-                newTokens.Add(new AuthenticationToken { Name = "expires_at", Value = newExpiresAt.ToString("o", CultureInfo.InvariantCulture) });
-
-                context.Properties.StoreTokens(newTokens);
+                context.Properties.UpdateTokenValue("expires_at", newExpiresAt.ToString("o", CultureInfo.InvariantCulture));
+                
                 await context.HttpContext.SignInAsync(context.Principal, context.Properties);
             }
         }

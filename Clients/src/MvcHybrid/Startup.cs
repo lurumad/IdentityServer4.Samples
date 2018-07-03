@@ -8,6 +8,7 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication;
 using IdentityModel.Client;
+using System.Net.Http;
 
 namespace MvcHybrid
 {
@@ -23,7 +24,11 @@ namespace MvcHybrid
             services.AddMvc();
             services.AddHttpClient();
 
-            services.AddSingleton(r => new DiscoveryCache(Constants.Authority));
+            services.AddSingleton(r =>
+            {
+                var factory = r.GetRequiredService<IHttpClientFactory>();
+                return new DiscoveryCache(Constants.Authority, () => factory.CreateClient());
+            });
 
             services.AddAuthentication(options =>
             {

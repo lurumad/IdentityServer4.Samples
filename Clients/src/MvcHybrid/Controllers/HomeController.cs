@@ -73,20 +73,15 @@ namespace MvcHybrid.Controllers
                 var old_id_token = await HttpContext.GetTokenAsync("id_token");
                 var new_access_token = tokenResult.AccessToken;
                 var new_refresh_token = tokenResult.RefreshToken;
-
-                var tokens = new List<AuthenticationToken>();
-                tokens.Add(new AuthenticationToken { Name = OpenIdConnectParameterNames.IdToken, Value = old_id_token });
-                tokens.Add(new AuthenticationToken { Name = OpenIdConnectParameterNames.AccessToken, Value = new_access_token });
-                tokens.Add(new AuthenticationToken { Name = OpenIdConnectParameterNames.RefreshToken, Value = new_refresh_token });
-
                 var expiresAt = DateTime.UtcNow + TimeSpan.FromSeconds(tokenResult.ExpiresIn);
-                tokens.Add(new AuthenticationToken { Name = "expires_at", Value = expiresAt.ToString("o", CultureInfo.InvariantCulture) });
 
                 var info = await HttpContext.AuthenticateAsync("Cookies");
-                info.Properties.StoreTokens(tokens);
-                
-                await HttpContext.SignInAsync("Cookies", info.Principal, info.Properties);
 
+                info.Properties.UpdateTokenValue("refresh_token", new_refresh_token);
+                info.Properties.UpdateTokenValue("access_token", new_access_token);
+                info.Properties.UpdateTokenValue("expires_at", expiresAt.ToString("o", CultureInfo.InvariantCulture));
+
+                await HttpContext.SignInAsync("Cookies", info.Principal, info.Properties);
                 return Redirect("~/Home/Secure");
             }
 
