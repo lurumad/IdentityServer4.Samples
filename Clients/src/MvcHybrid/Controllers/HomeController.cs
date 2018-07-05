@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authentication;
@@ -8,8 +7,6 @@ using System.Net.Http;
 using Clients;
 using Newtonsoft.Json.Linq;
 using IdentityModel.Client;
-using IdentityModel.HttpClientExtensions;
-using Microsoft.IdentityModel.Protocols.OpenIdConnect;
 using System.Globalization;
 using Microsoft.AspNetCore.Http;
 
@@ -18,9 +15,9 @@ namespace MvcHybrid.Controllers
     public class HomeController : Controller
     {
         private readonly IHttpClientFactory _httpClientFactory;
-        private readonly DiscoveryCache _discoveryCache;
+        private readonly IDiscoveryCache _discoveryCache;
 
-        public HomeController(IHttpClientFactory httpClientFactory, DiscoveryCache discoveryCache)
+        public HomeController(IHttpClientFactory httpClientFactory, IDiscoveryCache discoveryCache)
         {
             _httpClientFactory = httpClientFactory;
             _discoveryCache = discoveryCache;

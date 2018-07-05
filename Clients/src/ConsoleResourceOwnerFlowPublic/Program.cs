@@ -1,6 +1,5 @@
 ﻿using Clients;
 using IdentityModel.Client;
-using IdentityModel.HttpClientExtensions;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Net.Http;

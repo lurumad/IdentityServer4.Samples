@@ -24,7 +24,7 @@ namespace MvcHybrid
             services.AddMvc();
             services.AddHttpClient();
 
-            services.AddSingleton(r =>
+            services.AddSingleton<IDiscoveryCache>(r =>
             {
                 var factory = r.GetRequiredService<IHttpClientFactory>();
                 return new DiscoveryCache(Constants.Authority, () => factory.CreateClient());

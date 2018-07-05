@@ -1,6 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Builder;
-using System.Threading.Tasks;
 
 namespace JsOidc
 {

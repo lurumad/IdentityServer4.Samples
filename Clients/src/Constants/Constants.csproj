@@ -5,7 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="IdentityModel" Version="3.8.0-arran" />
+    <PackageReference Include="IdentityModel" Version="3.8.0-balvenie" />
   </ItemGroup>
 
 </Project>

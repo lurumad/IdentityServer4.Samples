@@ -1,6 +1,5 @@
 ﻿using Clients;
 using IdentityModel.Client;
-using IdentityModel.HttpClientExtensions;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Net.Http;
@@ -10,7 +9,7 @@ namespace ConsoleCustomGrant
 {
     class Program
     {
-        static DiscoveryCache _cache = new DiscoveryCache(Constants.Authority);
+        static IDiscoveryCache _cache = new DiscoveryCache(Constants.Authority);
 
         static async Task Main()
         {

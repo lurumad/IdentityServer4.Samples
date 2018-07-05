@@ -1,7 +1,6 @@
 ﻿using Clients;
 using IdentityModel;
 using IdentityModel.Client;
-using IdentityModel.HttpClientExtensions;
 using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
@@ -41,7 +40,7 @@ namespace ConsolePrivateKeyJwtClient
                 Address = disco.TokenEndpoint,
                 Scope = "api1",
 
-                Assertion =
+                ClientAssertion =
                 {
                     Type = OidcConstants.ClientAssertionTypes.JwtBearer,
                     Value = clientToken

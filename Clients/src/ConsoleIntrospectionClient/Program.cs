@@ -1,6 +1,5 @@
 ﻿using Clients;
 using IdentityModel.Client;
-using IdentityModel.HttpClientExtensions;
 using System;
 using System.Linq;
 using System.Net.Http;
@@ -10,7 +9,7 @@ namespace ConsoleIntrospectionClient
 {
     public class Program
     {
-        static DiscoveryCache _cache = new DiscoveryCache(Constants.Authority);
+        static IDiscoveryCache _cache = new DiscoveryCache(Constants.Authority);
 
         static async Task Main()
         {
