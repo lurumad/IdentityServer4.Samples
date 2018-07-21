@@ -31,7 +31,7 @@ var config = {
     filterProtocolClaims: false
 };
 Oidc.Log.logger = window.console;
-Oidc.Log.level = Oidc.Log.INFO;
+Oidc.Log.level = Oidc.Log.DEBUG;
 
 var mgr = new Oidc.UserManager(config);
 
