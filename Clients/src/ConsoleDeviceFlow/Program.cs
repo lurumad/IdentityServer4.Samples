@@ -41,9 +41,10 @@ namespace ConsoleDeviceFlow
 
             if (response.IsError) throw new Exception(response.Error);
 
-            Console.WriteLine($"user code  : {response.UserCode}");
-            Console.WriteLine($"device code: {response.DeviceCode}");
-            Console.WriteLine($"URL        : {response.VerificationUri}");
+            Console.WriteLine($"user code   : {response.UserCode}");
+            Console.WriteLine($"device code : {response.DeviceCode}");
+            Console.WriteLine($"URL         : {response.VerificationUri}");
+            Console.WriteLine($"Complete URL: {response.VerificationUriComplete}");
 
             Console.WriteLine($"\nPress enter to launch browser ({response.VerificationUri})");
             Console.ReadLine();
