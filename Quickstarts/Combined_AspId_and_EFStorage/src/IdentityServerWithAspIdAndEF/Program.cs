@@ -37,6 +37,7 @@ namespace IdentityServerWithAspIdAndEF
             if (seed)
             {
                 SeedData.EnsureSeedData(host.Services);
+                return;
             }
 
             host.Run();

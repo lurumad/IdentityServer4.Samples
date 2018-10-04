@@ -1,9 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore.Migrations;
 using System;
+using System.Collections.Generic;
 
-namespace IdentityServerWithAspIdAndEF.Data.Migrations
+namespace IdentityServerWithAspIdAndEF.Data.Migrations.Users
 {
-    public partial class CreateIdentitySchema : Migration
+    public partial class Users : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
