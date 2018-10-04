@@ -56,7 +56,7 @@ mgr.events.addUserSignedOut(function () {
 function login(scope, response_type) {
     var use_popup = false;
     if (!use_popup) {
-        mgr.signinRedirect({ scope: scope, response_type: response_type });
+        mgr.signinRedirect({ scope: scope, response_type: response_type, acr_values:"" });
     }
     else {
         mgr.signinPopup({ scope: scope, response_type: response_type }).then(function () {
