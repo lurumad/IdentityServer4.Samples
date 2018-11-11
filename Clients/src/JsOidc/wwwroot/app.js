@@ -68,7 +68,11 @@ function logout() {
 }
 
 function revoke() {
-    mgr.revokeAccessToken();
+    mgr.revokeAccessToken().then(function () {
+        log("Access Token Revoked.")
+    }).catch(function (err) {
+        log(err);
+    });
 }
 
 function renewToken() {
