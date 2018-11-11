@@ -53,16 +53,14 @@ mgr.events.addUserSignedOut(function () {
     log("User signed out of OP");
 });
 
-function login(scope, response_type) {
-    var use_popup = false;
-    if (!use_popup) {
-        mgr.signinRedirect({ scope: scope, response_type: response_type, acr_values:"" });
-    }
-    else {
-        mgr.signinPopup({ scope: scope, response_type: response_type }).then(function () {
-            log("Logged In");
-        });
-    }
+function login() {
+    mgr.signinRedirect();
+}
+
+function popup() {
+    mgr.signinPopup().then(function () {
+        log("Logged In");
+    });
 }
 
 function logout() {
@@ -107,12 +105,8 @@ if (window.location.hash) {
     handleCallback();
 }
 
-[].forEach.call(document.querySelectorAll(".request"), function (button) {
-    button.addEventListener("click", function () {
-        login(this.dataset["scope"], this.dataset["type"]);
-    });
-});
-
+document.querySelector(".login").addEventListener("click", login, false);
+document.querySelector(".popup").addEventListener("click", popup, false);
 document.querySelector(".renew").addEventListener("click", renewToken, false);
 document.querySelector(".call").addEventListener("click", callApi, false);
 document.querySelector(".revoke").addEventListener("click", revoke, false);
