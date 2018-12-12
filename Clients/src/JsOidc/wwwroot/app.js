@@ -12,7 +12,7 @@ var config = {
 
     // these two will be done dynamically from the buttons clicked, but are
     // needed if you want to use the silent_renew
-    response_type: "id_token token",
+    response_type: "code",
     scope: "openid profile email api1 api2.read_only",
 
     // this will toggle if profile endpoint is used
