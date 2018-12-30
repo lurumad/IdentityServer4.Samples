@@ -1,3 +1,3 @@
-# Quickstart #6: IdentityServer and ASP.NET Identity
+# Combined ASP.NET Identity and EF Core Storage for IdentityServer
 
-This quickstart uses ASP.NET Identity for identity management.
+This sample shows how you could configure both ASP.NET Identity and the EF Storage for configuration and operational data into a single IdentityServer host.
