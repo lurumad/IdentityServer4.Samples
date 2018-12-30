@@ -1,7 +1,7 @@
-# Quickstart #5: OpenID Connect Hybrid Flow Authentication and API Access Tokens
+# Quickstart #7: Using EntityFramework Core for configuration and operational data
 
-This quickstart we combine what we learned in the previous quickstarts and we explored both API access and user authentication. 
+This quickstart shows how to configure IdentityServer to use EntityFramework Core (EF) as the storage mechanism for configuration and operational data.
 
 ## Tutorial
 
-The tutorial that goes along with this sample can be found here [Switching to Hybrid Flow and adding API Access back](http://docs.identityserver.io/en/release/quickstarts/5_hybrid_and_api_access.html)
+The tutorial that goes along with this sample can be found here [Using EntityFramework Core for configuration and operational data](http://docs.identityserver.io/en/release/quickstarts/7_entity_framework.html)

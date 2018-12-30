@@ -1,7 +1,7 @@
-# Quickstart #5: OpenID Connect Hybrid Flow Authentication and API Access Tokens
+# Quickstart #6: Adding a JavaScript client
 
-This quickstart we combine what we learned in the previous quickstarts and we explored both API access and user authentication. 
+This quickstart will show how to build a browser-based JavaScript client application (sometimes referred to as a “SPA”).
 
 ## Tutorial
 
-The tutorial that goes along with this sample can be found here [Switching to Hybrid Flow and adding API Access back](http://docs.identityserver.io/en/release/quickstarts/5_hybrid_and_api_access.html)
+The tutorial that goes along with this sample can be found here [Adding a JavaScript client](http://docs.identityserver.io/en/release/quickstarts/6_javascript_client.html)
