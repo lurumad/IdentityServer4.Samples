@@ -6,6 +6,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Protocols.OpenIdConnect;
 using System;
+using System.Collections.Concurrent;
 using System.Globalization;
 using System.Linq;
 using System.Net.Http;
@@ -23,6 +24,9 @@ namespace MvcHybrid
         private readonly ISystemClock _clock;
         private readonly AutoRefreshOptions _refreshOptions;
 
+        private static readonly ConcurrentDictionary<string, bool> _pendingRefreshTokenRequests =
+            new ConcurrentDictionary<string, bool>();
+
         public AutoRefreshCookieEvents(
             IOptions<AutoRefreshOptions> refreshOptions,
             IOptionsSnapshot<OpenIdConnectOptions> oidcOptions,
@@ -39,7 +43,6 @@ namespace MvcHybrid
             _clock = clock;
         }
 
-        // important: this is just a POC at this point - it misses any thread synchronization. Will add later.
         public override async Task ValidatePrincipal(CookieValidatePrincipalContext context)
         {
             var tokens = context.Properties.GetTokens();
@@ -68,33 +71,44 @@ namespace MvcHybrid
 
             if (dtRefresh < _clock.UtcNow)
             {
-                var oidcOptions = await GetOidcOptionsAsync();
-                var configuration = await oidcOptions.ConfigurationManager.GetConfigurationAsync(default(CancellationToken));
-
-                var tokenClient = _httpClientFactory.CreateClient("tokenClient");
-
-                var response = await tokenClient.RequestRefreshTokenAsync(new RefreshTokenRequest
+                var shouldRefresh = _pendingRefreshTokenRequests.TryAdd(refreshToken.Value, true);
+                if (shouldRefresh)
                 {
-                    Address = configuration.TokenEndpoint,
-                    
-                    ClientId = oidcOptions.ClientId, 
-                    ClientSecret = oidcOptions.ClientSecret,
-                    RefreshToken = refreshToken.Value
-                });
+                    try
+                    {
+                        var oidcOptions = await GetOidcOptionsAsync();
+                        var configuration = await oidcOptions.ConfigurationManager.GetConfigurationAsync(default(CancellationToken));
 
-                if (response.IsError)
-                {
-                    _logger.LogWarning("Error refreshing token: {error}", response.Error);
-                    return;
+                        var tokenClient = _httpClientFactory.CreateClient("tokenClient");
+
+                        var response = await tokenClient.RequestRefreshTokenAsync(new RefreshTokenRequest
+                        {
+                            Address = configuration.TokenEndpoint,
+
+                            ClientId = oidcOptions.ClientId,
+                            ClientSecret = oidcOptions.ClientSecret,
+                            RefreshToken = refreshToken.Value
+                        });
+
+                        if (response.IsError)
+                        {
+                            _logger.LogWarning("Error refreshing token: {error}", response.Error);
+                            return;
+                        }
+
+                        context.Properties.UpdateTokenValue("access_token", response.AccessToken);
+                        context.Properties.UpdateTokenValue("refresh_token", response.RefreshToken);
+
+                        var newExpiresAt = DateTime.UtcNow + TimeSpan.FromSeconds(response.ExpiresIn);
+                        context.Properties.UpdateTokenValue("expires_at", newExpiresAt.ToString("o", CultureInfo.InvariantCulture));
+
+                        await context.HttpContext.SignInAsync(context.Principal, context.Properties);
+                    }
+                    finally
+                    {
+                        _pendingRefreshTokenRequests.TryRemove(refreshToken.Value, out _);
+                    }
                 }
-
-                context.Properties.UpdateTokenValue("access_token", response.AccessToken);
-                context.Properties.UpdateTokenValue("refresh_token", response.RefreshToken);
-
-                var newExpiresAt = DateTime.UtcNow + TimeSpan.FromSeconds(response.ExpiresIn);
-                context.Properties.UpdateTokenValue("expires_at", newExpiresAt.ToString("o", CultureInfo.InvariantCulture));
-                
-                await context.HttpContext.SignInAsync(context.Principal, context.Properties);
             }
         }
 
