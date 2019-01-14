@@ -13,32 +13,26 @@ using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace MvcHybrid
+namespace IdentityModel.AspNetCore
 {
-    public class AutoRefreshCookieEvents : CookieAuthenticationEvents
+    public class AutomaticTokenManagementCookieEvents : CookieAuthenticationEvents
     {
-        private readonly IOptionsSnapshot<OpenIdConnectOptions> _oidcOptions;
-        private readonly IAuthenticationSchemeProvider _schemeProvider;
-        private readonly IHttpClientFactory _httpClientFactory;
+        private readonly TokenEndpointService _service;
+        private readonly AutomaticTokenManagementOptions _options;
         private readonly ILogger _logger;
         private readonly ISystemClock _clock;
-        private readonly AutoRefreshOptions _refreshOptions;
-
+        
         private static readonly ConcurrentDictionary<string, bool> _pendingRefreshTokenRequests =
             new ConcurrentDictionary<string, bool>();
 
-        public AutoRefreshCookieEvents(
-            IOptions<AutoRefreshOptions> refreshOptions,
-            IOptionsSnapshot<OpenIdConnectOptions> oidcOptions,
-            IAuthenticationSchemeProvider schemeProvider,
-            IHttpClientFactory httpClientFactory,
-            ILogger<AutoRefreshCookieEvents> logger,
+        public AutomaticTokenManagementCookieEvents(
+            TokenEndpointService service,
+            IOptions<AutomaticTokenManagementOptions> options,
+            ILogger<AutomaticTokenManagementCookieEvents> logger,
             ISystemClock clock)
         {
-            _refreshOptions = refreshOptions.Value;
-            _oidcOptions = oidcOptions;
-            _schemeProvider = schemeProvider;
-            _httpClientFactory = httpClientFactory;
+            _service = service;
+            _options = options.Value;
             _logger = logger;
             _clock = clock;
         }
@@ -67,7 +61,7 @@ namespace MvcHybrid
             }
 
             var dtExpires = DateTimeOffset.Parse(expiresAt.Value, CultureInfo.InvariantCulture);
-            var dtRefresh = dtExpires.Subtract(_refreshOptions.RefreshBeforeExpiration);
+            var dtRefresh = dtExpires.Subtract(_options.RefreshBeforeExpiration);
 
             if (dtRefresh < _clock.UtcNow)
             {
@@ -76,19 +70,7 @@ namespace MvcHybrid
                 {
                     try
                     {
-                        var oidcOptions = await GetOidcOptionsAsync();
-                        var configuration = await oidcOptions.ConfigurationManager.GetConfigurationAsync(default(CancellationToken));
-
-                        var tokenClient = _httpClientFactory.CreateClient("tokenClient");
-
-                        var response = await tokenClient.RequestRefreshTokenAsync(new RefreshTokenRequest
-                        {
-                            Address = configuration.TokenEndpoint,
-
-                            ClientId = oidcOptions.ClientId,
-                            ClientSecret = oidcOptions.ClientSecret,
-                            RefreshToken = refreshToken.Value
-                        });
+                        var response = await _service.RefreshTokenAsync(refreshToken.Value);
 
                         if (response.IsError)
                         {
@@ -112,16 +94,38 @@ namespace MvcHybrid
             }
         }
 
-        private async Task<OpenIdConnectOptions> GetOidcOptionsAsync()
+        public override async Task SigningOut(CookieSigningOutContext context)
         {
-            if (string.IsNullOrEmpty(_refreshOptions.Scheme))
+            if (_options.RevokeRefreshTokenOnSignout == false) return;
+
+            var result = await context.HttpContext.AuthenticateAsync();
+
+            if (!result.Succeeded)
             {
-                var scheme = await _schemeProvider.GetDefaultChallengeSchemeAsync();
-                return _oidcOptions.Get(scheme.Name);
+                _logger.LogDebug("Can't find cookie for default scheme. Might have been deleted already.");
+                return;
             }
-            else
+
+            var tokens = result.Properties.GetTokens();
+            if (tokens == null || !tokens.Any())
             {
-                return _oidcOptions.Get(_refreshOptions.Scheme);
+                _logger.LogDebug("No tokens found in cookie properties. SaveTokens must be enabled for automatic token revocation.");
+                return;
+            }
+
+            var refreshToken = tokens.SingleOrDefault(t => t.Name == OpenIdConnectParameterNames.RefreshToken);
+            if (refreshToken == null)
+            {
+                _logger.LogWarning("No refresh token found in cookie properties. A refresh token must be requested and SaveTokens must be enabled.");
+                return;
+            }
+
+            var response = await _service.RevokeTokenAsync(refreshToken.Value);
+
+            if (response.IsError)
+            {
+                _logger.LogWarning("Error revoking token: {error}", response.Error);
+                return;
             }
         }
     }

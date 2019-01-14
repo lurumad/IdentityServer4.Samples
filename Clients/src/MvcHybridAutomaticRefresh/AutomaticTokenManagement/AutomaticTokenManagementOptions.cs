@@ -1,10 +1,11 @@
 ﻿using System;
 
-namespace MvcHybrid
+namespace IdentityModel.AspNetCore
 {
-    public class AutoRefreshOptions
+    public class AutomaticTokenManagementOptions
     {
         public string Scheme { get; set; }
         public TimeSpan RefreshBeforeExpiration { get; set; } = TimeSpan.FromMinutes(1);
+        public bool RevokeRefreshTokenOnSignout { get; set; } = true;
     }
 }
