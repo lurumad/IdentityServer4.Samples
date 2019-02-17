@@ -51,6 +51,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MvcHybridAutomaticRefresh",
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleDeviceFlow", "src\ConsoleDeviceFlow\ConsoleDeviceFlow.csproj", "{879689CC-38F7-418F-9721-9D4158302B69}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleClientCredentialsFlowCallingIdentityServerApi", "src\ConsoleClientCredentialsFlowCallingIdentityServerApi\ConsoleClientCredentialsFlowCallingIdentityServerApi.csproj", "{141BD303-CD29-472F-B5D8-C1F28ED0621A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -141,6 +143,10 @@ Global
 		{879689CC-38F7-418F-9721-9D4158302B69}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{879689CC-38F7-418F-9721-9D4158302B69}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{879689CC-38F7-418F-9721-9D4158302B69}.Release|Any CPU.Build.0 = Release|Any CPU
+		{141BD303-CD29-472F-B5D8-C1F28ED0621A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{141BD303-CD29-472F-B5D8-C1F28ED0621A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{141BD303-CD29-472F-B5D8-C1F28ED0621A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{141BD303-CD29-472F-B5D8-C1F28ED0621A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -168,6 +174,7 @@ Global
 		{57F395AD-48D2-48BF-A117-881E112D947E} = {187AC294-0420-4726-808B-ED49148C0632}
 		{241B0622-DECC-4723-BF04-F0DB02478DC7} = {187AC294-0420-4726-808B-ED49148C0632}
 		{879689CC-38F7-418F-9721-9D4158302B69} = {187AC294-0420-4726-808B-ED49148C0632}
+		{141BD303-CD29-472F-B5D8-C1F28ED0621A} = {187AC294-0420-4726-808B-ED49148C0632}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {BAD78470-3D66-466E-9C17-2A67F0905B18}

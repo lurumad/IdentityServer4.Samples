@@ -5,13 +5,13 @@ using System;
 using System.Net.Http;
 using System.Threading.Tasks;
 
-namespace ConsoleClientCredentialsFlow
+namespace ConsoleClientCredentialsFlowCallingIdentityServerApi
 {
     public class Program
     {
         public static async Task Main()
         {
-            Console.Title = "Console Client Credentials Flow";
+            Console.Title = "Console Client Credentials Flow calling IdentityServer API";
 
             var response = await RequestTokenAsync();
             response.Show();
@@ -32,7 +32,8 @@ namespace ConsoleClientCredentialsFlow
                 Address = disco.TokenEndpoint,
 
                 ClientId = "client",
-                ClientSecret = "secret"
+                ClientSecret = "secret",
+                Scope = "IdentityServerApi"
             });
 
             if (response.IsError) throw new Exception(response.Error);
@@ -41,7 +42,7 @@ namespace ConsoleClientCredentialsFlow
 
         static async Task CallServiceAsync(string token)
         {
-            var baseAddress = Constants.SampleApi;
+            var baseAddress = Constants.Authority;
 
             var client = new HttpClient
             {
@@ -49,7 +50,7 @@ namespace ConsoleClientCredentialsFlow
             };
 
             client.SetBearerToken(token);
-            var response = await client.GetStringAsync("identity");
+            var response = await client.GetStringAsync("localApi");
 
             "\n\nService claims:".ConsoleGreen();
             Console.WriteLine(JArray.Parse(response));
